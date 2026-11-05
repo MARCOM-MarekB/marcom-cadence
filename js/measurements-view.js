@@ -14,7 +14,7 @@ const FIGURE_POINTS = {
   biceps: { x: 247, y: 205, labelY: 190, side: "right" },
   waist: { x: 188, y: 240, labelY: 250, side: "right" },
   hips: { x: 188, y: 272, labelY: 300, side: "left" },
-  thigh: { x: 155, y: 360, labelY: 372, side: "left" },
+  thigh: { x: 155, y: 322, labelY: 356, side: "left" },
   calf: { x: 240, y: 380, labelY: 396, side: "right" },
 };
 
