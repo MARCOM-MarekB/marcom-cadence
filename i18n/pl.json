@@ -37,6 +37,7 @@
   "measurements.title": "Pomiary ciała",
   "measurements.figureLabel": "Postać z punktami pomiarowymi",
   "measurements.date": "Data",
+  "measurements.time": "Godzina",
   "measurements.save": "Zapisz pomiary",
   "measurements.saved": "Zapisano",
   "measurements.saveFailed": "Nie udało się zapisać w tej przeglądarce",
@@ -80,17 +81,14 @@
   "meal.eggsRye": "3 jajka i 2 kromki chleba żytniego",
   "meal.skyrBowl": "Skyr z masłem orzechowym i dżemem",
   "meal.turkeyPotatoes": "Indyk w sosie, ziemniaki i kapusta",
-  "meal.appleSandwich": "Kanapka z szynką, jabłko i skyr",
   "meal.salmonGroats": "Pieczony łosoś, kasza gryczana i brokuły",
-  "meal.oatmeal": "Owsianka na mleku z pestkami dyni i skyrem",
+  "meal.oatmeal": "Owsianka na mleku z borówkami i orzechami",
   "meal.skyrBowlFruit": "Skyr z masłem orzechowym, dżemem i owocem",
-  "meal.eggSandwiches": "Kanapki z 2 jajkami",
   "meal.roastChickenBulgur": "Pieczone udko, bulgur i szpinak",
   "meal.hamSandwichesBanana": "Kanapki z szynką i banan",
   "meal.riceCakesJam": "Wafle ryżowe z dżemem",
   "meal.skyrOatsFruit": "Skyr z płatkami, owocem i miodem",
-  "meal.eggsBread": "Jajka na twardo i 3 kromki chleba",
-  "meal.sushiOrSalmon": "Sushi z łososiem, 1 rolka, albo łosoś z ryżem i szpinakiem, plus skyr",
+  "meal.sushiOrSalmon": "Sushi z łososiem, 1 rolka, plus skyr",
   "meal.hungarianStew": "Kociołek węgierski z chlebem",
   "meal.salmonTortilla": "Tortille z wędzonym łososiem",
   "meal.scrambledEggs": "Jajecznica i chleb",
@@ -98,8 +96,9 @@
   "recipes": {
     "sushi": {
       "steps": [
-        "Kup albo zamów. Wybieraj rolki z łososiem i nigiri, a rolki z majonezem ogranicz."
-      ]
+        "Kup albo zamów. Wybieraj rolki z łososiem, a rolki z majonezem ogranicz."
+      ],
+      "alternativeStep": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podaj w misce z pokrojonym ogórkiem."
     },
     "bananaToast": {
       "steps": [
@@ -140,11 +139,6 @@
       ],
       "seasoning": "Papryka w proszku, zioła prowansalskie, sól, pieprz"
     },
-    "appleSandwich": {
-      "steps": [
-        "Zrób kanapkę i zjedz z jabłkiem i skyrem."
-      ]
-    },
     "salmonGroats": {
       "steps": [
         "Dopraw łososia i piecz w 200°C przez 15 minut.",
@@ -156,18 +150,12 @@
     "oatmeal": {
       "steps": [
         "Gotuj płatki w mleku 5 minut, mieszając.",
-        "Zdejmij z ognia, wmieszaj skyr i posyp pestkami."
+        "Dodaj borówki, posiekane orzechy i ekspandowaną jagłę lub grykę."
       ]
     },
     "skyrBowlFruit": {
       "steps": [
         "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe, dżem i owoce."
-      ]
-    },
-    "eggSandwiches": {
-      "steps": [
-        "Ugotuj jajka, 8 minut, i pokrój w plastry.",
-        "Posmaruj chleb masłem i ułóż jajka z warzywami."
       ]
     },
     "roastChickenBulgur": {
@@ -193,17 +181,11 @@
         "Wymieszaj skyr z płatkami i miodem, a na wierzch dodaj owoce."
       ]
     },
-    "eggsBread": {
-      "steps": [
-        "Ugotuj jajka, 8 minut.",
-        "Posmaruj chleb masłem i podaj z jajkami i warzywami."
-      ]
-    },
     "sushiOrSalmon": {
       "steps": [
-        "Kup sushi. Zamiennik: upiecz 150 g łososia w 200°C przez 15 minut i podaj z ugotowanym ryżem (80 g suchego) i 150 g szpinaku podduszonego na 5 g oliwy.",
-        "Skyr zjedz jako dodatek."
-      ]
+        "Kup albo zamów sushi, a skyr zjedz jako dodatek."
+      ],
+      "alternativeStep": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podduś szpinak na oliwie. Skyr zjedz jako dodatek."
     },
     "hungarianStew": {
       "steps": [
@@ -247,26 +229,61 @@
       ],
       "seasoning": "Curry, sól, pieprz, słodka papryka"
     },
-    "hamApple": {
-      "steps": [
-        "Zrób kanapki i zjedz z jabłkiem."
-      ]
-    },
     "skyrFruitLarge": {
       "steps": [
         "Wyłóż skyr do miski i dodaj owoce."
       ]
+    },
+    "skyrAppleNuts": {
+      "steps": [
+        "Pokrój jabłko w kostkę, posiekaj orzechy i wymieszaj ze skyrem."
+      ]
+    },
+    "chickenRice": {
+      "seasoning": "Sos sojowy, sól, pieprz, słodka papryka",
+      "steps": [
+        "Ugotuj ryż według opakowania.",
+        "Pokrój kurczaka w kostkę, dopraw i smaż na oliwie 6-8 minut.",
+        "Dodaj pokrojoną paprykę, brokuły i czosnek, smaż 5 minut i podaj z ryżem."
+      ]
     }
   },
   "training.title": "Treningi",
-  "training.empty": "Tutaj pojawi się Twój dziennik treningów.",
-  "meal.hamApple": "Kanapki z szynką i jabłko",
+  "setTimer.exercise": "Ćwiczenie",
+  "setTimer.work": "Czas serii (s)",
+  "setTimer.rest": "Przerwa (s)",
+  "setTimer.sets": "Serie",
+  "setTimer.hint": "Czas serii 0 oznacza, że każdą serię kończysz przyciskiem. To dobre przy seriach na powtórzenia.",
+  "setTimer.start": "Start",
+  "setTimer.pause": "Pauza",
+  "setTimer.resume": "Wznów",
+  "setTimer.complete": "Seria zrobiona",
+  "setTimer.skip": "Pomiń przerwę",
+  "setTimer.reset": "Reset",
+  "setTimer.count": "Seria {set} z {sets}",
+  "setTimer.phase.idle": "Gotowy",
+  "setTimer.phase.work": "Ćwiczenie",
+  "setTimer.phase.rest": "Przerwa",
+  "setTimer.phase.done": "Koniec",
+  "setTimer.phase.paused": "Pauza",
   "meal.skyrFruitLarge": "Duży skyr z owocami",
   "nav.shopping": "Zakupy",
   "shopping.title": "Lista zakupów",
   "shopping.days": "Na ile dni?",
   "shopping.summary": "{from} do {to}: posiłków {meals}",
   "shopping.spices": "Lista nie obejmuje przypraw, ziół i cytryny.",
+  "shopping.layout": "Widok",
+  "shopping.layout.grouped": "Według kategorii",
+  "shopping.layout.flat": "Płaska lista",
+  "shopping.sort": "Sortowanie",
+  "shopping.sort.default": "Domyślne",
+  "shopping.sort.ascending": "A-Z",
+  "shopping.sort.descending": "Z-A",
+  "shopping.basket": "To, co w koszyku",
+  "shopping.basketShow": "Pokaż",
+  "shopping.basketHide": "Ukryj",
+  "shopping.basketCount": "W koszyku: {count} z {total}",
+  "shopping.basketDone": "Wszystko masz już w koszyku.",
   "shopping.checkAll": "Zaznacz wszystko",
   "shopping.uncheckAll": "Odznacz wszystko",
   "shopping.print": "Drukuj",
@@ -282,7 +299,12 @@
   "category.grains": "Pieczywo i produkty zbożowe",
   "category.other": "Pozostałe",
   "unit.pcs": "szt.",
-  "unit.rolls": { "one": "rolka", "few": "rolki", "many": "rolek", "other": "rolki" },
+  "unit.rolls": {
+    "one": "rolka",
+    "few": "rolki",
+    "many": "rolek",
+    "other": "rolki"
+  },
   "ingredient.skyr": "Skyr naturalny",
   "ingredient.yoghurt": "Jogurt naturalny",
   "ingredient.greekYoghurt": "Jogurt grecki",
@@ -326,9 +348,19 @@
   "ingredient.peanutButter": "Masło orzechowe",
   "ingredient.jam": "Dżem 100% owoców",
   "ingredient.honey": "Miód",
-  "ingredient.pumpkinSeeds": "Pestki dyni",
   "ingredient.stock": "Bulion",
   "agenda.training": "Trening do {end}",
   "agenda.fastStart": "Początek postu",
-  "agenda.fastEnd": "Koniec postu"
+  "agenda.fastEnd": "Koniec postu",
+  "shopping.sushi": "Sushi",
+  "shopping.sushiBuy": "Kupuję sushi",
+  "shopping.sushiReplace": "Biorę zamiennik",
+  "diet.alternative": "Nie ma sushi? Zamiennik",
+  "ingredient.blueberries": "Borówki",
+  "ingredient.almonds": "Migdały",
+  "ingredient.cashews": "Nerkowce",
+  "ingredient.puffedGrain": "Jagła lub gryka ekspandowana",
+  "ingredient.rice": "Ryż",
+  "meal.skyrAppleNuts": "Skyr z jabłkiem i orzechami",
+  "meal.chickenRice": "Kurczak z ryżem i warzywami"
 }

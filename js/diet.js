@@ -39,10 +39,13 @@ export const INGREDIENTS = {
   pepper: { category: "vegetables", unit: "g" },
   mushrooms: { category: "vegetables", unit: "g" },
   fruit: { category: "fruit", unit: "g" },
+  blueberries: { category: "fruit", unit: "g" },
   apple: { category: "fruit", unit: "pcs" },
   banana: { category: "fruit", unit: "pcs" },
   ryeBread: { category: "grains", unit: "g" },
   oats: { category: "grains", unit: "g" },
+  puffedGrain: { category: "grains", unit: "g" },
+  rice: { category: "grains", unit: "g" },
   buckwheat: { category: "grains", unit: "g" },
   bulgur: { category: "grains", unit: "g" },
   couscous: { category: "grains", unit: "g" },
@@ -54,18 +57,21 @@ export const INGREDIENTS = {
   peanutButter: { category: "other", unit: "g" },
   jam: { category: "other", unit: "g" },
   honey: { category: "other", unit: "g" },
-  pumpkinSeeds: { category: "other", unit: "g" },
+  almonds: { category: "other", unit: "g" },
+  cashews: { category: "other", unit: "g" },
   stock: { category: "other", unit: "ml" },
 };
 
 /**
  * One portion of each meal: estimated energy and macronutrients in kcal and grams, and its ingredients.
+ * `alternative` lists the ingredients of a replacement for a ready-made meal.
  * Each key resolves to `meal.<key>` and `recipes.<key>` in the language files.
  */
 export const MEALS = {
   sushi: {
     kcal: 400, protein: 16, carbs: 67, fat: 7,
     ingredients: { sushi: 1 },
+    alternative: { salmon: 100, rice: 60, cucumber: 50 },
   },
   bananaToast: {
     kcal: 255, protein: 4, carbs: 56, fat: 1,
@@ -98,33 +104,29 @@ export const MEALS = {
       oliveOil: 15, stock: 200, cream: 50, flour: 10,
     },
   },
-  appleSandwich: {
-    kcal: 355, protein: 26, carbs: 48, fat: 5,
-    ingredients: { ryeBread: 40, butter: 5, ham: 30, apple: 1, skyr: 150 },
-  },
   salmonGroats: {
     kcal: 695, protein: 47, carbs: 76, fat: 24,
     ingredients: { salmon: 150, buckwheat: 90, broccoli: 200 },
   },
   oatmeal: {
-    kcal: 530, protein: 43, carbs: 56, fat: 13,
-    ingredients: { oats: 60, milk: 250, pumpkinSeeds: 10, skyr: 200 },
+    kcal: 560, protein: 22, carbs: 75, fat: 18,
+    ingredients: { oats: 60, milk: 250, blueberries: 100, almonds: 10, cashews: 10, puffedGrain: 10 },
   },
   skyrBowlFruit: {
     kcal: 330, protein: 28, carbs: 34, fat: 8,
     ingredients: { skyr: 200, peanutButter: 15, jam: 20, fruit: 150 },
   },
-  eggSandwiches: {
-    kcal: 395, protein: 18, carbs: 36, fat: 18,
-    ingredients: { egg: 2, ryeBread: 80, butter: 5, tomato: 100 },
-  },
   roastChickenBulgur: {
-    kcal: 675, protein: 51, carbs: 61, fat: 26,
-    ingredients: { chickenLeg: 1, bulgur: 80, spinach: 150, oliveOil: 5, garlic: 1 },
+    kcal: 605, protein: 49, carbs: 47, fat: 26,
+    ingredients: { chickenLeg: 1, bulgur: 60, spinach: 150, oliveOil: 5, garlic: 1 },
   },
-  hamApple: {
-    kcal: 340, protein: 19, carbs: 62, fat: 3,
-    ingredients: { ryeBread: 80, ham: 60, tomato: 100, apple: 1 },
+  skyrAppleNuts: {
+    kcal: 345, protein: 28, carbs: 38, fat: 10,
+    ingredients: { skyr: 200, apple: 1, almonds: 10, cashews: 10 },
+  },
+  chickenRice: {
+    kcal: 520, protein: 44, carbs: 68, fat: 8,
+    ingredients: { chickenBreast: 150, rice: 70, pepper: 100, broccoli: 100, oliveOil: 5, garlic: 1 },
   },
   hamSandwichesBanana: {
     kcal: 385, protein: 19, carbs: 68, fat: 5,
@@ -138,13 +140,10 @@ export const MEALS = {
     kcal: 385, protein: 31, carbs: 68, fat: 3,
     ingredients: { skyr: 200, oats: 40, fruit: 150, honey: 10 },
   },
-  eggsBread: {
-    kcal: 480, protein: 21, carbs: 54, fat: 19,
-    ingredients: { egg: 2, ryeBread: 120, butter: 5, tomato: 100 },
-  },
   sushiOrSalmon: {
     kcal: 530, protein: 40, carbs: 75, fat: 7,
     ingredients: { sushi: 1, skyr: 200 },
+    alternative: { salmon: 100, rice: 60, spinach: 100, oliveOil: 5, skyr: 200 },
   },
   hungarianStew: {
     kcal: 550, protein: 51, carbs: 52, fat: 15,
@@ -196,15 +195,15 @@ export const DIET_DAYS = [
   {
     meals: [
       { time: 8, key: "oatmeal" },
-      { time: 12, key: "appleSandwich" },
+      { time: 12, key: "chickenRice" },
     ],
   },
   {
     meals: [
       { time: 8, key: "skyrBowlFruit" },
-      { time: 10.5, key: "eggSandwiches" },
+      { time: 10.5, key: "oatmeal" },
       { time: 13, key: "roastChickenBulgur" },
-      { time: 14.5, key: "hamApple" },
+      { time: 14.5, key: "skyrAppleNuts" },
       { time: 16, key: "hamSandwichesBanana" },
       { time: 18, key: "riceCakesJam" },
       { time: 22.5, key: "skyrOatsFruit", sweet: true },
@@ -212,8 +211,8 @@ export const DIET_DAYS = [
   },
   {
     meals: [
-      { time: 8, key: "eggsBread" },
-      { time: 10, key: "skyrBowlFruit" },
+      { time: 8, key: "oatmeal" },
+      { time: 10, key: "skyrFruit" },
       { time: 12, key: "sushiOrSalmon" },
     ],
   },
@@ -227,7 +226,7 @@ export const DIET_DAYS = [
   {
     meals: [
       { time: 10, key: "scrambledEggs" },
-      { time: 13, key: "hamApple" },
+      { time: 13, key: "skyrAppleNuts" },
       { time: 16, key: "chickenSpinachPasta" },
     ],
   },
@@ -293,9 +292,10 @@ export function getWeekTotals() {
  * Adds up the ingredients of all meals planned in a period starting now.
  * @param {number} position Hours since Monday 00:00.
  * @param {number} days Length of the period in days.
+ * @param {boolean} [useAlternatives] Whether to count replacements instead of ready-made meals.
  * @returns {{mealCount: number, amounts: Record<string, number>}} The number of meals and the total amount of each ingredient.
  */
-export function getShoppingList(position, days) {
+export function getShoppingList(position, days, useAlternatives = false) {
   const hours = days * 24;
   const amounts = {};
   let mealCount = 0;
@@ -306,7 +306,8 @@ export function getShoppingList(position, days) {
 
     if (occurrences > 0) {
       mealCount += occurrences;
-      for (const [ingredient, amount] of Object.entries(MEALS[meal.key].ingredients)) {
+      const { ingredients, alternative } = MEALS[meal.key];
+      for (const [ingredient, amount] of Object.entries((useAlternatives && alternative) || ingredients)) {
         amounts[ingredient] = (amounts[ingredient] ?? 0) + amount * occurrences;
       }
     }

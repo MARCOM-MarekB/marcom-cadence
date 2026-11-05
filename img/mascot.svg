@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 360 450">
+  <defs>
+    <radialGradient id="skin" cx="45%" cy="38%" r="68%">
+      <stop offset="0%" stop-color="#ffdfc7"/>
+      <stop offset="65%" stop-color="#f8c4a2"/>
+      <stop offset="100%" stop-color="#e29b78"/>
+    </radialGradient>
+    <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f4cb7a"/>
+      <stop offset="50%" stop-color="#dca24b"/>
+      <stop offset="100%" stop-color="#b47a2b"/>
+    </linearGradient>
+    <linearGradient id="sweater" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0%" stop-color="#8f2a22"/>
+      <stop offset="45%" stop-color="#c23f31"/>
+      <stop offset="100%" stop-color="#8a2620"/>
+    </linearGradient>
+    <linearGradient id="trousers" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#2b3a4f"/>
+      <stop offset="100%" stop-color="#161f2c"/>
+    </linearGradient>
+    <linearGradient id="shoe" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9a6238"/>
+      <stop offset="100%" stop-color="#5c371d"/>
+    </linearGradient>
+    <clipPath id="sweater-shape">
+      <path d="M132 190Q180 176 228 190Q254 230 248 318Q180 332 112 318Q106 230 132 190Z"/>
+    </clipPath>
+    <g id="deer" fill="#b3352b">
+      <rect x="-12" y="-5" width="24" height="10"/>
+      <rect x="-11" y="5" width="4" height="9"/>
+      <rect x="7" y="5" width="4" height="9"/>
+      <rect x="10" y="-13" width="7" height="10"/>
+      <path d="M12 -13L9 -20M15 -13L19 -20" fill="none" stroke="#b3352b" stroke-width="2.5"/>
+    </g>
+    <g id="flake" fill="none" stroke="#f6efe4" stroke-width="3" stroke-linecap="round">
+      <path d="M0 -12V12M-11 -6L11 6M-11 6L11 -6"/>
+      <circle r="2.5" fill="#f6efe4" stroke="none"/>
+    </g>
+  </defs>
+
+  <ellipse cx="180" cy="438" rx="88" ry="8" fill="#000000" opacity="0.22"/>
+
+  <ellipse cx="150" cy="426" rx="30" ry="13" fill="url(#shoe)"/>
+  <ellipse cx="210" cy="426" rx="30" ry="13" fill="url(#shoe)"/>
+  <path d="M122 432Q150 442 178 432M182 432Q210 442 238 432" fill="none" stroke="#3a2212" stroke-width="3" stroke-linecap="round"/>
+  <path d="M122 316L126 416H172L178 344H182L188 416H234L238 316Z" fill="url(#trousers)"/>
+
+  <path d="M130 198Q104 225 96 282L122 290Q132 240 146 214Z" fill="url(#sweater)"/>
+  <path d="M230 198Q256 225 264 282L238 290Q228 240 214 214Z" fill="url(#sweater)"/>
+  <path d="M95 280L123 288L121 298L93 290ZM265 280L237 288L239 298L267 290Z" fill="#7d211b"/>
+
+  <path d="M94 300Q84 276 92 252Q96 238 108 240Q118 242 112 250Q104 254 106 268Q118 262 130 272Q138 282 130 296L122 296L118 306L108 306L106 296Z" fill="#716c68"/>
+  <circle cx="108" cy="303" r="15" fill="url(#skin)"/>
+  <circle cx="252" cy="303" r="15" fill="url(#skin)"/>
+
+  <path d="M132 190Q180 176 228 190Q254 230 248 318Q180 332 112 318Q106 230 132 190Z" fill="url(#sweater)"/>
+  <g clip-path="url(#sweater-shape)">
+    <rect x="100" y="214" width="160" height="34" fill="#f6efe4"/>
+    <use xlink:href="#deer" href="#deer" x="136" y="229"/>
+    <use xlink:href="#deer" href="#deer" x="182" y="229"/>
+    <use xlink:href="#deer" href="#deer" x="228" y="229"/>
+    <use xlink:href="#flake" href="#flake" x="146" y="264"/>
+    <use xlink:href="#flake" href="#flake" x="180" y="264"/>
+    <use xlink:href="#flake" href="#flake" x="214" y="264"/>
+    <rect x="100" y="280" width="160" height="22" fill="#f6efe4"/>
+    <path d="M112 291h12M132 291h12M152 291h12M172 291h12M192 291h12M212 291h12M232 291h12" stroke="#b3352b" stroke-width="7"/>
+  </g>
+  <path d="M116 316Q180 332 244 316" fill="none" stroke="#7d211b" stroke-width="9" stroke-linecap="round"/>
+  <path d="M152 188Q180 202 208 188" fill="none" stroke="#7d211b" stroke-width="9" stroke-linecap="round"/>
+
+  <circle cx="106" cy="126" r="15" fill="#f0b08d"/>
+  <circle cx="254" cy="126" r="15" fill="#f0b08d"/>
+  <ellipse cx="180" cy="116" rx="74" ry="76" fill="url(#skin)"/>
+  <path d="M106 114Q98 40 180 32Q264 34 256 116Q248 92 232 82Q196 98 150 76Q124 84 116 106Z" fill="url(#hair)"/>
+  <path d="M132 58Q172 40 222 58M150 76Q176 62 206 70" fill="none" stroke="#fbe0a4" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+
+  <path d="M130 100Q146 92 162 102M198 102Q214 92 230 100" fill="none" stroke="#c48a3e" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="148" cy="128" rx="20" ry="22" fill="#ffffff"/>
+  <ellipse cx="212" cy="128" rx="20" ry="22" fill="#ffffff"/>
+  <circle cx="151" cy="130" r="14" fill="#46382e"/>
+  <circle cx="209" cy="130" r="14" fill="#46382e"/>
+  <circle cx="151" cy="130" r="8" fill="#14100d"/>
+  <circle cx="209" cy="130" r="8" fill="#14100d"/>
+  <circle cx="156" cy="124" r="4" fill="#ffffff"/>
+  <circle cx="214" cy="124" r="4" fill="#ffffff"/>
+  <ellipse cx="180" cy="150" rx="10" ry="8" fill="#eda888"/>
+  <circle cx="128" cy="156" r="12" fill="#f2967c" opacity="0.35"/>
+  <circle cx="232" cy="156" r="12" fill="#f2967c" opacity="0.35"/>
+  <path d="M158 168Q180 188 202 168Q180 174 158 168Z" fill="#8d3b32"/>
+  <path d="M163 170Q180 175 197 170L194 174Q180 177 166 174Z" fill="#ffffff"/>
+</svg>

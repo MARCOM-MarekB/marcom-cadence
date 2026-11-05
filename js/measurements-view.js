@@ -9,13 +9,13 @@ const LINE_RIGHT_X = 298;
 
 /** Measuring points on the figure: x and y of the point, and the height of its label. */
 const FIGURE_POINTS = {
-  neck: { x: 180, y: 122, labelY: 96, side: "right" },
-  chest: { x: 158, y: 170, labelY: 130, side: "left" },
-  biceps: { x: 250, y: 176, labelY: 150, side: "right" },
-  waist: { x: 180, y: 226, labelY: 280, side: "right" },
-  hips: { x: 180, y: 272, labelY: 290, side: "left" },
-  thigh: { x: 158, y: 340, labelY: 350, side: "left" },
-  calf: { x: 202, y: 392, labelY: 396, side: "right" },
+  neck: { x: 190, y: 159, labelY: 130, side: "right" },
+  chest: { x: 193, y: 184, labelY: 236, side: "left" },
+  biceps: { x: 247, y: 205, labelY: 190, side: "right" },
+  waist: { x: 188, y: 240, labelY: 250, side: "right" },
+  hips: { x: 188, y: 272, labelY: 300, side: "left" },
+  thigh: { x: 155, y: 360, labelY: 372, side: "left" },
+  calf: { x: 240, y: 380, labelY: 396, side: "right" },
 };
 
 /**
@@ -58,15 +58,11 @@ function formatNumber(value) {
 }
 
 /**
- * Returns today's date in the viewer's local time.
- * @returns {string} Date as YYYY-MM-DD.
+ * Formats a number with two digits.
+ * @param {number} value The number.
+ * @returns {string} The padded number.
  */
-function getLocalDate() {
-  const now = new Date();
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const day = String(now.getDate()).padStart(2, "0");
-  return `${now.getFullYear()}-${month}-${day}`;
-}
+const pad = (value) => String(value).padStart(2, "0");
 
 /** Moves the cursor to the field of a measurement. */
 function focusField(key) {
@@ -168,13 +164,15 @@ function renderHistory(entries) {
     const remove = createElement("button", "control", t("measurements.delete"));
     remove.type = "button";
     remove.addEventListener("click", () => {
-      storeEntries(removeEntry(loadEntries(), entry.date));
+      storeEntries(removeEntry(loadEntries(), entry));
       renderMeasurements();
     });
 
+    const date = new Date(`${entry.date}T00:00`).toLocaleDateString(language);
+
     const row = createElement("li", "measure-entry");
     row.append(
-      createElement("strong", "", new Date(`${entry.date}T00:00`).toLocaleDateString(language)),
+      createElement("strong", "", entry.time ? `${date}, ${entry.time}` : date),
       createElement("span", "measure-values", values),
       remove,
     );
@@ -214,13 +212,16 @@ function saveForm(event) {
   }
 
   const date = document.getElementById("measure-date").value;
-  const saved = storeEntries(addEntry(loadEntries(), date, values));
+  const time = document.getElementById("measure-time").value;
+  const saved = storeEntries(addEntry(loadEntries(), date, time, values));
   renderMeasurements();
   status.textContent = t(saved ? "measurements.saved" : "measurements.saveFailed");
 }
 
 /** Prepares the form. */
 export function initMeasurements() {
-  document.getElementById("measure-date").value = getLocalDate();
+  const now = new Date();
+  document.getElementById("measure-date").value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+  document.getElementById("measure-time").value = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
   document.getElementById("measure-form").addEventListener("submit", saveForm);
 }

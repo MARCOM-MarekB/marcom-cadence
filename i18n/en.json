@@ -37,6 +37,7 @@
   "measurements.title": "Body measurements",
   "measurements.figureLabel": "Figure with measuring points",
   "measurements.date": "Date",
+  "measurements.time": "Time",
   "measurements.save": "Save measurements",
   "measurements.saved": "Saved",
   "measurements.saveFailed": "Could not save in this browser",
@@ -80,17 +81,14 @@
   "meal.eggsRye": "3 eggs and 2 slices of rye bread",
   "meal.skyrBowl": "Skyr with peanut butter and jam",
   "meal.turkeyPotatoes": "Turkey in sauce, potatoes and cabbage",
-  "meal.appleSandwich": "Ham sandwich, apple and skyr",
   "meal.salmonGroats": "Baked salmon, buckwheat and broccoli",
-  "meal.oatmeal": "Oatmeal with milk, pumpkin seeds and skyr",
+  "meal.oatmeal": "Oatmeal with milk, blueberries and nuts",
   "meal.skyrBowlFruit": "Skyr with peanut butter, jam and fruit",
-  "meal.eggSandwiches": "Sandwiches with 2 eggs",
   "meal.roastChickenBulgur": "Roast chicken leg, bulgur and spinach",
   "meal.hamSandwichesBanana": "Ham sandwiches and a banana",
   "meal.riceCakesJam": "Rice cakes with jam",
   "meal.skyrOatsFruit": "Skyr with oats, fruit and honey",
-  "meal.eggsBread": "Boiled eggs and 3 slices of bread",
-  "meal.sushiOrSalmon": "Salmon sushi, 1 roll, or salmon with rice and spinach, plus skyr",
+  "meal.sushiOrSalmon": "Salmon sushi, 1 roll, plus skyr",
   "meal.hungarianStew": "Hungarian turkey stew with bread",
   "meal.salmonTortilla": "Tortillas with smoked salmon",
   "meal.scrambledEggs": "Scrambled eggs and bread",
@@ -98,8 +96,9 @@
   "recipes": {
     "sushi": {
       "steps": [
-        "Buy or order it. Choose salmon rolls and nigiri, and go easy on mayonnaise rolls."
-      ]
+        "Buy or order it. Choose salmon rolls, and go easy on mayonnaise rolls."
+      ],
+      "alternativeStep": "Bake the salmon at 200°C for 15 minutes, cook the rice and serve as a bowl with sliced cucumber."
     },
     "bananaToast": {
       "steps": [
@@ -140,11 +139,6 @@
       ],
       "seasoning": "Paprika, Provence herbs, salt, pepper"
     },
-    "appleSandwich": {
-      "steps": [
-        "Make the sandwich and eat with the apple and skyr."
-      ]
-    },
     "salmonGroats": {
       "steps": [
         "Season the salmon and bake at 200°C for 15 minutes.",
@@ -156,18 +150,12 @@
     "oatmeal": {
       "steps": [
         "Simmer the oats in the milk for 5 minutes, stirring.",
-        "Take off the heat, stir in the skyr and top with the seeds."
+        "Top with the blueberries, chopped nuts and puffed grain."
       ]
     },
     "skyrBowlFruit": {
       "steps": [
         "Put the skyr in a bowl and add the peanut butter, jam and fruit on top."
-      ]
-    },
-    "eggSandwiches": {
-      "steps": [
-        "Boil the eggs for 8 minutes, then slice them.",
-        "Butter the bread and top with the eggs and vegetables."
       ]
     },
     "roastChickenBulgur": {
@@ -193,17 +181,11 @@
         "Mix the skyr with the oats and honey, and top with the fruit."
       ]
     },
-    "eggsBread": {
-      "steps": [
-        "Boil the eggs for 8 minutes.",
-        "Butter the bread and serve with the eggs and vegetables."
-      ]
-    },
     "sushiOrSalmon": {
       "steps": [
-        "Buy the sushi. Alternative: bake 150 g salmon at 200°C for 15 minutes and serve with 80 g dry rice, cooked, and 150 g spinach wilted in 5 g olive oil.",
-        "Eat the skyr on the side."
-      ]
+        "Buy or order the sushi and eat the skyr on the side."
+      ],
+      "alternativeStep": "Bake the salmon at 200°C for 15 minutes, cook the rice and wilt the spinach in the oil. Eat the skyr on the side."
     },
     "hungarianStew": {
       "steps": [
@@ -247,26 +229,61 @@
       ],
       "seasoning": "Curry powder, salt, pepper, sweet paprika"
     },
-    "hamApple": {
-      "steps": [
-        "Make the sandwiches and eat with the apple."
-      ]
-    },
     "skyrFruitLarge": {
       "steps": [
         "Put the skyr in a bowl and top with the fruit."
       ]
+    },
+    "skyrAppleNuts": {
+      "steps": [
+        "Dice the apple, chop the nuts and mix them into the skyr."
+      ]
+    },
+    "chickenRice": {
+      "seasoning": "Soy sauce, salt, pepper, sweet paprika",
+      "steps": [
+        "Cook the rice according to the packet.",
+        "Dice the chicken, season it and fry in the oil for 6-8 minutes.",
+        "Add the chopped pepper, broccoli and garlic and fry for 5 minutes, then serve with the rice."
+      ]
     }
   },
   "training.title": "Training",
-  "training.empty": "Your training log will appear here.",
-  "meal.hamApple": "Ham sandwiches and an apple",
+  "setTimer.exercise": "Exercise",
+  "setTimer.work": "Set time (s)",
+  "setTimer.rest": "Rest (s)",
+  "setTimer.sets": "Sets",
+  "setTimer.hint": "Set time 0 means you finish each set with a button, which suits sets counted in reps.",
+  "setTimer.start": "Start",
+  "setTimer.pause": "Pause",
+  "setTimer.resume": "Resume",
+  "setTimer.complete": "Set done",
+  "setTimer.skip": "Skip rest",
+  "setTimer.reset": "Reset",
+  "setTimer.count": "Set {set} of {sets}",
+  "setTimer.phase.idle": "Ready",
+  "setTimer.phase.work": "Exercise",
+  "setTimer.phase.rest": "Rest",
+  "setTimer.phase.done": "Finished",
+  "setTimer.phase.paused": "Paused",
   "meal.skyrFruitLarge": "Large skyr with fruit",
   "nav.shopping": "Shopping",
   "shopping.title": "Shopping list",
   "shopping.days": "How many days?",
   "shopping.summary": "{from} to {to}: {meals} meals",
   "shopping.spices": "Spices, herbs and lemon are not included.",
+  "shopping.layout": "Layout",
+  "shopping.layout.grouped": "By category",
+  "shopping.layout.flat": "Flat list",
+  "shopping.sort": "Sort",
+  "shopping.sort.default": "Default",
+  "shopping.sort.ascending": "A-Z",
+  "shopping.sort.descending": "Z-A",
+  "shopping.basket": "Items in basket",
+  "shopping.basketShow": "Show",
+  "shopping.basketHide": "Hide",
+  "shopping.basketCount": "In basket: {count} of {total}",
+  "shopping.basketDone": "Everything is in your basket.",
   "shopping.checkAll": "Check all",
   "shopping.uncheckAll": "Uncheck all",
   "shopping.print": "Print",
@@ -282,7 +299,10 @@
   "category.grains": "Bread and grains",
   "category.other": "Other",
   "unit.pcs": "pcs",
-  "unit.rolls": { "one": "roll", "other": "rolls" },
+  "unit.rolls": {
+    "one": "roll",
+    "other": "rolls"
+  },
   "ingredient.skyr": "Natural skyr",
   "ingredient.yoghurt": "Natural yoghurt",
   "ingredient.greekYoghurt": "Greek yoghurt",
@@ -326,9 +346,19 @@
   "ingredient.peanutButter": "Peanut butter",
   "ingredient.jam": "Fruit-only jam",
   "ingredient.honey": "Honey",
-  "ingredient.pumpkinSeeds": "Pumpkin seeds",
   "ingredient.stock": "Stock",
   "agenda.training": "Training until {end}",
   "agenda.fastStart": "Fast starts",
-  "agenda.fastEnd": "Fast ends"
+  "agenda.fastEnd": "Fast ends",
+  "shopping.sushi": "Sushi",
+  "shopping.sushiBuy": "I am buying sushi",
+  "shopping.sushiReplace": "Use the replacement",
+  "diet.alternative": "No sushi? Replacement",
+  "ingredient.blueberries": "Blueberries",
+  "ingredient.almonds": "Almonds",
+  "ingredient.cashews": "Cashews",
+  "ingredient.puffedGrain": "Puffed millet or buckwheat",
+  "ingredient.rice": "Rice",
+  "meal.skyrAppleNuts": "Skyr with apple and nuts",
+  "meal.chickenRice": "Chicken with rice and vegetables"
 }

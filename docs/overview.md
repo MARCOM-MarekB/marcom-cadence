@@ -7,11 +7,11 @@ marcom-cadence is a personal app for fasting and eating windows, a diet plan and
 The app has a navigation menu with six views:
 
 - **Today:** current status with progress, live countdowns to the end of the fast or the next fast, the next meal and the next training, the week timeline and today's meals with past and next meals marked.
-- **Week:** the week timeline and the list of fasting and eating periods. Eating periods expand into an hour calendar of that period, one section per day.
+- **Week:** the week timeline and the list of fasting and eating periods. The current period is marked, and eating periods expand into an hour calendar of that period, one section per day.
 - **Diet:** a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe.
-- **Shopping:** a shopping list for the next 1 to 14 days, counted from now, summed from the planned meals and grouped by category. Items can be ticked one by one or all at once, and the list can be copied or printed on A4. Spices are not included, and ticks are not saved.
-- **Training:** placeholder for the training log.
-- **Measurements:** a cartoon figure with measuring points and latest values, a form for saving measurements by date, changes since the first entry, and history. Saving the same date again merges the values.
+- **Shopping:** a shopping list for the next 1 to 14 days, counted from now and summed from the planned meals. It can be shown by category or as a flat list, sorted by default order or alphabetically, and switched from sushi to its replacement ingredients. Items can be ticked one by one or all at once, ticked items can be hidden, and the visible list can be copied or printed on A4. Spices are not included. Ticks last until the page is reloaded.
+- **Training:** a set timer with exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser. There is no training log yet.
+- **Measurements:** a cartoon figure with measuring points and latest values, a form for saving measurements with date and time, changes since the first entry, and history. Saving the same date and time again merges the values.
 
 The week timeline is one bar for the whole week. Dashed lines mark each midnight, and a line labelled Now marks the current day and time.
 
@@ -25,10 +25,14 @@ The weekly schedule and meal plan are fixed in code. There is no login or saved 
 |---|---|
 | `index.html` | Page markup and all views |
 | `css/app.css` | Styles, including light and dark themes |
+| `img/figure.png` | Anime-style figure used in the Measurements view |
+| `img/mascot.svg` | Cartoon figure, not used yet |
 | `favicon.svg` | App icon, in the style of the Marcom logo (white letter on a teal circle) |
 | `i18n/*.json` | Interface texts, one file per language |
 | `js/app.js` | Rendering, navigation and the once-a-second refresh |
 | `js/diet.js` | Products, meals with values and ingredients, weekly plan, totals and shopping list calculation; names and recipe steps are in `i18n/*.json` |
+| `js/set-timer.js` | Set timer logic, based on end times so background delays are caught up |
+| `js/set-timer-view.js` | Set timer form, sound, screen wake lock and rendering |
 | `js/measurements.js` | Measurement list, browser storage and calculations |
 | `js/measurements-view.js` | Rendering and the form of the Measurements view |
 | `js/i18n.js` | Language loading and translation lookup |

@@ -14,7 +14,7 @@ export const MEASURES = [
 
 /**
  * Reads saved measurements from this browser.
- * @returns {Array<{date: string, values: Record<string, number>}>} Entries in date order.
+ * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Entries in time order.
  */
 export function loadEntries() {
   try {
@@ -40,27 +40,36 @@ export function storeEntries(entries) {
 }
 
 /**
- * Adds values for a date, keeping other values already saved for that date.
- * @param {Array<{date: string, values: Record<string, number>}>} entries Existing entries.
- * @param {string} date Date as YYYY-MM-DD.
- * @param {Record<string, number>} values New values.
- * @returns {Array<{date: string, values: Record<string, number>}>} Updated entries in date order.
+ * Builds the identity and sort key of an entry. Entries saved before times were added have no time.
+ * @param {{date: string, time?: string}} entry The entry.
+ * @returns {string} The key.
  */
-export function addEntry(entries, date, values) {
-  const existing = entries.find((entry) => entry.date === date);
-  const others = entries.filter((entry) => entry.date !== date);
-  return [...others, { date, values: { ...existing?.values, ...values } }]
-    .sort((a, b) => a.date.localeCompare(b.date));
+const entryKey = (entry) => `${entry.date} ${entry.time ?? ""}`;
+
+/**
+ * Adds values for a date and time, keeping other values already saved for that moment.
+ * @param {Array<{date: string, time?: string, values: Record<string, number>}>} entries Existing entries.
+ * @param {string} date Date as YYYY-MM-DD.
+ * @param {string} time Time as HH:MM.
+ * @param {Record<string, number>} values New values.
+ * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Updated entries in time order.
+ */
+export function addEntry(entries, date, time, values) {
+  const added = { date, time };
+  const existing = entries.find((entry) => entryKey(entry) === entryKey(added));
+  const others = entries.filter((entry) => entryKey(entry) !== entryKey(added));
+  return [...others, { ...added, values: { ...existing?.values, ...values } }]
+    .sort((a, b) => entryKey(a).localeCompare(entryKey(b)));
 }
 
 /**
- * Removes the entry for a date.
- * @param {Array<{date: string, values: Record<string, number>}>} entries Existing entries.
- * @param {string} date Date as YYYY-MM-DD.
- * @returns {Array<{date: string, values: Record<string, number>}>} Remaining entries.
+ * Removes one entry.
+ * @param {Array<{date: string, time?: string, values: Record<string, number>}>} entries Existing entries.
+ * @param {{date: string, time?: string}} removed The entry to remove.
+ * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Remaining entries.
  */
-export function removeEntry(entries, date) {
-  return entries.filter((entry) => entry.date !== date);
+export function removeEntry(entries, removed) {
+  return entries.filter((entry) => entryKey(entry) !== entryKey(removed));
 }
 
 /**

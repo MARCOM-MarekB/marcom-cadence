@@ -79,10 +79,19 @@
         <div class="shopping-controls">
           <p class="timer-label" data-i18n="shopping.days"></p>
           <div class="shopping-days" id="shopping-days"></div>
+          <p class="timer-label" data-i18n="shopping.layout"></p>
+          <div class="shopping-days" id="shopping-layout"></div>
+          <p class="timer-label" data-i18n="shopping.sort"></p>
+          <div class="shopping-days" id="shopping-sort"></div>
+          <p class="timer-label" data-i18n="shopping.basket"></p>
+          <div class="shopping-days" id="shopping-basket-filter"></div>
+          <p class="timer-label" data-i18n="shopping.sushi"></p>
+          <div class="shopping-days" id="shopping-sushi"></div>
         </div>
         <div class="diet-summary">
           <p id="shopping-summary"></p>
           <p class="empty" data-i18n="shopping.spices"></p>
+          <p class="shopping-basket" id="shopping-basket" role="status"></p>
         </div>
         <div class="shopping-list" id="shopping-list"></div>
         <div class="shopping-actions">
@@ -95,95 +104,47 @@
 
       <section class="view" data-view="training" hidden>
         <h2 data-i18n="training.title"></h2>
-        <p class="empty" data-i18n="training.empty"></p>
+        <div class="set-panel is-idle" id="set-panel">
+          <p class="set-name" id="set-name"></p>
+          <p class="set-phase" id="set-phase"></p>
+          <p class="set-time" id="set-time"></p>
+          <p class="set-count" id="set-count"></p>
+        </div>
+
+        <div class="set-actions">
+          <button class="control set-primary" id="set-complete" type="button" data-i18n="setTimer.complete" hidden></button>
+          <button class="control set-primary" id="set-skip" type="button" data-i18n="setTimer.skip" hidden></button>
+          <button class="control" id="set-pause" type="button" hidden></button>
+          <button class="control" id="set-reset" type="button" data-i18n="setTimer.reset" hidden></button>
+        </div>
+
+        <form class="set-settings" id="set-settings">
+          <label class="measure-field set-exercise" for="set-exercise">
+            <span class="measure-name" data-i18n="setTimer.exercise"></span>
+            <input id="set-exercise" type="text" maxlength="60">
+          </label>
+          <label class="measure-field" for="set-work">
+            <span class="measure-name" data-i18n="setTimer.work"></span>
+            <input id="set-work" type="number" inputmode="numeric" min="0" step="5" required>
+          </label>
+          <label class="measure-field" for="set-rest">
+            <span class="measure-name" data-i18n="setTimer.rest"></span>
+            <input id="set-rest" type="number" inputmode="numeric" min="0" step="5" required>
+          </label>
+          <label class="measure-field" for="set-sets">
+            <span class="measure-name" data-i18n="setTimer.sets"></span>
+            <input id="set-sets" type="number" inputmode="numeric" min="1" step="1" required>
+          </label>
+          <p class="empty set-hint" data-i18n="setTimer.hint"></p>
+          <button class="control set-primary set-start" type="submit" data-i18n="setTimer.start"></button>
+        </form>
       </section>
 
       <section class="view" data-view="measurements" hidden>
         <h2 data-i18n="measurements.title"></h2>
         <div class="measure-layout">
           <svg class="figure" viewBox="0 0 360 450" role="group" data-i18n-aria-label="measurements.figureLabel">
-            <defs>
-              <radialGradient id="skin" cx="42%" cy="35%" r="70%">
-                <stop offset="0%" stop-color="#fbd2ae"/>
-                <stop offset="70%" stop-color="#eeb088"/>
-                <stop offset="100%" stop-color="#d48f68"/>
-              </radialGradient>
-              <linearGradient id="limb" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#d9976f"/>
-                <stop offset="40%" stop-color="#f7c8a2"/>
-                <stop offset="100%" stop-color="#d48f68"/>
-              </linearGradient>
-              <linearGradient id="jersey" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#7fdc8e"/>
-                <stop offset="55%" stop-color="#3fb35f"/>
-                <stop offset="100%" stop-color="#23803f"/>
-              </linearGradient>
-              <linearGradient id="shorts" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#3b4750"/>
-                <stop offset="100%" stop-color="#171d22"/>
-              </linearGradient>
-              <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#a86a3a"/>
-                <stop offset="55%" stop-color="#6e4224"/>
-                <stop offset="100%" stop-color="#3f2413"/>
-              </linearGradient>
-              <radialGradient id="iris" cx="50%" cy="60%" r="60%">
-                <stop offset="0%" stop-color="#8fce6b"/>
-                <stop offset="100%" stop-color="#3f7a2f"/>
-              </radialGradient>
-              <linearGradient id="shoe" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#58cf74"/>
-                <stop offset="100%" stop-color="#23803f"/>
-              </linearGradient>
-            </defs>
-            <g aria-hidden="true">
-              <ellipse cx="180" cy="438" rx="92" ry="9" fill="#000000" opacity="0.22"/>
-
-              <rect x="141" y="300" width="34" height="74" rx="16" fill="url(#limb)"/>
-              <rect x="185" y="300" width="34" height="74" rx="16" fill="url(#limb)"/>
-              <rect x="141" y="356" width="34" height="66" rx="14" fill="url(#jersey)"/>
-              <rect x="185" y="356" width="34" height="66" rx="14" fill="url(#jersey)"/>
-              <path d="M141 370H175M185 370H219" stroke="#ffffff" stroke-width="4" opacity="0.8"/>
-              <path d="M138 414C126 420 118 430 124 436H176V414Z" fill="url(#shoe)"/>
-              <path d="M222 414C234 420 242 430 236 436H184V414Z" fill="url(#shoe)"/>
-              <path d="M122 434H177M183 434H238" stroke="#f4f6f8" stroke-width="5" stroke-linecap="round"/>
-
-              <path d="M130 238Q180 226 230 238L238 318Q212 332 186 322L180 292L174 322Q148 332 122 318Z" fill="url(#shorts)"/>
-              <path d="M132 246L126 316M228 246L234 316" stroke="#58cf74" stroke-width="4" opacity="0.9"/>
-
-              <path d="M130 148L92 204L128 240" fill="none" stroke="url(#limb)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M230 148L268 204L232 240" fill="none" stroke="url(#limb)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
-
-              <rect x="165" y="100" width="30" height="36" rx="11" fill="#d9976f"/>
-              <path d="M132 132Q180 118 228 132Q240 190 232 246Q180 258 128 246Q120 190 132 132Z" fill="url(#jersey)"/>
-              <path d="M134 136L108 178M226 136L252 178" stroke="url(#jersey)" stroke-width="34" stroke-linecap="round"/>
-              <path d="M92 170L124 190M268 170L236 190" stroke="#1f6f37" stroke-width="4" stroke-linecap="round"/>
-              <path d="M162 124L180 148L198 124" fill="none" stroke="#1d2b22" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="205" cy="166" r="11" fill="#ffffff" opacity="0.9"/>
-              <path d="M200 166H210M205 161V171" stroke="#23803f" stroke-width="3" stroke-linecap="round"/>
-              <circle cx="128" cy="240" r="16" fill="url(#skin)"/>
-              <circle cx="232" cy="240" r="16" fill="url(#skin)"/>
-
-              <ellipse cx="129" cy="72" rx="10" ry="13" fill="#e6a678"/>
-              <ellipse cx="231" cy="72" rx="10" ry="13" fill="#e6a678"/>
-              <ellipse cx="180" cy="66" rx="52" ry="54" fill="url(#skin)"/>
-              <path d="M128 62C122 24 156 4 186 6C214 4 238 28 232 64C226 52 220 44 212 40C212 48 204 50 198 44C196 52 184 52 180 44C174 54 160 52 156 44C148 48 136 52 128 62Z" fill="url(#hair)"/>
-              <path d="M150 24C166 12 192 10 208 20" fill="none" stroke="#c98a55" stroke-width="4" stroke-linecap="round" opacity="0.7"/>
-
-              <path d="M150 58Q161 51 172 57M188 57Q199 51 210 58" fill="none" stroke="#5a3820" stroke-width="4" stroke-linecap="round"/>
-              <ellipse cx="161" cy="72" rx="12" ry="14" fill="#ffffff"/>
-              <ellipse cx="199" cy="72" rx="12" ry="14" fill="#ffffff"/>
-              <circle cx="162" cy="73" r="8.5" fill="url(#iris)"/>
-              <circle cx="198" cy="73" r="8.5" fill="url(#iris)"/>
-              <circle cx="162" cy="74" r="4.5" fill="#1a1512"/>
-              <circle cx="198" cy="74" r="4.5" fill="#1a1512"/>
-              <circle cx="165" cy="70" r="2.6" fill="#ffffff"/>
-              <circle cx="201" cy="70" r="2.6" fill="#ffffff"/>
-              <ellipse cx="180" cy="86" rx="5" ry="3.5" fill="#d48f68"/>
-              <circle cx="146" cy="92" r="9" fill="#ee8f77" opacity="0.4"/>
-              <circle cx="214" cy="92" r="9" fill="#ee8f77" opacity="0.4"/>
-              <path d="M162 96Q180 114 198 96Q180 102 162 96Z" fill="#ffffff" stroke="#a4553f" stroke-width="2.5" stroke-linejoin="round"/>
-            </g>
+            <image href="img/figure.png" x="67.5" y="0" width="225" height="450" aria-hidden="true"/>
             <g id="figure-points"></g>
           </svg>
 
@@ -191,6 +152,10 @@
             <label class="measure-field" for="measure-date">
               <span class="measure-name" data-i18n="measurements.date"></span>
               <input id="measure-date" type="date" required>
+            </label>
+            <label class="measure-field" for="measure-time">
+              <span class="measure-name" data-i18n="measurements.time"></span>
+              <input id="measure-time" type="time" required>
             </label>
             <div class="measure-fields" id="measure-fields"></div>
             <div class="measure-actions">

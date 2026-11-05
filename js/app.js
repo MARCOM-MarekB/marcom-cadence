@@ -10,6 +10,7 @@ import {
 } from "./diet.js";
 import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
 import { initMeasurements, renderMeasurements } from "./measurements-view.js";
+import { initSetTimer, renderSetTimer } from "./set-timer-view.js";
 import {
   FASTS,
   HOURS_PER_WEEK,
@@ -25,11 +26,28 @@ import { getTheme, toggleTheme } from "./theme.js";
 const REFRESH_INTERVAL_MS = 1000;
 const DEFAULT_VIEW = "today";
 const SHOPPING_DAY_OPTIONS = [1, 2, 3, 5, 7, 14];
+const SHOPPING_LAYOUTS = ["grouped", "flat"];
+const SHOPPING_SORTS = ["default", "ascending", "descending"];
 const COPY_MESSAGE_MS = 2000;
 const SHOW_ALL_HOURS_KEY = "cadence.showAllHours";
 
 /** Number of days selected for the shopping list. */
 let shoppingDays = 3;
+
+/** Selected shopping list layout, one of SHOPPING_LAYOUTS. */
+let shoppingLayout = "grouped";
+
+/** Selected shopping list order, one of SHOPPING_SORTS. */
+let shoppingSort = "default";
+
+/** Ids of ticked products, kept while the list is rebuilt. */
+const checkedShoppingItems = new Set();
+
+/** Whether ticked products are left out of the shopping list. */
+let hideCheckedShoppingItems = false;
+
+/** Whether the shopping list counts the replacement instead of sushi. */
+let useSushiAlternative = false;
 
 /** Whether empty hours are listed one by one instead of being collapsed. */
 let showAllHours = readShowAllHours();
@@ -280,8 +298,9 @@ function createAgendaEvent(time, className, ...content) {
 function createMealItem(meal, dayIndex) {
   const values = MEALS[meal.key];
   const recipe = t("recipes")[meal.key];
-  const ingredients = Object.entries(values.ingredients)
+  const formatIngredients = (list) => Object.entries(list)
     .map(([id, amount]) => `${t(`ingredient.${id}`)}: ${formatAmount(id, amount)}`);
+  const ingredients = formatIngredients(values.ingredients);
 
   const summary = document.createElement("summary");
   summary.append(
@@ -296,6 +315,11 @@ function createMealItem(meal, dayIndex) {
     createRecipeSection("diet.ingredients", "ul", recipe.seasoning ? [...ingredients, recipe.seasoning] : ingredients),
     createRecipeSection("diet.steps", "ol", recipe.steps),
   );
+  if (values.alternative) {
+    details.append(
+      createRecipeSection("diet.alternative", "ul", [...formatIngredients(values.alternative), recipe.alternativeStep]),
+    );
+  }
 
   const content = meal.sweet ? [details, createElement("span", "meal-sweet", t("diet.sweet"))] : [details];
   const item = createAgendaEvent(meal.time, "meal-item", ...content);
@@ -450,6 +474,7 @@ function createPeriodRow(period) {
   const when = document.createElement("span");
   when.className = "period-when";
   when.textContent = `${formatPosition(period.start)} → ${formatPosition(period.end)}`;
+  when.append(createElement("span", "period-now", t("now")));
 
   const note = document.createElement("span");
   note.className = "period-note";
@@ -461,6 +486,8 @@ function createPeriodRow(period) {
   row.append(kind, when, note);
 
   const item = createElement("li", "period-item");
+  item.dataset.start = String(period.start);
+  item.dataset.end = String(period.end);
   if (period.isFast) {
     item.append(row);
     return item;
@@ -501,47 +528,99 @@ function renderPeriods() {
   document.getElementById("periods").replaceChildren(...getPeriods().map(createPeriodRow));
 }
 
-/** Renders the day buttons of the shopping list. */
+/**
+ * Creates one shopping option button.
+ * @param {string} label Button text.
+ * @param {boolean} isSelected Whether the option is active.
+ * @param {function(): void} select Applies the option.
+ * @returns {HTMLButtonElement} The button.
+ */
+function createShoppingOption(label, isSelected, select) {
+  const button = createElement("button", "control", label);
+  button.type = "button";
+  button.setAttribute("aria-pressed", String(isSelected));
+  button.addEventListener("click", () => {
+    select();
+    renderShoppingOptions();
+    renderShoppingList();
+  });
+  return button;
+}
+
+/** Renders the option buttons of the shopping list. */
 function renderShoppingOptions() {
-  const options = document.getElementById("shopping-days");
-  options.replaceChildren(...SHOPPING_DAY_OPTIONS.map((days) => {
+  document.getElementById("shopping-days").replaceChildren(...SHOPPING_DAY_OPTIONS.map((days) => {
     const label = days === 1 ? t("shopping.oneDayOption") : t("shopping.daysOption", { days: String(days) });
-    const button = createElement("button", "control", label);
-    button.type = "button";
-    button.setAttribute("aria-pressed", String(days === shoppingDays));
-    button.addEventListener("click", () => {
-      shoppingDays = days;
-      renderShoppingOptions();
-      renderShoppingList();
-    });
-    return button;
+    return createShoppingOption(label, days === shoppingDays, () => { shoppingDays = days; });
   }));
+  document.getElementById("shopping-layout").replaceChildren(...SHOPPING_LAYOUTS.map((layout) =>
+    createShoppingOption(t(`shopping.layout.${layout}`), layout === shoppingLayout, () => { shoppingLayout = layout; })));
+  document.getElementById("shopping-sort").replaceChildren(...SHOPPING_SORTS.map((sort) =>
+    createShoppingOption(t(`shopping.sort.${sort}`), sort === shoppingSort, () => { shoppingSort = sort; })));
+  document.getElementById("shopping-basket-filter").replaceChildren(
+    createShoppingOption(t("shopping.basketShow"), !hideCheckedShoppingItems, () => { hideCheckedShoppingItems = false; }),
+    createShoppingOption(t("shopping.basketHide"), hideCheckedShoppingItems, () => { hideCheckedShoppingItems = true; }),
+  );
+  document.getElementById("shopping-sushi").replaceChildren(
+    createShoppingOption(t("shopping.sushiBuy"), !useSushiAlternative, () => { useSushiAlternative = false; }),
+    createShoppingOption(t("shopping.sushiReplace"), useSushiAlternative, () => { useSushiAlternative = true; }),
+  );
 }
 
 /**
- * Groups shopping list amounts by category.
+ * Sorts shopping items by the selected order.
+ * @param {Array<{name: string}>} items The items in default order.
+ * @returns {Array<{name: string}>} The sorted items.
+ */
+function sortShoppingItems(items) {
+  if (shoppingSort === "default") {
+    return items;
+  }
+  const direction = shoppingSort === "ascending" ? 1 : -1;
+  const language = document.documentElement.lang;
+  return [...items].sort((a, b) => direction * a.name.localeCompare(b.name, language));
+}
+
+/**
+ * Arranges shopping list amounts for the selected layout and order.
  * @param {Record<string, number>} amounts Total amount of each ingredient.
- * @returns {Array<{category: string, items: Array<{name: string, amount: string}>}>} Categories that have items.
+ * @returns {Array<{category: string | null, items: Array<{id: string, name: string, amount: string}>}>}
+ * One group per category with items, or a single group without a category in the flat layout.
  */
 function groupShoppingItems(amounts) {
-  return CATEGORIES
-    .map((category) => ({
+  const createItems = (ids) => sortShoppingItems(
+    ids.map((id) => ({ id, name: t(`ingredient.${id}`), amount: formatAmount(id, amounts[id]) })),
+  );
+  const ids = Object.keys(INGREDIENTS)
+    .filter((id) => amounts[id] && !(hideCheckedShoppingItems && checkedShoppingItems.has(id)));
+
+  const groups = shoppingLayout === "flat"
+    ? [{ category: null, items: createItems(ids) }]
+    : CATEGORIES.map((category) => ({
       category,
-      items: Object.keys(INGREDIENTS)
-        .filter((id) => INGREDIENTS[id].category === category && amounts[id])
-        .map((id) => ({ name: t(`ingredient.${id}`), amount: formatAmount(id, amounts[id]) })),
-    }))
-    .filter((group) => group.items.length > 0);
+      items: createItems(ids.filter((id) => INGREDIENTS[id].category === category)),
+    }));
+  return groups.filter((group) => group.items.length > 0);
 }
 
 /**
  * Creates one tickable shopping list row.
- * @param {{name: string, amount: string}} item The product and its amount.
+ * @param {{id: string, name: string, amount: string}} item The product and its amount.
  * @returns {HTMLLIElement} The list row.
  */
 function createShoppingItem(item) {
   const checkbox = document.createElement("input");
   checkbox.type = "checkbox";
+  checkbox.dataset.id = item.id;
+  checkbox.checked = checkedShoppingItems.has(item.id);
+  checkbox.addEventListener("change", () => {
+    if (checkbox.checked) {
+      checkedShoppingItems.add(item.id);
+    } else {
+      checkedShoppingItems.delete(item.id);
+    }
+    renderShoppingList();
+  });
 
   const label = createElement("label", "shopping-item");
   label.append(
@@ -558,7 +637,7 @@ function createShoppingItem(item) {
 /** Renders the shopping list for the selected number of days, starting now. */
 function renderShoppingList() {
   const position = weekPosition(new Date());
-  const { mealCount, amounts } = getShoppingList(position, shoppingDays);
+  const { mealCount, amounts } = getShoppingList(position, shoppingDays, useSushiAlternative);
   const groups = groupShoppingItems(amounts);
 
   document.getElementById("shopping-summary").textContent = t("shopping.summary", {
@@ -567,12 +646,23 @@ function renderShoppingList() {
     meals: String(mealCount),
   });
 
-  document.getElementById("shopping-list").replaceChildren(...groups.map((group) => {
+  const products = Object.keys(amounts);
+  const inBasket = products.filter((id) => checkedShoppingItems.has(id)).length;
+  document.getElementById("shopping-basket").textContent = products.length > 0 && groups.length === 0
+    ? t("shopping.basketDone")
+    : t("shopping.basketCount", { count: String(inBasket), total: String(products.length) });
+
+  const container = document.getElementById("shopping-list");
+  container.classList.toggle("is-flat", shoppingLayout === "flat");
+  container.replaceChildren(...groups.map((group) => {
     const list = createElement("ul", "shopping-items");
     list.append(...group.items.map(createShoppingItem));
 
     const section = createElement("section", "shopping-group");
-    section.append(createElement("h3", "", t(`category.${group.category}`)), list);
+    if (group.category) {
+      section.append(createElement("h3", "", t(`category.${group.category}`)));
+    }
+    section.append(list);
     return section;
   }));
 }
@@ -582,17 +672,22 @@ function renderShoppingList() {
  * @param {boolean} checked The new state.
  */
 function setAllShoppingItems(checked) {
-  for (const checkbox of document.querySelectorAll("#shopping-list input[type='checkbox']")) {
-    checkbox.checked = checked;
+  if (checked) {
+    for (const checkbox of document.querySelectorAll("#shopping-list input[type='checkbox']")) {
+      checkedShoppingItems.add(checkbox.dataset.id);
+    }
+  } else {
+    checkedShoppingItems.clear();
   }
+  renderShoppingList();
 }
 
 /** Copies the shopping list as plain text. */
 async function copyShoppingList() {
-  const { amounts } = getShoppingList(weekPosition(new Date()), shoppingDays);
+  const { amounts } = getShoppingList(weekPosition(new Date()), shoppingDays, useSushiAlternative);
   const text = groupShoppingItems(amounts)
     .map((group) => [
-      t(`category.${group.category}`),
+      ...(group.category ? [t(`category.${group.category}`)] : []),
       ...group.items.map((item) => `- ${item.name}: ${item.amount}`),
     ].join("\n"))
     .join("\n\n");
@@ -644,6 +739,10 @@ function renderNowMarkers(position, nextMealPosition) {
     const mealPosition = Number(item.dataset.position);
     item.classList.toggle("is-past", mealPosition <= position);
     item.classList.toggle("is-next", mealPosition === nextMealPosition);
+  }
+  for (const item of document.querySelectorAll(".period-item")) {
+    const start = Number(item.dataset.start);
+    item.classList.toggle("is-current", hoursUntil(start, position) < hoursUntil(start, Number(item.dataset.end)));
   }
   for (const row of document.querySelectorAll(".hour-row")) {
     const currentHour = Math.floor(position);
@@ -715,6 +814,7 @@ function renderTranslated() {
   renderShoppingList();
   renderHoursToggles();
   renderMeasurements();
+  renderSetTimer();
   renderNow();
   renderThemeToggle();
 }
@@ -742,6 +842,7 @@ function showCurrentView() {
 
 await initI18n();
 initMeasurements();
+initSetTimer();
 renderTranslated();
 showCurrentView();
 
