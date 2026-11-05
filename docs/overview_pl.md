@@ -7,9 +7,9 @@ marcom-cadence to osobista aplikacja do planowania postów i okien jedzenia, pro
 Aplikacja ma menu nawigacji z sześcioma widokami:
 
 - **Dziś:** aktualny stan z postępem, odliczanie na żywo do końca postu lub następnego postu, następnego posiłku i następnego treningu, oś tygodnia oraz dzisiejsze posiłki z oznaczeniem minionych i następnego.
-- **Tydzień:** oś tygodnia i lista okresów postu i jedzenia.
+- **Tydzień:** oś tygodnia i lista okresów postu i jedzenia. Okresy jedzenia rozwijają się do kalendarza godzin tego okresu, z osobną sekcją na każdy dzień.
 - **Dieta:** wybór dnia i wybrany dzień jako kalendarz z wierszami godzin, z posiłkami, treningami oraz początkami i końcami postów w ich godzinach. Kilka pustych godzin z rzędu zwija się do jednego krótkiego wiersza, a przycisk pokazuje zamiast tego wszystkie godziny. Wybór jest zapamiętywany w przeglądarce. Godziny postu i treningu są zacieniowane, a bieżąca godzina zaznaczona. Posiłki mają szacunkowe kalorie i makroskładniki oraz rozwijany przepis.
-- **Zakupy:** lista zakupów na najbliższe 1 do 14 dni, liczona od teraz, zsumowana z zaplanowanych posiłków i pogrupowana według kategorii. Pozycje można odhaczać, a listę skopiować. Lista nie obejmuje przypraw, a odhaczenia nie są zapisywane.
+- **Zakupy:** lista zakupów na najbliższe 1 do 14 dni, liczona od teraz, zsumowana z zaplanowanych posiłków i pogrupowana według kategorii. Pozycje można odhaczać pojedynczo lub wszystkie naraz, a listę skopiować albo wydrukować na A4. Lista nie obejmuje przypraw, a odhaczenia nie są zapisywane.
 - **Treningi:** miejsce na dziennik treningów.
 - **Pomiary:** rysunkowa postać z punktami pomiarowymi i ostatnimi wartościami, formularz zapisu pomiarów według daty, zmiany od pierwszego wpisu i historia. Ponowny zapis tej samej daty łączy wartości.
 

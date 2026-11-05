@@ -7,9 +7,9 @@ marcom-cadence is a personal app for fasting and eating windows, a diet plan and
 The app has a navigation menu with six views:
 
 - **Today:** current status with progress, live countdowns to the end of the fast or the next fast, the next meal and the next training, the week timeline and today's meals with past and next meals marked.
-- **Week:** the week timeline and the list of fasting and eating periods.
+- **Week:** the week timeline and the list of fasting and eating periods. Eating periods expand into an hour calendar of that period, one section per day.
 - **Diet:** a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe.
-- **Shopping:** a shopping list for the next 1 to 14 days, counted from now, summed from the planned meals and grouped by category. Items can be ticked and the list can be copied. Spices are not included, and ticks are not saved.
+- **Shopping:** a shopping list for the next 1 to 14 days, counted from now, summed from the planned meals and grouped by category. Items can be ticked one by one or all at once, and the list can be copied or printed on A4. Spices are not included, and ticks are not saved.
 - **Training:** placeholder for the training log.
 - **Measurements:** a cartoon figure with measuring points and latest values, a form for saving measurements by date, changes since the first entry, and history. Saving the same date again merges the values.
 

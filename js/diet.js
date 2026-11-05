@@ -181,8 +181,8 @@ export const DIET_DAYS = [
       { time: 12, key: "chickenCurry" },
       { time: 16, key: "sushi" },
       { time: 17.5, key: "bananaToast" },
-      { time: 21.75, key: "roastChickenPotatoes" },
-      { time: 22.25, key: "skyrFruitLarge", sweet: true },
+      { time: 22, key: "roastChickenPotatoes" },
+      { time: 22.5, key: "skyrFruitLarge", sweet: true },
     ],
   },
   {
@@ -207,7 +207,7 @@ export const DIET_DAYS = [
       { time: 14.5, key: "hamApple" },
       { time: 16, key: "hamSandwichesBanana" },
       { time: 18, key: "riceCakesJam" },
-      { time: 22.25, key: "skyrOatsFruit", sweet: true },
+      { time: 22.5, key: "skyrOatsFruit", sweet: true },
     ],
   },
   {

@@ -603,15 +603,49 @@ h2 {
   list-style: none;
 }
 
+.period-item {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
 .period {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr) auto;
   align-items: center;
   gap: 4px 14px;
   padding: 12px 14px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface);
+}
+
+.period-summary {
+  grid-template-columns: 72px minmax(0, 1fr) auto 16px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.period-summary::-webkit-details-marker {
+  display: none;
+}
+
+.period-chevron {
+  color: var(--muted);
+  text-align: center;
+}
+
+.period-details[open] .period-chevron {
+  rotate: 90deg;
+}
+
+.period-hours {
+  display: grid;
+  gap: 6px;
+  padding: 0 14px 14px;
+}
+
+.period-day {
+  margin: 8px 0 0;
+  font-size: 15px;
 }
 
 .period-kind {
@@ -748,8 +782,10 @@ h2 {
   text-decoration: line-through;
 }
 
-.shopping-copy {
-  justify-self: start;
+.shopping-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
 }
 
 .diet-summary {
@@ -823,8 +859,60 @@ h2 {
     grid-template-columns: 72px minmax(0, 1fr);
   }
 
+  .period-summary {
+    grid-template-columns: 72px minmax(0, 1fr) 16px;
+  }
+
   .period-note {
     grid-column: 2;
+    grid-row: 2;
     text-align: left;
+  }
+
+  .period-chevron {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+/* Printed pages are always black on white, whatever theme is on screen. */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+@media print {
+  :root:root:root {
+    --bg: #ffffff;
+    --surface: #ffffff;
+    --fg: #000000;
+    --muted: #333333;
+    --line: #999999;
+    color-scheme: light;
+  }
+
+  body {
+    font-size: 12pt;
+  }
+
+  .wrap {
+    max-width: none;
+    padding: 0;
+  }
+
+  .topbar,
+  .shopping-controls,
+  .shopping-actions {
+    display: none;
+  }
+
+  .shopping-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .shopping-group {
+    padding: 8px 10px;
+    break-inside: avoid;
   }
 }

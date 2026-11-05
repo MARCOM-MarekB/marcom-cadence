@@ -61,6 +61,7 @@ function toggleAllHours() {
     // The choice still applies until the page is closed.
   }
   renderDietDay();
+  renderPeriods();
   renderedTodayIndex = null;
   renderHoursToggles();
   renderNow();
@@ -305,9 +306,11 @@ function createMealItem(meal, dayIndex) {
 /**
  * Creates one day as a list of 24 hour rows, with meals, trainings, and fast starts and ends in their hours.
  * @param {number} dayIndex Day of the week, where 0 is Monday.
+ * @param {number} [fromHour] First hour to show.
+ * @param {number} [toHour] Last hour to show.
  * @returns {HTMLOListElement} The hour list.
  */
-function createAgenda(dayIndex) {
+function createAgenda(dayIndex, fromHour = 0, toHour = 23) {
   const dayStart = dayIndex * 24;
   const isToday = (position) => position >= dayStart && position < dayStart + 24;
 
@@ -351,10 +354,16 @@ function createAgenda(dayIndex) {
   });
 
   const hours = createElement("ol", "hours");
-  for (let hour = 0; hour < 24; hour += 1) {
+  for (let hour = fromHour; hour <= toHour; hour += 1) {
     const details = hourDetails[hour];
     let lastHour = hour;
-    while (!showAllHours && details.isEmpty && hourDetails[lastHour + 1]?.isEmpty && hourDetails[lastHour + 1].isFast === details.isFast) {
+    while (
+      !showAllHours
+      && details.isEmpty
+      && lastHour < toHour
+      && hourDetails[lastHour + 1].isEmpty
+      && hourDetails[lastHour + 1].isFast === details.isFast
+    ) {
       lastHour += 1;
     }
     hours.append(createHourRow(dayStart, hour, lastHour, details));
@@ -432,8 +441,7 @@ function createDietDay(dayIndex) {
  * @returns {HTMLLIElement} The list row.
  */
 function createPeriodRow(period) {
-  const row = document.createElement("li");
-  row.className = period.isFast ? "period is-fast" : "period";
+  const row = createElement(period.isFast ? "div" : "summary", period.isFast ? "period is-fast" : "period period-summary");
 
   const kind = document.createElement("span");
   kind.className = "period-kind";
@@ -451,7 +459,46 @@ function createPeriodRow(period) {
   note.textContent = training ? t("period.training", { time: formatPosition(training.start) }) : "";
 
   row.append(kind, when, note);
-  return row;
+
+  const item = createElement("li", "period-item");
+  if (period.isFast) {
+    item.append(row);
+    return item;
+  }
+
+  row.append(createElement("span", "period-chevron", "▸"));
+  const details = createElement("details", "period-details");
+  details.append(row, createPeriodHours(period));
+  item.append(details);
+  return item;
+}
+
+/**
+ * Creates the hour calendar of an eating period, one section for each day it touches.
+ * The last hour is included, because the last meal is eaten when the next fast starts.
+ * @param {{start: number, end: number}} period The eating period.
+ * @returns {HTMLDivElement} The calendar.
+ */
+function createPeriodHours(period) {
+  const firstDay = Math.floor(period.start / 24);
+  const end = period.start + hoursUntil(period.start, period.end);
+  const calendar = createElement("div", "period-hours");
+
+  for (let day = firstDay; day * 24 < end; day += 1) {
+    const dayIndex = day % 7;
+    const fromHour = Math.max(Math.floor(period.start - day * 24), 0);
+    const toHour = Math.min(Math.floor(end - day * 24), 23);
+    calendar.append(
+      createElement("h3", "period-day", t("daysLong")[dayIndex]),
+      createAgenda(dayIndex, fromHour, toHour),
+    );
+  }
+  return calendar;
+}
+
+/** Renders the fasting and eating periods of the week. */
+function renderPeriods() {
+  document.getElementById("periods").replaceChildren(...getPeriods().map(createPeriodRow));
 }
 
 /** Renders the day buttons of the shopping list. */
@@ -530,6 +577,16 @@ function renderShoppingList() {
   }));
 }
 
+/**
+ * Ticks or unticks every item on the shopping list.
+ * @param {boolean} checked The new state.
+ */
+function setAllShoppingItems(checked) {
+  for (const checkbox of document.querySelectorAll("#shopping-list input[type='checkbox']")) {
+    checkbox.checked = checked;
+  }
+}
+
 /** Copies the shopping list as plain text. */
 async function copyShoppingList() {
   const { amounts } = getShoppingList(weekPosition(new Date()), shoppingDays);
@@ -555,7 +612,7 @@ function renderContent() {
   for (const container of document.querySelectorAll("[data-week-bar]")) {
     container.replaceChildren(createWeekTimeline());
   }
-  document.getElementById("periods").replaceChildren(...getPeriods().map(createPeriodRow));
+  renderPeriods();
   renderDietDay();
   document.getElementById("diet-week-total").textContent = t("diet.weekTotal", { macros: formatMacros(getWeekTotals()) });
   renderedTodayIndex = null;
@@ -694,6 +751,9 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
   renderThemeToggle();
 });
 document.getElementById("shopping-copy").addEventListener("click", copyShoppingList);
+document.getElementById("shopping-check-all").addEventListener("click", () => setAllShoppingItems(true));
+document.getElementById("shopping-uncheck-all").addEventListener("click", () => setAllShoppingItems(false));
+document.getElementById("shopping-print").addEventListener("click", () => window.print());
 for (const button of document.querySelectorAll("[data-hours-toggle]")) {
   button.addEventListener("click", toggleAllHours);
 }

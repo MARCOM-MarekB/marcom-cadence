@@ -59,6 +59,7 @@
       <section class="view" data-view="week" hidden>
         <h2 data-i18n="week.title"></h2>
         <div data-week-bar></div>
+        <button class="control hours-toggle" type="button" data-hours-toggle></button>
         <ul class="periods" id="periods"></ul>
       </section>
 
@@ -84,7 +85,12 @@
           <p class="empty" data-i18n="shopping.spices"></p>
         </div>
         <div class="shopping-list" id="shopping-list"></div>
-        <button class="control shopping-copy" id="shopping-copy" type="button" data-i18n="shopping.copy"></button>
+        <div class="shopping-actions">
+          <button class="control" id="shopping-check-all" type="button" data-i18n="shopping.checkAll"></button>
+          <button class="control" id="shopping-uncheck-all" type="button" data-i18n="shopping.uncheckAll"></button>
+          <button class="control" id="shopping-copy" type="button" data-i18n="shopping.copy"></button>
+          <button class="control" id="shopping-print" type="button" data-i18n="shopping.print"></button>
+        </div>
       </section>
 
       <section class="view" data-view="training" hidden>
