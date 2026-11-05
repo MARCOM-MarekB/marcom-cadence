@@ -1,0 +1,16 @@
+# Dependencies and tool caches
+node_modules/
+.supabase/
+
+# Local secrets and settings
+.env
+.env.*
+
+# Logs
+*.log
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
