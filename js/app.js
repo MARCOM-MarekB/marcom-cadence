@@ -1,5 +1,5 @@
+import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
 import {
-  DAY_NAMES,
   FASTS,
   HOURS_PER_WEEK,
   TRAININGS,
@@ -8,8 +8,10 @@ import {
   getStatus,
   weekPosition,
 } from "./schedule.js";
+import { getTheme, toggleTheme } from "./theme.js";
 
 const REFRESH_INTERVAL_MS = 60_000;
+const DEFAULT_VIEW = "today";
 
 /**
  * Formats a week position as a day and time.
@@ -21,7 +23,7 @@ function formatPosition(position) {
   const hourOfDay = position - dayIndex * 24;
   const hours = Math.floor(hourOfDay);
   const minutes = Math.round((hourOfDay - hours) * 60);
-  return `${DAY_NAMES[dayIndex]} ${hours}:${String(minutes).padStart(2, "0")}`;
+  return `${t("days")[dayIndex]} ${hours}:${String(minutes).padStart(2, "0")}`;
 }
 
 /**
@@ -51,17 +53,8 @@ function createBarPart(className, start, end) {
   return part;
 }
 
-/** Renders the parts of the page that do not change during the week. */
-function renderWeek() {
-  const labels = document.getElementById("day-labels");
-  labels.replaceChildren(
-    ...DAY_NAMES.map((name) => {
-      const label = document.createElement("span");
-      label.textContent = name;
-      return label;
-    }),
-  );
-
+/** Draws the fasting and training parts of the week bar once. */
+function renderBar() {
   const bar = document.getElementById("week-bar");
   for (const fast of FASTS) {
     if (fast.start < fast.end) {
@@ -79,9 +72,6 @@ function renderWeek() {
   nowMarker.id = "now-marker";
   nowMarker.className = "bar-part bar-now";
   bar.append(nowMarker);
-
-  const periods = document.getElementById("periods");
-  periods.replaceChildren(...getPeriods().map(createPeriodRow));
 }
 
 /**
@@ -95,7 +85,7 @@ function createPeriodRow(period) {
 
   const kind = document.createElement("span");
   kind.className = "period-kind";
-  kind.textContent = period.isFast ? "Fast" : "Eat";
+  kind.textContent = t(period.isFast ? "period.fast" : "period.eat");
 
   const when = document.createElement("span");
   when.className = "period-when";
@@ -106,10 +96,22 @@ function createPeriodRow(period) {
   const training = TRAININGS.find(
     (session) => !period.isFast && session.start >= period.start && session.end <= period.end,
   );
-  note.textContent = training ? `Training ${formatPosition(training.start)}` : "";
+  note.textContent = training ? t("period.training", { time: formatPosition(training.start) }) : "";
 
   row.append(kind, when, note);
   return row;
+}
+
+/** Renders the translated day names and period list. */
+function renderLabels() {
+  document.getElementById("day-labels").replaceChildren(
+    ...t("days").map((name) => {
+      const label = document.createElement("span");
+      label.textContent = name;
+      return label;
+    }),
+  );
+  document.getElementById("periods").replaceChildren(...getPeriods().map(createPeriodRow));
 }
 
 /** Updates the status panel and the current time marker. */
@@ -117,17 +119,61 @@ function renderNow() {
   const position = weekPosition(new Date());
   const status = getStatus(position);
   const training = getNextTraining(position);
+  const duration = formatDuration(status.hoursToChange);
 
   document.getElementById("status").classList.toggle("is-fasting", status.isFasting);
-  document.getElementById("status-state").textContent = status.isFasting ? "Fasting" : "Eating window";
-  document.getElementById("status-detail").textContent = status.isFasting
-    ? `Ends in ${formatDuration(status.hoursToChange)}`
-    : `Next fast in ${formatDuration(status.hoursToChange)}`;
-  document.getElementById("status-training").textContent =
-    `Next training: ${formatPosition(training.start)}`;
+  document.getElementById("status-state").textContent = t(status.isFasting ? "status.fasting" : "status.eating");
+  document.getElementById("status-detail").textContent = t(status.isFasting ? "status.fastEnds" : "status.nextFast", { duration });
+  document.getElementById("status-training").textContent = t("status.nextTraining", { time: formatPosition(training.start) });
   document.getElementById("now-marker").style.left = `${(position / HOURS_PER_WEEK) * 100}%`;
 }
 
-renderWeek();
-renderNow();
+/** Updates the theme button to offer the other theme. */
+function renderThemeToggle() {
+  const isDark = getTheme() === "dark";
+  const button = document.getElementById("theme-toggle");
+  button.textContent = t(isDark ? "theme.toLight" : "theme.toDark");
+  button.setAttribute("aria-label", t(isDark ? "theme.toLightLabel" : "theme.toDarkLabel"));
+}
+
+/** Renders everything that depends on the language. */
+function renderTranslated() {
+  applyTranslations();
+  renderLabels();
+  renderNow();
+  renderThemeToggle();
+}
+
+/** Shows the view named in the address and marks its menu item. */
+function showCurrentView() {
+  const requested = location.hash.slice(1);
+  const views = [...document.querySelectorAll("[data-view]")];
+  const current = views.some((view) => view.dataset.view === requested) ? requested : DEFAULT_VIEW;
+
+  for (const view of views) {
+    view.hidden = view.dataset.view !== current;
+  }
+  for (const link of document.querySelectorAll("[data-view-link]")) {
+    if (link.dataset.viewLink === current) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  }
+}
+
+await initI18n();
+renderBar();
+renderTranslated();
+showCurrentView();
+
+window.addEventListener("hashchange", showCurrentView);
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  toggleTheme();
+  renderThemeToggle();
+});
+document.getElementById("language-toggle").addEventListener("click", async () => {
+  await toggleLanguage();
+  renderTranslated();
+});
 setInterval(renderNow, REFRESH_INTERVAL_MS);

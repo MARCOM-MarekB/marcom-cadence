@@ -6,32 +6,58 @@
   <meta name="theme-color" content="#37436f">
   <title>Cadence</title>
   <link rel="stylesheet" href="css/app.css">
+  <script src="js/theme-init.js"></script>
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
-  <main class="wrap">
-    <header>
-      <h1>Cadence</h1>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="#today">Cadence</a>
+      <nav class="nav" data-i18n-aria-label="nav.label">
+        <a href="#today" data-view-link="today" data-i18n="nav.today"></a>
+        <a href="#week" data-view-link="week" data-i18n="nav.week"></a>
+        <a href="#diet" data-view-link="diet" data-i18n="nav.diet"></a>
+        <a href="#training" data-view-link="training" data-i18n="nav.training"></a>
+      </nav>
+      <div class="controls">
+        <button class="control" id="language-toggle" type="button" data-i18n="language.switch" data-i18n-aria-label="language.switchLabel"></button>
+        <button class="control" id="theme-toggle" type="button"></button>
+      </div>
     </header>
 
-    <section class="status" id="status" aria-live="polite">
-      <p class="status-state" id="status-state">Loading</p>
-      <p class="status-detail" id="status-detail"></p>
-      <p class="status-training" id="status-training"></p>
-    </section>
+    <main>
+      <section class="view" data-view="today" hidden>
+        <div class="status" id="status" aria-live="polite">
+          <p class="status-state" id="status-state"></p>
+          <p class="status-detail" id="status-detail"></p>
+          <p class="status-training" id="status-training"></p>
+        </div>
+      </section>
 
-    <section class="week" aria-labelledby="week-heading">
-      <h2 id="week-heading">This week</h2>
-      <div class="day-labels" id="day-labels" aria-hidden="true"></div>
-      <div class="bar" id="week-bar" aria-hidden="true"></div>
-      <div class="legend" aria-hidden="true">
-        <span><i class="swatch swatch-fast"></i>Fast</span>
-        <span><i class="swatch swatch-eat"></i>Eat</span>
-        <span><i class="swatch swatch-training"></i>Training</span>
-      </div>
-    </section>
+      <section class="view" data-view="week" hidden>
+        <h2 data-i18n="week.title"></h2>
+        <div class="week">
+          <div class="day-labels" id="day-labels" aria-hidden="true"></div>
+          <div class="bar" id="week-bar" aria-hidden="true"></div>
+          <div class="legend" aria-hidden="true">
+            <span><i class="swatch swatch-fast"></i><span data-i18n="legend.fast"></span></span>
+            <span><i class="swatch swatch-eat"></i><span data-i18n="legend.eat"></span></span>
+            <span><i class="swatch swatch-training"></i><span data-i18n="legend.training"></span></span>
+          </div>
+        </div>
+        <ul class="periods" id="periods"></ul>
+      </section>
 
-    <ul class="periods" id="periods"></ul>
-  </main>
+      <section class="view" data-view="diet" hidden>
+        <h2 data-i18n="diet.title"></h2>
+        <p class="empty" data-i18n="diet.empty"></p>
+      </section>
+
+      <section class="view" data-view="training" hidden>
+        <h2 data-i18n="training.title"></h2>
+        <p class="empty" data-i18n="training.empty"></p>
+      </section>
+    </main>
+  </div>
 </body>
 </html>

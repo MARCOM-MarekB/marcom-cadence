@@ -1,9 +1,6 @@
 /** Hours in one week. */
 export const HOURS_PER_WEEK = 168;
 
-/** Short day names, starting on Monday. */
-export const DAY_NAMES = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-
 /**
  * Converts a day and time to hours since Monday 00:00.
  * @param {number} dayIndex Day of the week, where 0 is Monday.
