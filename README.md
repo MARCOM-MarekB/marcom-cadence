@@ -9,8 +9,10 @@ Plain HTML, CSS and JavaScript with no build step, hosted on GitHub Pages. Perso
 JavaScript modules do not load from `file://`, so serve the folder over HTTP:
 
 ```
-npx serve .
+npm start
 ```
+
+The app runs at http://localhost:3100. Stop it with `Ctrl+C`.
 
 ## Deploy
 

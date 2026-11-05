@@ -28,6 +28,7 @@ The weekly schedule is fixed in code. There is no login or saved personal data y
 | `js/theme.js` | Theme switching |
 | `js/theme-init.js` | Applies the saved theme before the page is drawn |
 | `.nojekyll` | Tells GitHub Pages to publish the files as they are |
+| `package.json` | `npm start` for local serving on port 3100; the app itself has no dependencies |
 
 ## Technical decisions
 

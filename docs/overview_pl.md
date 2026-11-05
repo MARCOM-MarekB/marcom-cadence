@@ -28,6 +28,7 @@ Harmonogram tygodnia jest zapisany w kodzie. Nie ma jeszcze logowania ani zapisy
 | `js/theme.js` | Przełączanie motywu |
 | `js/theme-init.js` | Ustawia zapisany motyw przed narysowaniem strony |
 | `.nojekyll` | Każe GitHub Pages publikować pliki bez przetwarzania |
+| `package.json` | `npm start` do lokalnego uruchamiania na porcie 3100; sama aplikacja nie ma zależności |
 
 ## Decyzje techniczne
 
