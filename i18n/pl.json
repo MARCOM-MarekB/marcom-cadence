@@ -10,12 +10,21 @@
   "theme.toLightLabel": "Przełącz na tryb jasny",
   "language.switch": "EN",
   "language.switchLabel": "Switch language to English",
-  "days": ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Nd"],
+  "days": [
+    "Pon",
+    "Wt",
+    "Śr",
+    "Czw",
+    "Pt",
+    "Sob",
+    "Nd"
+  ],
   "status.fasting": "Post",
   "status.eating": "Okno jedzenia",
-  "status.fastEnds": "Koniec za {duration}",
-  "status.nextFast": "Następny post za {duration}",
-  "status.nextTraining": "Następny trening: {time}",
+  "timer.fastEnds": "Koniec postu za",
+  "timer.nextFast": "Następny post za",
+  "timer.nextMeal": "Następny posiłek za",
+  "timer.nextTraining": "Następny trening za",
   "week.title": "Ten tydzień",
   "legend.fast": "Post",
   "legend.eat": "Jedzenie",
@@ -23,8 +32,300 @@
   "period.fast": "Post",
   "period.eat": "Jem",
   "period.training": "Trening {time}",
+  "now": "Teraz",
+  "nav.measurements": "Pomiary",
+  "measurements.title": "Pomiary ciała",
+  "measurements.figureLabel": "Postać z punktami pomiarowymi",
+  "measurements.date": "Data",
+  "measurements.save": "Zapisz pomiary",
+  "measurements.saved": "Zapisano",
+  "measurements.saveFailed": "Nie udało się zapisać w tej przeglądarce",
+  "measurements.nothingToSave": "Wypełnij co najmniej jeden pomiar",
+  "measurements.privacy": "Pomiary są zapisywane tylko w tej przeglądarce, więc nie synchronizują się między urządzeniami. Ostatnie wartości są pokazane ze zmianą od pierwszego wpisu.",
+  "measurements.history": "Historia",
+  "measurements.empty": "Nie ma jeszcze pomiarów.",
+  "measurements.delete": "Usuń",
+  "measure.weight": "Waga",
+  "measure.neck": "Szyja",
+  "measure.chest": "Klatka",
+  "measure.biceps": "Biceps",
+  "measure.waist": "Pas",
+  "measure.hips": "Biodra",
+  "measure.thigh": "Udo",
+  "measure.calf": "Łydka",
+  "hours.showAll": "Pokaż wszystkie godziny",
+  "hours.showEntries": "Pokaż tylko godziny z wpisami",
+  "daysLong": [
+    "Poniedziałek",
+    "Wtorek",
+    "Środa",
+    "Czwartek",
+    "Piątek",
+    "Sobota",
+    "Niedziela"
+  ],
   "diet.title": "Dieta",
-  "diet.empty": "Tutaj pojawi się Twój jadłospis.",
+  "diet.macros": "{kcal} kcal, białko {protein} g, węglowodany {carbs} g, tłuszcz {fat} g",
+  "diet.mealKcal": "{kcal} kcal",
+  "diet.weekTotal": "Suma tygodnia: {macros}",
+  "diet.estimate": "Wszystkie wartości są szacunkowe. Kliknij posiłek, aby zobaczyć przepis.",
+  "diet.ingredients": "Składniki",
+  "diet.steps": "Przygotowanie",
+  "diet.sweet": "+ słodkie, około 200 kcal: 3-4 kostki czekolady, mały baton albo gałka lodów",
+  "meal.chickenCurry": "Kurczak curry z żółtą papryką i kuskusem",
+  "meal.sushi": "Sushi z łososiem, 1 rolka",
+  "meal.bananaToast": "Banan i kromka chleba z dżemem",
+  "meal.roastChickenPotatoes": "Pieczone udko, ziemniaki i surówka",
+  "meal.skyrFruit": "Skyr z owocami",
+  "meal.eggsRye": "3 jajka i 2 kromki chleba żytniego",
+  "meal.skyrBowl": "Skyr z masłem orzechowym i dżemem",
+  "meal.turkeyPotatoes": "Indyk w sosie, ziemniaki i kapusta",
+  "meal.appleSandwich": "Kanapka z szynką, jabłko i skyr",
+  "meal.salmonGroats": "Pieczony łosoś, kasza gryczana i brokuły",
+  "meal.oatmeal": "Owsianka na mleku z pestkami dyni i skyrem",
+  "meal.skyrBowlFruit": "Skyr z masłem orzechowym, dżemem i owocem",
+  "meal.eggSandwiches": "Kanapki z 2 jajkami",
+  "meal.roastChickenBulgur": "Pieczone udko, bulgur i szpinak",
+  "meal.hamSandwichesBanana": "Kanapki z szynką i banan",
+  "meal.riceCakesJam": "Wafle ryżowe z dżemem",
+  "meal.skyrOatsFruit": "Skyr z płatkami, owocem i miodem",
+  "meal.eggsBread": "Jajka na twardo i 3 kromki chleba",
+  "meal.sushiOrSalmon": "Sushi z łososiem, 1 rolka, albo łosoś z ryżem i szpinakiem, plus skyr",
+  "meal.hungarianStew": "Kociołek węgierski z chlebem",
+  "meal.salmonTortilla": "Tortille z wędzonym łososiem",
+  "meal.scrambledEggs": "Jajecznica i chleb",
+  "meal.chickenSpinachPasta": "Potrawka ze szpinakiem, kurczakiem i fetą, makaron razowy",
+  "recipes": {
+    "sushi": {
+      "steps": [
+        "Kup albo zamów. Wybieraj rolki z łososiem i nigiri, a rolki z majonezem ogranicz."
+      ]
+    },
+    "bananaToast": {
+      "steps": [
+        "Posmaruj chleb dżemem i zjedz z bananem."
+      ]
+    },
+    "roastChickenPotatoes": {
+      "steps": [
+        "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego.",
+        "Ugotuj ziemniaki w osolonej wodzie, około 20 minut.",
+        "Wymieszaj kapustę i marchewkę z oliwą, sokiem z cytryny i solą."
+      ],
+      "seasoning": "Sok z cytryny, sól, pieprz, słodka papryka"
+    },
+    "skyrFruit": {
+      "steps": [
+        "Wyłóż skyr do miski i dodaj owoce. Skyr to gęsty, chudy jogurt typu islandzkiego z dużą ilością białka, dostępny w większości supermarketów."
+      ]
+    },
+    "eggsRye": {
+      "steps": [
+        "Ugotuj jajka, 8 minut.",
+        "Posmaruj chleb masłem i podaj z jajkami i warzywami."
+      ]
+    },
+    "skyrBowl": {
+      "steps": [
+        "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe i dżem."
+      ]
+    },
+    "turkeyPotatoes": {
+      "steps": [
+        "Rozbij filet, dopraw solą, pieprzem i czosnkiem, a potem obsmaż z obu stron na 10 g oliwy.",
+        "Przełóż do garnka z gotującym się bulionem. Na patelni podsmaż cebulę w kostkę i startą marchewkę, 3 minuty, i dodaj do garnka.",
+        "Dodaj paprykę w proszku i zioła, przykryj i gotuj 20 minut.",
+        "Wmieszaj śmietankę, zagęść mąką i gotuj 3 minuty.",
+        "Osobno ugotuj ziemniaki i kapustę. Kapustę polej 5 g oliwy."
+      ],
+      "seasoning": "Papryka w proszku, zioła prowansalskie, sól, pieprz"
+    },
+    "appleSandwich": {
+      "steps": [
+        "Zrób kanapkę i zjedz z jabłkiem i skyrem."
+      ]
+    },
+    "salmonGroats": {
+      "steps": [
+        "Dopraw łososia i piecz w 200°C przez 15 minut.",
+        "Ugotuj kaszę według opakowania.",
+        "Ugotuj brokuły na parze, 5-7 minut."
+      ],
+      "seasoning": "Cytryna, sól, pieprz"
+    },
+    "oatmeal": {
+      "steps": [
+        "Gotuj płatki w mleku 5 minut, mieszając.",
+        "Zdejmij z ognia, wmieszaj skyr i posyp pestkami."
+      ]
+    },
+    "skyrBowlFruit": {
+      "steps": [
+        "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe, dżem i owoce."
+      ]
+    },
+    "eggSandwiches": {
+      "steps": [
+        "Ugotuj jajka, 8 minut, i pokrój w plastry.",
+        "Posmaruj chleb masłem i ułóż jajka z warzywami."
+      ]
+    },
+    "roastChickenBulgur": {
+      "steps": [
+        "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego.",
+        "Ugotuj bulgur według opakowania.",
+        "Krótko podsmaż czosnek na oliwie i duś szpinak 2-3 minuty."
+      ],
+      "seasoning": "Sól, pieprz, słodka papryka"
+    },
+    "hamSandwichesBanana": {
+      "steps": [
+        "Zrób kanapki z szynką i pomidorem i zjedz z bananem."
+      ]
+    },
+    "riceCakesJam": {
+      "steps": [
+        "Posmaruj wafle dżemem."
+      ]
+    },
+    "skyrOatsFruit": {
+      "steps": [
+        "Wymieszaj skyr z płatkami i miodem, a na wierzch dodaj owoce."
+      ]
+    },
+    "eggsBread": {
+      "steps": [
+        "Ugotuj jajka, 8 minut.",
+        "Posmaruj chleb masłem i podaj z jajkami i warzywami."
+      ]
+    },
+    "sushiOrSalmon": {
+      "steps": [
+        "Kup sushi. Zamiennik: upiecz 150 g łososia w 200°C przez 15 minut i podaj z ugotowanym ryżem (80 g suchego) i 150 g szpinaku podduszonego na 5 g oliwy.",
+        "Skyr zjedz jako dodatek."
+      ]
+    },
+    "hungarianStew": {
+      "steps": [
+        "Pokrój w kostkę indyka, cebulę, paprykę i ziemniaki, a pieczarki w plasterki.",
+        "Duś indyka z cebulą na oliwie 5 minut. Dodaj pieczarki i paprykę i duś 10 minut.",
+        "Dodaj pomidory, ziemniaki i bulion i gotuj 25 minut.",
+        "Dopraw, posyp natką i podaj z chlebem."
+      ],
+      "seasoning": "Natka pietruszki, sól, pieprz, chili"
+    },
+    "salmonTortilla": {
+      "steps": [
+        "Wymieszaj jogurt z sokiem z cytryny, koperkiem i pieprzem.",
+        "Posmaruj tortille, dodaj łososia i warzywa, a potem zwiń."
+      ],
+      "seasoning": "Cytryna, koperek, pieprz"
+    },
+    "scrambledEggs": {
+      "steps": [
+        "Roztrzep jajka z solą i pieprzem.",
+        "Rozpuść masło na patelni i delikatnie mieszaj jajka na małym ogniu, aż się zetną.",
+        "Podaj ze szczypiorkiem, chlebem i pomidorem."
+      ],
+      "seasoning": "Szczypiorek, sól, pieprz"
+    },
+    "chickenSpinachPasta": {
+      "steps": [
+        "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut.",
+        "Dodaj cebulę i czosnek w kostkę i duś 5 minut.",
+        "Dodaj szpinak i duś 10 minut. Na koniec wmieszaj fetę i przyprawy.",
+        "Ugotuj makaron według opakowania i podaj razem."
+      ],
+      "seasoning": "Sól, pieprz, bazylia"
+    },
+    "chickenCurry": {
+      "steps": [
+        "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut.",
+        "Dodaj pokrojoną cebulę i paprykę, posyp przyprawami i podlej 80 ml wody.",
+        "Duś 10-15 minut, a potem zagęść jogurtem i dopraw do smaku.",
+        "Zalej kuskus wrzątkiem, przykryj na 5 minut i spulchnij widelcem."
+      ],
+      "seasoning": "Curry, sól, pieprz, słodka papryka"
+    },
+    "hamApple": {
+      "steps": [
+        "Zrób kanapki i zjedz z jabłkiem."
+      ]
+    },
+    "skyrFruitLarge": {
+      "steps": [
+        "Wyłóż skyr do miski i dodaj owoce."
+      ]
+    }
+  },
   "training.title": "Treningi",
-  "training.empty": "Tutaj pojawi się Twój dziennik treningów."
+  "training.empty": "Tutaj pojawi się Twój dziennik treningów.",
+  "meal.hamApple": "Kanapki z szynką i jabłko",
+  "meal.skyrFruitLarge": "Duży skyr z owocami",
+  "nav.shopping": "Zakupy",
+  "shopping.title": "Lista zakupów",
+  "shopping.days": "Na ile dni?",
+  "shopping.summary": "{from} do {to}: posiłków {meals}",
+  "shopping.spices": "Lista nie obejmuje przypraw, ziół i cytryny.",
+  "shopping.copy": "Kopiuj listę",
+  "shopping.copied": "Skopiowano",
+  "shopping.copyFailed": "Nie udało się skopiować",
+  "shopping.oneDayOption": "1 dzień",
+  "shopping.daysOption": "{days} dni",
+  "category.dairy": "Nabiał i jajka",
+  "category.meatFish": "Mięso i ryby",
+  "category.vegetables": "Warzywa",
+  "category.fruit": "Owoce",
+  "category.grains": "Pieczywo i produkty zbożowe",
+  "category.other": "Pozostałe",
+  "unit.pcs": "szt.",
+  "unit.rolls": { "one": "rolka", "few": "rolki", "many": "rolek", "other": "rolki" },
+  "ingredient.skyr": "Skyr naturalny",
+  "ingredient.yoghurt": "Jogurt naturalny",
+  "ingredient.greekYoghurt": "Jogurt grecki",
+  "ingredient.cream": "Śmietanka 12%",
+  "ingredient.milk": "Mleko 1,5%",
+  "ingredient.butter": "Masło",
+  "ingredient.feta": "Feta",
+  "ingredient.egg": "Jajka",
+  "ingredient.chickenLeg": "Udka z kurczaka (250 g z kością)",
+  "ingredient.chickenBreast": "Pierś z kurczaka",
+  "ingredient.turkey": "Pierś z indyka",
+  "ingredient.ham": "Szynka",
+  "ingredient.salmon": "Filet z łososia",
+  "ingredient.smokedSalmon": "Łosoś wędzony",
+  "ingredient.sushi": "Sushi z łososiem",
+  "ingredient.potatoes": "Ziemniaki",
+  "ingredient.cabbage": "Kapusta biała",
+  "ingredient.carrot": "Marchewka",
+  "ingredient.tomato": "Pomidory",
+  "ingredient.cucumber": "Ogórek",
+  "ingredient.lettuce": "Sałata",
+  "ingredient.onion": "Cebula",
+  "ingredient.garlic": "Ząbki czosnku",
+  "ingredient.broccoli": "Brokuły",
+  "ingredient.spinach": "Szpinak",
+  "ingredient.pepper": "Papryka",
+  "ingredient.mushrooms": "Pieczarki",
+  "ingredient.fruit": "Dowolne owoce",
+  "ingredient.apple": "Jabłka (200 g)",
+  "ingredient.banana": "Banany (150 g)",
+  "ingredient.ryeBread": "Chleb żytni",
+  "ingredient.oats": "Płatki owsiane",
+  "ingredient.buckwheat": "Kasza gryczana",
+  "ingredient.bulgur": "Kasza bulgur",
+  "ingredient.couscous": "Kuskus",
+  "ingredient.pasta": "Makaron razowy",
+  "ingredient.riceCakes": "Wafle ryżowe",
+  "ingredient.tortilla": "Tortille",
+  "ingredient.flour": "Mąka",
+  "ingredient.oliveOil": "Oliwa",
+  "ingredient.peanutButter": "Masło orzechowe",
+  "ingredient.jam": "Dżem 100% owoców",
+  "ingredient.honey": "Miód",
+  "ingredient.pumpkinSeeds": "Pestki dyni",
+  "ingredient.stock": "Bulion",
+  "agenda.training": "Trening do {end}",
+  "agenda.fastStart": "Początek postu",
+  "agenda.fastEnd": "Koniec postu"
 }

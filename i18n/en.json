@@ -10,12 +10,21 @@
   "theme.toLightLabel": "Switch to light mode",
   "language.switch": "PL",
   "language.switchLabel": "Zmień język na polski",
-  "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  "days": [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri",
+    "Sat",
+    "Sun"
+  ],
   "status.fasting": "Fasting",
   "status.eating": "Eating window",
-  "status.fastEnds": "Ends in {duration}",
-  "status.nextFast": "Next fast in {duration}",
-  "status.nextTraining": "Next training: {time}",
+  "timer.fastEnds": "Fast ends in",
+  "timer.nextFast": "Next fast in",
+  "timer.nextMeal": "Next meal in",
+  "timer.nextTraining": "Next training in",
   "week.title": "This week",
   "legend.fast": "Fast",
   "legend.eat": "Eat",
@@ -23,8 +32,300 @@
   "period.fast": "Fast",
   "period.eat": "Eat",
   "period.training": "Training {time}",
+  "now": "Now",
+  "nav.measurements": "Measurements",
+  "measurements.title": "Body measurements",
+  "measurements.figureLabel": "Figure with measuring points",
+  "measurements.date": "Date",
+  "measurements.save": "Save measurements",
+  "measurements.saved": "Saved",
+  "measurements.saveFailed": "Could not save in this browser",
+  "measurements.nothingToSave": "Fill in at least one measurement",
+  "measurements.privacy": "Measurements are saved only in this browser, so they do not sync between devices. Latest values are shown with the change since your first entry.",
+  "measurements.history": "History",
+  "measurements.empty": "No measurements yet.",
+  "measurements.delete": "Delete",
+  "measure.weight": "Weight",
+  "measure.neck": "Neck",
+  "measure.chest": "Chest",
+  "measure.biceps": "Biceps",
+  "measure.waist": "Waist",
+  "measure.hips": "Hips",
+  "measure.thigh": "Thigh",
+  "measure.calf": "Calf",
+  "hours.showAll": "Show all hours",
+  "hours.showEntries": "Show only hours with entries",
+  "daysLong": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ],
   "diet.title": "Diet",
-  "diet.empty": "Your meal plan will appear here.",
+  "diet.macros": "{kcal} kcal, protein {protein} g, carbs {carbs} g, fat {fat} g",
+  "diet.mealKcal": "{kcal} kcal",
+  "diet.weekTotal": "Weekly total: {macros}",
+  "diet.estimate": "All values are estimates. Tap a meal to see its recipe.",
+  "diet.ingredients": "Ingredients",
+  "diet.steps": "Preparation",
+  "diet.sweet": "+ sweet treat, about 200 kcal: 3-4 squares of chocolate, a small bar or a scoop of ice cream",
+  "meal.chickenCurry": "Chicken curry with yellow pepper and couscous",
+  "meal.sushi": "Salmon sushi, 1 roll",
+  "meal.bananaToast": "Banana and a slice of bread with jam",
+  "meal.roastChickenPotatoes": "Roast chicken leg, potatoes and salad",
+  "meal.skyrFruit": "Skyr with fruit",
+  "meal.eggsRye": "3 eggs and 2 slices of rye bread",
+  "meal.skyrBowl": "Skyr with peanut butter and jam",
+  "meal.turkeyPotatoes": "Turkey in sauce, potatoes and cabbage",
+  "meal.appleSandwich": "Ham sandwich, apple and skyr",
+  "meal.salmonGroats": "Baked salmon, buckwheat and broccoli",
+  "meal.oatmeal": "Oatmeal with milk, pumpkin seeds and skyr",
+  "meal.skyrBowlFruit": "Skyr with peanut butter, jam and fruit",
+  "meal.eggSandwiches": "Sandwiches with 2 eggs",
+  "meal.roastChickenBulgur": "Roast chicken leg, bulgur and spinach",
+  "meal.hamSandwichesBanana": "Ham sandwiches and a banana",
+  "meal.riceCakesJam": "Rice cakes with jam",
+  "meal.skyrOatsFruit": "Skyr with oats, fruit and honey",
+  "meal.eggsBread": "Boiled eggs and 3 slices of bread",
+  "meal.sushiOrSalmon": "Salmon sushi, 1 roll, or salmon with rice and spinach, plus skyr",
+  "meal.hungarianStew": "Hungarian turkey stew with bread",
+  "meal.salmonTortilla": "Tortillas with smoked salmon",
+  "meal.scrambledEggs": "Scrambled eggs and bread",
+  "meal.chickenSpinachPasta": "Chicken with spinach and feta, wholegrain pasta",
+  "recipes": {
+    "sushi": {
+      "steps": [
+        "Buy or order it. Choose salmon rolls and nigiri, and go easy on mayonnaise rolls."
+      ]
+    },
+    "bananaToast": {
+      "steps": [
+        "Spread the jam on the bread and eat with the banana."
+      ]
+    },
+    "roastChickenPotatoes": {
+      "steps": [
+        "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
+        "Boil the potatoes in salted water for about 20 minutes.",
+        "Mix the cabbage and carrot with oil, lemon juice and salt."
+      ],
+      "seasoning": "Lemon juice, salt, pepper, sweet paprika"
+    },
+    "skyrFruit": {
+      "steps": [
+        "Put the skyr in a bowl and top with the fruit. Skyr is a thick, low-fat, high-protein Icelandic-style yoghurt, sold in most supermarkets."
+      ]
+    },
+    "eggsRye": {
+      "steps": [
+        "Boil the eggs for 8 minutes.",
+        "Butter the bread and serve with the eggs and vegetables."
+      ]
+    },
+    "skyrBowl": {
+      "steps": [
+        "Put the skyr in a bowl and add the peanut butter and jam on top."
+      ]
+    },
+    "turkeyPotatoes": {
+      "steps": [
+        "Flatten the fillet, season it with salt, pepper and garlic, and brown it on both sides in 10 g oil.",
+        "Move it to a pot of boiling stock. Fry the diced onion and grated carrot for 3 minutes and add them to the pot.",
+        "Add paprika and herbs, cover and simmer for 20 minutes.",
+        "Stir in the cream, thicken with the flour and boil for 3 minutes.",
+        "Boil the potatoes and cabbage separately. Dress the cabbage with 5 g oil."
+      ],
+      "seasoning": "Paprika, Provence herbs, salt, pepper"
+    },
+    "appleSandwich": {
+      "steps": [
+        "Make the sandwich and eat with the apple and skyr."
+      ]
+    },
+    "salmonGroats": {
+      "steps": [
+        "Season the salmon and bake at 200°C for 15 minutes.",
+        "Cook the buckwheat according to the packet.",
+        "Steam the broccoli for 5-7 minutes."
+      ],
+      "seasoning": "Lemon, salt, pepper"
+    },
+    "oatmeal": {
+      "steps": [
+        "Simmer the oats in the milk for 5 minutes, stirring.",
+        "Take off the heat, stir in the skyr and top with the seeds."
+      ]
+    },
+    "skyrBowlFruit": {
+      "steps": [
+        "Put the skyr in a bowl and add the peanut butter, jam and fruit on top."
+      ]
+    },
+    "eggSandwiches": {
+      "steps": [
+        "Boil the eggs for 8 minutes, then slice them.",
+        "Butter the bread and top with the eggs and vegetables."
+      ]
+    },
+    "roastChickenBulgur": {
+      "steps": [
+        "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
+        "Cook the bulgur according to the packet.",
+        "Fry the garlic briefly in the oil and wilt the spinach for 2-3 minutes."
+      ],
+      "seasoning": "Salt, pepper, sweet paprika"
+    },
+    "hamSandwichesBanana": {
+      "steps": [
+        "Make the sandwiches with ham and tomato and eat with the banana."
+      ]
+    },
+    "riceCakesJam": {
+      "steps": [
+        "Spread the jam on the rice cakes."
+      ]
+    },
+    "skyrOatsFruit": {
+      "steps": [
+        "Mix the skyr with the oats and honey, and top with the fruit."
+      ]
+    },
+    "eggsBread": {
+      "steps": [
+        "Boil the eggs for 8 minutes.",
+        "Butter the bread and serve with the eggs and vegetables."
+      ]
+    },
+    "sushiOrSalmon": {
+      "steps": [
+        "Buy the sushi. Alternative: bake 150 g salmon at 200°C for 15 minutes and serve with 80 g dry rice, cooked, and 150 g spinach wilted in 5 g olive oil.",
+        "Eat the skyr on the side."
+      ]
+    },
+    "hungarianStew": {
+      "steps": [
+        "Dice the turkey, onion, pepper and potatoes, and slice the mushrooms.",
+        "Fry the turkey and onion in the oil for 5 minutes. Add the mushrooms and pepper and fry for 10 minutes.",
+        "Add the tomatoes, potatoes and stock and simmer for 25 minutes.",
+        "Season, sprinkle with parsley and serve with the bread."
+      ],
+      "seasoning": "Parsley, salt, pepper, chilli"
+    },
+    "salmonTortilla": {
+      "steps": [
+        "Mix the yoghurt with lemon juice, dill and pepper.",
+        "Spread it on the tortillas, add the salmon and vegetables, and roll up."
+      ],
+      "seasoning": "Lemon, dill, pepper"
+    },
+    "scrambledEggs": {
+      "steps": [
+        "Beat the eggs with salt and pepper.",
+        "Melt the butter in a pan and stir the eggs gently over low heat until just set.",
+        "Serve with chives, bread and tomato."
+      ],
+      "seasoning": "Chives, salt, pepper"
+    },
+    "chickenSpinachPasta": {
+      "steps": [
+        "Dice the chicken, season it and fry in the oil for 5 minutes.",
+        "Add the diced onion and garlic and fry for 5 minutes.",
+        "Add the spinach and simmer for 10 minutes. Stir in the feta and seasoning at the end.",
+        "Cook the pasta according to the packet and serve together."
+      ],
+      "seasoning": "Salt, pepper, basil"
+    },
+    "chickenCurry": {
+      "steps": [
+        "Dice the chicken, season it and fry in the oil for 5 minutes.",
+        "Add the chopped onion and pepper, sprinkle with spices and add 80 ml water.",
+        "Simmer for 10-15 minutes, then stir in the yoghurt and adjust the seasoning.",
+        "Pour boiling water over the couscous, cover for 5 minutes and fluff with a fork."
+      ],
+      "seasoning": "Curry powder, salt, pepper, sweet paprika"
+    },
+    "hamApple": {
+      "steps": [
+        "Make the sandwiches and eat with the apple."
+      ]
+    },
+    "skyrFruitLarge": {
+      "steps": [
+        "Put the skyr in a bowl and top with the fruit."
+      ]
+    }
+  },
   "training.title": "Training",
-  "training.empty": "Your training log will appear here."
+  "training.empty": "Your training log will appear here.",
+  "meal.hamApple": "Ham sandwiches and an apple",
+  "meal.skyrFruitLarge": "Large skyr with fruit",
+  "nav.shopping": "Shopping",
+  "shopping.title": "Shopping list",
+  "shopping.days": "How many days?",
+  "shopping.summary": "{from} to {to}: {meals} meals",
+  "shopping.spices": "Spices, herbs and lemon are not included.",
+  "shopping.copy": "Copy list",
+  "shopping.copied": "Copied",
+  "shopping.copyFailed": "Could not copy",
+  "shopping.oneDayOption": "1 day",
+  "shopping.daysOption": "{days} days",
+  "category.dairy": "Dairy and eggs",
+  "category.meatFish": "Meat and fish",
+  "category.vegetables": "Vegetables",
+  "category.fruit": "Fruit",
+  "category.grains": "Bread and grains",
+  "category.other": "Other",
+  "unit.pcs": "pcs",
+  "unit.rolls": { "one": "roll", "other": "rolls" },
+  "ingredient.skyr": "Natural skyr",
+  "ingredient.yoghurt": "Natural yoghurt",
+  "ingredient.greekYoghurt": "Greek yoghurt",
+  "ingredient.cream": "12% cream",
+  "ingredient.milk": "1.5% milk",
+  "ingredient.butter": "Butter",
+  "ingredient.feta": "Feta",
+  "ingredient.egg": "Eggs",
+  "ingredient.chickenLeg": "Chicken legs (250 g with bone)",
+  "ingredient.chickenBreast": "Chicken breast",
+  "ingredient.turkey": "Turkey breast",
+  "ingredient.ham": "Ham",
+  "ingredient.salmon": "Salmon fillet",
+  "ingredient.smokedSalmon": "Smoked salmon",
+  "ingredient.sushi": "Salmon sushi",
+  "ingredient.potatoes": "Potatoes",
+  "ingredient.cabbage": "White cabbage",
+  "ingredient.carrot": "Carrots",
+  "ingredient.tomato": "Tomatoes",
+  "ingredient.cucumber": "Cucumber",
+  "ingredient.lettuce": "Lettuce",
+  "ingredient.onion": "Onions",
+  "ingredient.garlic": "Garlic cloves",
+  "ingredient.broccoli": "Broccoli",
+  "ingredient.spinach": "Spinach",
+  "ingredient.pepper": "Peppers",
+  "ingredient.mushrooms": "Mushrooms",
+  "ingredient.fruit": "Fruit of your choice",
+  "ingredient.apple": "Apples (200 g)",
+  "ingredient.banana": "Bananas (150 g)",
+  "ingredient.ryeBread": "Rye bread",
+  "ingredient.oats": "Oats",
+  "ingredient.buckwheat": "Buckwheat",
+  "ingredient.bulgur": "Bulgur",
+  "ingredient.couscous": "Couscous",
+  "ingredient.pasta": "Wholegrain pasta",
+  "ingredient.riceCakes": "Rice cakes",
+  "ingredient.tortilla": "Tortillas",
+  "ingredient.flour": "Flour",
+  "ingredient.oliveOil": "Olive oil",
+  "ingredient.peanutButter": "Peanut butter",
+  "ingredient.jam": "Fruit-only jam",
+  "ingredient.honey": "Honey",
+  "ingredient.pumpkinSeeds": "Pumpkin seeds",
+  "ingredient.stock": "Stock",
+  "agenda.training": "Training until {end}",
+  "agenda.fastStart": "Fast starts",
+  "agenda.fastEnd": "Fast ends"
 }

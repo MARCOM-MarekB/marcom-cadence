@@ -11,9 +11,9 @@ const at = (dayIndex, hour) => dayIndex * 24 + hour;
 
 /** Fasting periods in chronological order, starting from the one that ends on Monday. */
 export const FASTS = [
-  { start: at(6, 13), end: at(0, 13) },
-  { start: at(2, 8), end: at(3, 8) },
-  { start: at(4, 13), end: at(5, 13) },
+  { start: at(6, 16), end: at(0, 12) },
+  { start: at(2, 12), end: at(3, 8) },
+  { start: at(4, 12), end: at(5, 8) },
 ];
 
 /** Training sessions in chronological order. */
@@ -28,7 +28,7 @@ export const TRAININGS = [
  * @param {number} to Target position in hours since Monday 00:00.
  * @returns {number} Hours from 0 up to, but not including, one week.
  */
-const hoursUntil = (from, to) => (to - from + HOURS_PER_WEEK) % HOURS_PER_WEEK;
+export const hoursUntil = (from, to) => (to - from + HOURS_PER_WEEK) % HOURS_PER_WEEK;
 
 /**
  * Converts a date to its position in the week.
@@ -37,13 +37,14 @@ const hoursUntil = (from, to) => (to - from + HOURS_PER_WEEK) % HOURS_PER_WEEK;
  */
 export function weekPosition(date) {
   const dayIndex = (date.getDay() + 6) % 7;
-  return dayIndex * 24 + date.getHours() + date.getMinutes() / 60;
+  return dayIndex * 24 + date.getHours() + date.getMinutes() / 60 + date.getSeconds() / 3600;
 }
 
 /**
  * Describes the fasting status at a position in the week.
  * @param {number} position Hours since Monday 00:00.
- * @returns {{isFasting: boolean, hoursToChange: number}} The current state and the hours until it changes.
+ * @returns {{isFasting: boolean, hoursToChange: number, changeAt: number, progress: number}}
+ * The current state, the hours until it changes, the week position of the change and the share of the state already passed.
  */
 export function getStatus(position) {
   const activeFast = FASTS.find(
@@ -51,22 +52,33 @@ export function getStatus(position) {
   );
 
   if (activeFast) {
-    return { isFasting: true, hoursToChange: hoursUntil(position, activeFast.end) };
+    return {
+      isFasting: true,
+      hoursToChange: hoursUntil(position, activeFast.end),
+      changeAt: activeFast.end,
+      progress: hoursUntil(activeFast.start, position) / hoursUntil(activeFast.start, activeFast.end),
+    };
   }
 
-  const hoursToNextFast = Math.min(...FASTS.map((fast) => hoursUntil(position, fast.start)));
-  return { isFasting: false, hoursToChange: hoursToNextFast };
+  const nextFast = FASTS.reduce((next, fast) =>
+    hoursUntil(position, fast.start) < hoursUntil(position, next.start) ? fast : next);
+  const hoursToChange = hoursUntil(position, nextFast.start);
+  const hoursSinceFast = Math.min(...FASTS.map((fast) => hoursUntil(fast.end, position)));
+  return {
+    isFasting: false,
+    hoursToChange,
+    changeAt: nextFast.start,
+    progress: hoursSinceFast / (hoursSinceFast + hoursToChange),
+  };
 }
 
 /**
- * Finds the next training that has not ended.
+ * Finds the next training that has not started.
  * @param {number} position Hours since Monday 00:00.
- * @returns {{start: number, end: number}} The current or next training.
+ * @returns {{start: number, end: number}} The next training.
  */
 export function getNextTraining(position) {
-  return (
-    TRAININGS.find((training) => position < training.end) ?? TRAININGS[0]
-  );
+  return TRAININGS.find((training) => position < training.start) ?? TRAININGS[0];
 }
 
 /**

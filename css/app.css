@@ -92,7 +92,15 @@ h2 {
   gap: 8px 20px;
 }
 
+.brand-icon {
+  width: 28px;
+  height: 28px;
+}
+
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: var(--fg);
   font-size: 24px;
   font-weight: 700;
@@ -102,6 +110,7 @@ h2 {
 
 .nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   order: 3;
   width: 100%;
@@ -169,13 +178,309 @@ h2 {
   line-height: 1.2;
 }
 
-.status-detail {
-  font-size: 18px;
+.progress {
+  height: 10px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 5px;
+  background: color-mix(in srgb, currentColor 25%, transparent);
 }
 
-.status-training {
-  margin-top: 8px !important;
+.progress-value {
+  height: 100%;
+  border-radius: 5px;
+  background: currentColor;
+}
+
+.timers {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.timer {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.timer p {
+  margin: 0;
+}
+
+.timer-label {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timer-value {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.timer-detail {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.meal-item.is-past {
+  opacity: 0.6;
+}
+
+.meal-item.is-next .meal-name {
+  color: var(--now);
+  font-weight: 700;
+}
+
+.hours {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hour-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 12px;
+  min-height: 34px;
+  padding: 5px 10px;
+  border-top: 1px solid var(--line);
+}
+
+.hours-toggle {
+  justify-self: start;
+}
+
+.measure-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.figure {
+  width: 100%;
+  max-height: 560px;
+}
+
+.figure-point {
+  cursor: pointer;
+}
+
+.figure-point:focus-visible {
+  outline: none;
+}
+
+.figure-point:focus-visible .figure-dot,
+.figure-point:hover .figure-dot {
+  fill: var(--training);
+}
+
+.figure-line {
+  fill: none;
+  stroke: var(--now);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.figure-dot {
+  fill: var(--now);
+  stroke: var(--surface);
+  stroke-width: 2;
+}
+
+.figure-name {
+  fill: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.figure-value {
+  fill: var(--fg);
   font-size: 15px;
+  font-weight: 700;
+}
+
+.measure-form {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.measure-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.measure-field {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.measure-name {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.measure-field input {
+  width: 100%;
+  min-width: 0;
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+}
+
+.measure-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.measure-save {
+  border-color: var(--fast);
+  background: var(--fast);
+  color: var(--on-fast);
+}
+
+.measure-changes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.measure-change {
+  display: grid;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.measure-delta {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.measure-history {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.measure-entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.measure-values {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.hour-gap {
+  min-height: 28px;
+  padding-block: 2px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.hour-row.is-fast {
+  background: color-mix(in srgb, var(--fast) 16%, transparent);
+}
+
+.hour-row.is-training {
+  background: color-mix(in srgb, var(--training) 22%, transparent);
+}
+
+.hour-row.is-now {
+  box-shadow: inset 3px 0 0 var(--now);
+}
+
+.hour-label {
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: right;
+}
+
+.hour-row.is-now .hour-label {
+  color: var(--now);
+}
+
+.hour-events {
+  display: grid;
+  gap: 6px;
+  align-content: center;
+  min-width: 0;
+}
+
+.agenda-event {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  min-width: 0;
+}
+
+.agenda-minutes {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.agenda-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.agenda-training {
+  color: var(--training-text);
+  font-weight: 700;
+}
+
+.agenda-fast {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.diet-day-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.diet-day-picker .control[aria-pressed="true"] {
+  border-color: var(--fast);
+  background: var(--fast);
+  color: var(--on-fast);
 }
 
 .week {
@@ -191,6 +496,39 @@ h2 {
   font-size: 13px;
   font-weight: 600;
   text-align: center;
+}
+
+.day-labels .is-today {
+  color: var(--now);
+}
+
+.bar-track {
+  position: relative;
+  padding-top: 22px;
+  padding-bottom: 6px;
+}
+
+.now-label {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  transform: translateX(-50%);
+  color: var(--now);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.now-line {
+  position: absolute;
+  top: 18px;
+  bottom: 0;
+  z-index: 3;
+  width: 3px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--now);
+  box-shadow: 0 0 0 1px var(--bg);
 }
 
 .bar {
@@ -217,11 +555,12 @@ h2 {
   background: var(--training);
 }
 
-.bar-now {
+/* Difference blending keeps the line visible on every bar colour in both themes. */
+.bar-day-line {
   z-index: 2;
-  width: 2px;
   margin-left: -1px;
-  background: var(--now);
+  border-left: 2px dashed #ffffff;
+  mix-blend-mode: difference;
 }
 
 .legend {
@@ -301,6 +640,167 @@ h2 {
   text-align: right;
 }
 
+.diet-days {
+  display: grid;
+  gap: 12px;
+}
+
+.diet-day {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.diet-day-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 12px;
+}
+
+.diet-day-head h3 {
+  margin: 0;
+  font-size: 17px;
+}
+
+.diet-day-kcal {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.meal-sweet {
+  display: block;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.shopping-controls {
+  display: grid;
+  gap: 6px;
+}
+
+.shopping-controls p {
+  margin: 0;
+}
+
+.shopping-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.shopping-days .control[aria-pressed="true"] {
+  border-color: var(--fast);
+  background: var(--fast);
+  color: var(--on-fast);
+}
+
+.shopping-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.shopping-group {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.shopping-group h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.shopping-items {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.shopping-item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  cursor: pointer;
+}
+
+.shopping-amount {
+  color: var(--muted);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.shopping-item:has(input:checked) .shopping-name {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.shopping-copy {
+  justify-self: start;
+}
+
+.diet-summary {
+  display: grid;
+  gap: 2px;
+}
+
+.diet-summary p {
+  margin: 0;
+}
+
+.meal-details summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2px 12px;
+  cursor: pointer;
+}
+
+.meal-name {
+  font-weight: 500;
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 3px;
+}
+
+.meal-kcal {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.meal-macros {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.recipe-section {
+  margin-top: 8px;
+}
+
+.recipe-section h4 {
+  margin: 0 0 2px;
+  font-size: 14px;
+}
+
+.recipe-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
 @media (min-width: 700px) {
   .nav {
     order: 0;
@@ -308,7 +808,17 @@ h2 {
   }
 }
 
+@media (max-width: 760px) {
+  .measure-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 600px) {
+  .timers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .period {
     grid-template-columns: 72px minmax(0, 1fr);
   }
