@@ -178,15 +178,15 @@ export const DIET_DAYS = [
   {
     meals: [
       { time: 12, key: "chickenCurry" },
-      { time: 16, key: "sushi" },
+      { time: 16, key: "roastChickenPotatoes" },
       { time: 17.5, key: "bananaToast" },
-      { time: 22, key: "roastChickenPotatoes" },
+      { time: 22, key: "sushi" },
       { time: 22.5, key: "skyrFruitLarge", sweet: true },
     ],
   },
   {
     meals: [
-      { time: 8, key: "eggsRye" },
+      { time: 8.5, key: "eggsRye" },
       { time: 11, key: "skyrBowl" },
       { time: 14, key: "turkeyPotatoes" },
       { time: 19, key: "salmonGroats" },
@@ -194,13 +194,13 @@ export const DIET_DAYS = [
   },
   {
     meals: [
-      { time: 8, key: "oatmeal" },
+      { time: 8.5, key: "oatmeal" },
       { time: 12, key: "chickenRice" },
     ],
   },
   {
     meals: [
-      { time: 8, key: "skyrBowlFruit" },
+      { time: 8.5, key: "skyrBowlFruit" },
       { time: 10.5, key: "oatmeal" },
       { time: 13, key: "roastChickenBulgur" },
       { time: 14.5, key: "skyrAppleNuts" },
@@ -211,21 +211,21 @@ export const DIET_DAYS = [
   },
   {
     meals: [
-      { time: 8, key: "oatmeal" },
+      { time: 8.5, key: "oatmeal" },
       { time: 10, key: "skyrFruit" },
       { time: 12, key: "sushiOrSalmon" },
     ],
   },
   {
     meals: [
-      { time: 9, key: "skyrFruit" },
+      { time: 8.5, key: "skyrFruit" },
       { time: 13, key: "hungarianStew" },
       { time: 19, key: "salmonTortilla", sweet: true },
     ],
   },
   {
     meals: [
-      { time: 10, key: "scrambledEggs" },
+      { time: 8.5, key: "scrambledEggs" },
       { time: 13, key: "skyrAppleNuts" },
       { time: 16, key: "chickenSpinachPasta" },
     ],

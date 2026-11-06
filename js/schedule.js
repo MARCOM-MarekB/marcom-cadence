@@ -12,8 +12,8 @@ const at = (dayIndex, hour) => dayIndex * 24 + hour;
 /** Fasting periods in chronological order, starting from the one that ends on Monday. */
 export const FASTS = [
   { start: at(6, 16), end: at(0, 12) },
-  { start: at(2, 12), end: at(3, 8) },
-  { start: at(4, 12), end: at(5, 8) },
+  { start: at(2, 12), end: at(3, 8.5) },
+  { start: at(4, 12), end: at(5, 8.5) },
 ];
 
 /** Training sessions in chronological order. */
