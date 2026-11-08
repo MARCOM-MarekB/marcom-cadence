@@ -2,6 +2,6 @@
   "name": "marcom-cadence",
   "private": true,
   "scripts": {
-    "start": "npx --yes serve@14.2.6 . -l 3100"
+    "start": "npx --yes serve@14.2.7 . -l 3100"
   }
 }

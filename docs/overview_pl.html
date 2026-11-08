@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="marcom-build-docs">
+<meta name="description" content="marcom-cadence to osobista aplikacja do planowania postów i okien jedzenia, prowadzenia diety i śledzenia treningów.">
+<title>marcom-cadence</title>
+<link rel="icon" type="image/svg+xml" href="../../docs/favicon.svg">
+<link rel="stylesheet" href="../../docs/docs.css">
+</head>
+<body data-group="other">
+<header class="topbar">
+<div><a class="brand" href="../../docs/index_pl.html">Dokumentacja Marcom</a> <span class="crumb">/ marcom-cadence</span></div>
+<div class="lang-switch"><a href="overview.html">EN</a><span>PL</span></div>
+</header>
+<div class="layout">
+<nav class="toc">
+<a class="toc-back" href="../../docs/index_pl.html">&larr; Wszystkie projekty</a>
+<p class="toc-title">Spis treści</p>
+<ul>
+<li><a href="#current-state">Stan obecny</a></li>
+<li><a href="#structure">Struktura</a></li>
+<li><a href="#technical-decisions">Decyzje techniczne</a></li>
+<li><a href="#data-and-privacy">Dane i prywatność</a></li>
+<li><a href="#debugging">Debugowanie</a></li>
+<li><a href="#running-and-deployment">Uruchamianie i wdrożenie</a></li>
+</ul>
+</nav>
+<main>
+<div class="hero">
+<h1>marcom-cadence</h1>
+<p>marcom-cadence to osobista aplikacja do planowania postów i okien jedzenia, prowadzenia diety i śledzenia treningów.</p>
+</div>
+<h2 id="current-state">Stan obecny</h2>
+<p>Aplikacja otwiera się formularzem logowania (e-mail i hasło konta Supabase) i pokazuje widoki po zalogowaniu. Sesja jest trzymana w przeglądarce, więc formularz pojawia się ponownie dopiero po wylogowaniu przyciskiem w nagłówku albo po wygaśnięciu sesji.</p>
+<p>Aplikacja ma menu nawigacji z sześcioma widokami:</p>
+<ul>
+<li><strong>Dziś:</strong> aktualny stan z postępem, odliczanie na żywo do końca postu lub następnego postu, następnego posiłku i następnego treningu, oś tygodnia oraz dzisiejsze posiłki z oznaczeniem minionych i następnego. Kliknięcie karty następnego posiłku otwiera widok Dieta na dniu tego posiłku z rozwiniętym przepisem.</li>
+<li><strong>Tydzień:</strong> oś tygodnia i lista okresów postu i jedzenia. Bieżący okres jest zaznaczony, a okresy jedzenia rozwijają się do kalendarza godzin tego okresu, z osobną sekcją na każdy dzień.</li>
+<li><strong>Dieta:</strong> wybór dnia i wybrany dzień jako kalendarz z wierszami godzin, z posiłkami, treningami oraz początkami i końcami postów w ich godzinach. Kilka pustych godzin z rzędu zwija się do jednego krótkiego wiersza, a przycisk pokazuje zamiast tego wszystkie godziny. Wybór jest zapamiętywany w przeglądarce. Godziny postu i treningu są zacieniowane, a bieżąca godzina zaznaczona. Posiłki mają szacunkowe kalorie i makroskładniki oraz rozwijany przepis.</li>
+<li><strong>Zakupy:</strong> lista zakupów na najbliższe 1 do 14 dni, liczona od teraz i zsumowana z zaplanowanych posiłków. Można ją pokazać według kategorii lub jako płaską listę, sortować domyślnie albo alfabetycznie i przełączyć z sushi na składniki zamiennika. Pozycje można odhaczać pojedynczo lub wszystkie naraz, odhaczone można ukryć, a widoczną listę skopiować albo wydrukować na A4. Lista nie obejmuje przypraw. Odhaczenia trwają do przeładowania strony.</li>
+<li><strong>Treningi:</strong> timer serii z nazwą ćwiczenia, czasem serii, przerwą i liczbą serii. Czas serii 0 oznacza, że każdą serię kończy przycisk. Zmiany fazy dają dźwięk i wibrację, jeśli urządzenie ją obsługuje, a ekran nie gaśnie, gdy timer działa. Ustawienia są zapamiętywane w przeglądarce. Dziennika treningów jeszcze nie ma.</li>
+<li><strong>Pomiary:</strong> rysunkowa postać z punktami pomiarowymi i ostatnimi wartościami, formularz zapisu pomiarów z datą i godziną, zmiany od pierwszego wpisu i historia. Pomiary są zapisywane w Supabase. Ponowny zapis tej samej daty i godziny łączy wartości. Wpisy pozostawione w pamięci przeglądarki przez wcześniejszą wersję działającą tylko w przeglądarce są przy starcie przenoszone na konto, a potem usuwane z przeglądarki.</li>
+</ul>
+<p>Oś tygodnia to jeden pasek na cały tydzień. Przerywane linie oznaczają każdą północ, a kreska z napisem Teraz pokazuje bieżący dzień i godzinę.</p>
+<p>W nagłówku można też przełączać tryb jasny i ciemny oraz język angielski i polski. Oba wybory są zapamiętywane w przeglądarce. Bez zapisanego wyboru aplikacja używa motywu systemu i języka przeglądarki.</p>
+<p>Harmonogram tygodnia i jadłospis są zapisane w kodzie.</p>
+<h2 id="structure">Struktura</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Ścieżka</th><th>Przeznaczenie</th></tr></thead>
+<tbody>
+<tr><td><code>index.html</code></td><td>Struktura strony i wszystkie widoki</td></tr>
+<tr><td><code>css/app.css</code></td><td>Style, w tym motyw jasny i ciemny</td></tr>
+<tr><td><code>img/figure.png</code></td><td>Postać w stylu anime używana w widoku Pomiary</td></tr>
+<tr><td><code>img/mascot.svg</code></td><td>Rysunkowa postać, na razie nieużywana</td></tr>
+<tr><td><code>favicon.svg</code></td><td>Ikona aplikacji w stylu logo Marcom (biała litera na turkusowym kole)</td></tr>
+<tr><td><code>i18n/*.json</code></td><td>Teksty interfejsu, po jednym pliku na język</td></tr>
+<tr><td><code>js/app.js</code></td><td>Renderowanie, nawigacja i odświeżanie co sekundę</td></tr>
+<tr><td><code>js/diet.js</code></td><td>Produkty, posiłki z wartościami i składnikami, plan tygodnia, sumy i obliczanie listy zakupów; nazwy i kroki przepisów są w <code>i18n/*.json</code></td></tr>
+<tr><td><code>js/set-timer.js</code></td><td>Logika timera serii oparta na czasach końca, więc opóźnienia w tle są nadrabiane</td></tr>
+<tr><td><code>js/set-timer-view.js</code></td><td>Formularz timera, dźwięk, blokada wygaszania ekranu i renderowanie</td></tr>
+<tr><td><code>js/supabase.js</code></td><td>Klient Supabase: adres projektu, klucz publishable i schemat <code>marcom_cadence</code></td></tr>
+<tr><td><code>js/auth-view.js</code></td><td>Formularz logowania pokazywany przed aplikacją oraz wylogowanie</td></tr>
+<tr><td><code>js/measurements.js</code></td><td>Odczyt, zapis i usuwanie pomiarów w Supabase, przenoszenie starych wpisów z przeglądarki i obliczenia</td></tr>
+<tr><td><code>js/measurements-view.js</code></td><td>Renderowanie i formularz widoku Pomiary</td></tr>
+<tr><td><code>js/i18n.js</code></td><td>Ładowanie języka i wyszukiwanie tłumaczeń</td></tr>
+<tr><td><code>js/schedule.js</code></td><td>Harmonogram tygodnia i czyste obliczenia czasu</td></tr>
+<tr><td><code>js/theme.js</code></td><td>Przełączanie motywu</td></tr>
+<tr><td><code>js/theme-init.js</code></td><td>Ustawia zapisany motyw przed narysowaniem strony</td></tr>
+<tr><td><code>supabase/migrations/*.sql</code></td><td>Schemat bazy w Supabase, uruchamiany przez integrację Supabase z GitHubem przy pushu do <code>main</code>; zobacz <a href="supabase_pl.html">Supabase</a></td></tr>
+<tr><td><code>.nojekyll</code></td><td>Każe GitHub Pages publikować pliki bez przetwarzania</td></tr>
+<tr><td><code>package.json</code></td><td><code>npm start</code> do lokalnego uruchamiania na porcie 3100; sama aplikacja nie ma zależności npm</td></tr>
+</tbody>
+</table></div>
+<h2 id="technical-decisions">Decyzje techniczne</h2>
+<ul>
+<li>Zwykły HTML, CSS i moduły JavaScript, bez etapu budowania.</li>
+<li>Wszystkie adresy są względne, bo strona działa pod <code>/marcom-cadence/</code>.</li>
+<li>Nawigacja używa fragmentu adresu (<code>#today</code>, <code>#week</code>, <code>#diet</code>, <code>#shopping</code>, <code>#training</code>, <code>#measurements</code>), który działa na GitHub Pages bez reguł serwera.</li>
+<li>Składniki posiłków to dane strukturalne, więc przepisy i lista zakupów korzystają z jednego źródła.</li>
+<li>Teksty tłumaczone w <code>index.html</code> mają atrybut <code>data-i18n</code>. Każdy plik języka musi zawierać te same klucze.</li>
+<li>Czasy w harmonogramie to godziny liczone od poniedziałku 00:00, w czasie lokalnym użytkownika. Okres może przechodzić przez koniec tygodnia.</li>
+<li>Biblioteka klienta Supabase (<code>supabase-js</code>) jest ładowana jako moduł z CDN jsDelivr z przypiętą wersją, więc nadal nie ma etapu budowania ani <code>node_modules</code>.</li>
+</ul>
+<h2 id="data-and-privacy">Dane i prywatność</h2>
+<p>Repozytorium i strona są publiczne. Trafiają tu tylko kod i ogólne treści. Dane osobiste, na razie pomiary, są w Supabase za logowaniem, z Row Level Security na każdej tabeli; konfiguracja i zasady są w dokumencie <a href="supabase_pl.html">Supabase</a>. W pamięci przeglądarki są sesja logowania, motyw, język, sposób wyświetlania godzin i ustawienia timera serii.</p>
+<h2 id="debugging">Debugowanie</h2>
+<p><code>npm start</code> serwuje pliki źródłowe bez zmian, więc przeglądarka wykonuje dokładnie kod z repozytorium. Breakpointy można stawiać w narzędziach deweloperskich przeglądarki (F12, Sources) albo w VS Code, przez konfigurację uruchomienia typu <code>msedge</code> lub <code>chrome</code> wskazującą na <code>http://localhost:3100</code>, gdy działa <code>npm start</code>. Lokalne uruchomienie korzysta z tego samego projektu Supabase i tych samych danych co opublikowana strona.</p>
+<h2 id="running-and-deployment">Uruchamianie i wdrożenie</h2>
+<p>Zobacz <a href="../README.md">README</a>.</p>
+
+</main>
+</div>
+<script src="../../docs/docs.js"></script>
+</body>
+</html>

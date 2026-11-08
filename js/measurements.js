@@ -1,6 +1,11 @@
-const STORAGE_KEY = "cadence.measurements";
+import { supabase } from "./supabase.js";
 
-/** Tracked body measurements. Each key resolves to `measure.<key>` in the language files. */
+const TABLE = "measurements";
+
+/** Browser storage key used before measurements moved to Supabase. */
+const LEGACY_STORAGE_KEY = "cadence.measurements";
+
+/** Tracked body measurements. Each key resolves to `measure.<key>` in the language files and is a column of the table. */
 export const MEASURES = [
   { key: "weight", unit: "kg" },
   { key: "neck", unit: "cm" },
@@ -13,68 +18,93 @@ export const MEASURES = [
 ];
 
 /**
- * Reads saved measurements from this browser.
- * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Entries in time order.
+ * Converts a table row into an entry.
+ * @param {Record<string, *>} row The row.
+ * @returns {{id: string, date: string, time?: string, values: Record<string, number>}} The entry.
  */
-export function loadEntries() {
-  try {
-    const entries = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    return Array.isArray(entries) ? entries : [];
-  } catch {
-    return [];
+function toEntry(row) {
+  const values = {};
+  for (const { key } of MEASURES) {
+    if (row[key] !== null) {
+      values[key] = Number(row[key]);
+    }
   }
+  return { id: row.id, date: row.measured_on, time: row.measured_at?.slice(0, 5), values };
 }
 
 /**
- * Saves measurements in this browser.
- * @param {Array<{date: string, values: Record<string, number>}>} entries Entries to save.
- * @returns {boolean} True when the entries were saved.
+ * Reads the signed-in user's measurements.
+ * @returns {Promise<Array<{id: string, date: string, time?: string, values: Record<string, number>}>>} Entries in time order.
  */
-export function storeEntries(entries) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-    return true;
-  } catch {
-    return false;
+export async function fetchEntries() {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select(["id", "measured_on", "measured_at", ...MEASURES.map((measure) => measure.key)].join(","))
+    .order("measured_on")
+    .order("measured_at", { nullsFirst: true });
+  if (error) {
+    throw error;
   }
+  return data.map(toEntry);
 }
 
 /**
- * Builds the identity and sort key of an entry. Entries saved before times were added have no time.
- * @param {{date: string, time?: string}} entry The entry.
- * @returns {string} The key.
- */
-const entryKey = (entry) => `${entry.date} ${entry.time ?? ""}`;
-
-/**
- * Adds values for a date and time, keeping other values already saved for that moment.
- * @param {Array<{date: string, time?: string, values: Record<string, number>}>} entries Existing entries.
+ * Saves values for a date and time. Values already saved for that moment and not given here are kept.
  * @param {string} date Date as YYYY-MM-DD.
- * @param {string} time Time as HH:MM.
- * @param {Record<string, number>} values New values.
- * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Updated entries in time order.
+ * @param {string | undefined} time Time as HH:MM, or nothing for entries without a time.
+ * @param {Record<string, number>} values Values to save.
  */
-export function addEntry(entries, date, time, values) {
-  const added = { date, time };
-  const existing = entries.find((entry) => entryKey(entry) === entryKey(added));
-  const others = entries.filter((entry) => entryKey(entry) !== entryKey(added));
-  return [...others, { ...added, values: { ...existing?.values, ...values } }]
-    .sort((a, b) => entryKey(a).localeCompare(entryKey(b)));
+export async function saveValues(date, time, values) {
+  const { data } = await supabase.auth.getSession();
+  const { error } = await supabase
+    .from(TABLE)
+    .upsert(
+      { user_id: data.session.user.id, measured_on: date, measured_at: time || null, ...values },
+      { onConflict: "user_id,measured_on,measured_at" },
+    );
+  if (error) {
+    throw error;
+  }
 }
 
 /**
- * Removes one entry.
- * @param {Array<{date: string, time?: string, values: Record<string, number>}>} entries Existing entries.
- * @param {{date: string, time?: string}} removed The entry to remove.
- * @returns {Array<{date: string, time?: string, values: Record<string, number>}>} Remaining entries.
+ * Deletes one entry.
+ * @param {string} id Entry id.
  */
-export function removeEntry(entries, removed) {
-  return entries.filter((entry) => entryKey(entry) !== entryKey(removed));
+export async function deleteEntry(id) {
+  const { error } = await supabase.from(TABLE).delete().eq("id", id);
+  if (error) {
+    throw error;
+  }
+}
+
+/**
+ * Moves measurements saved in this browser before the Supabase version into the account,
+ * then removes them from the browser.
+ * @returns {Promise<number>} Number of moved entries.
+ */
+export async function importLegacyEntries() {
+  let entries;
+  try {
+    entries = JSON.parse(localStorage.getItem(LEGACY_STORAGE_KEY));
+  } catch {
+    return 0;
+  }
+  if (!Array.isArray(entries) || entries.length === 0) {
+    return 0;
+  }
+
+  // One request per entry, so each entry updates only the values it has.
+  for (const entry of entries) {
+    await saveValues(entry.date, entry.time, entry.values);
+  }
+  localStorage.removeItem(LEGACY_STORAGE_KEY);
+  return entries.length;
 }
 
 /**
  * Summarises one measurement across all entries.
- * @param {Array<{date: string, values: Record<string, number>}>} entries Entries in date order.
+ * @param {Array<{values: Record<string, number>}>} entries Entries in time order.
  * @param {string} key Measurement key.
  * @returns {{latest: number, sinceStart: number} | null} The latest value and its change since the first value, or null without values.
  */

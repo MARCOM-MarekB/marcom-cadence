@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="marcom-build-docs">
+<meta name="description" content="Step-by-step setup that connects a Supabase project to this repository and to the app.">
+<title>Supabase setup</title>
+<link rel="icon" type="image/svg+xml" href="../../docs/favicon.svg">
+<link rel="stylesheet" href="../../docs/docs.css">
+</head>
+<body data-group="other">
+<header class="topbar">
+<div><a class="brand" href="../../docs/index.html">Marcom Docs</a> <span class="crumb">/ marcom-cadence</span></div>
+<div class="lang-switch"><span>EN</span><a href="supabase-setup_pl.html">PL</a></div>
+</header>
+<div class="layout">
+<nav class="toc">
+<a class="toc-back" href="index.html">&larr; marcom-cadence</a>
+<p class="toc-title">Contents</p>
+<ul>
+<li><a href="#before-you-start">Before you start</a></li>
+<li><a href="#step-1-create-the-app-user">Step 1: create the app user</a></li>
+<li><a href="#step-2-turn-off-sign-up">Step 2: turn off sign-up</a></li>
+<li><a href="#step-3-set-the-addresses">Step 3: set the addresses</a></li>
+<li><a href="#step-4-push-the-code">Step 4: push the code</a></li>
+<li><a href="#step-5-connect-github-and-run-the-migrations">Step 5: connect GitHub and run the migrations</a></li>
+<li><a href="#step-6-check-the-database">Step 6: check the database</a></li>
+<li><a href="#step-7-expose-the-schema-to-the-data-api">Step 7: expose the schema to the Data API</a></li>
+<li><a href="#step-8-test-the-app">Step 8: test the app</a></li>
+<li><a href="#later-database-changes">Later database changes</a></li>
+<li><a href="#when-something-fails">When something fails</a></li>
+</ul>
+</nav>
+<main>
+<div class="hero">
+<h1>Supabase setup</h1>
+<p>Step-by-step setup that connects a Supabase project to this repository and to the app. Everything is done by clicking in the Supabase dashboard and on GitHub; no command line is needed. The resulting configuration is described in <a href="supabase.html">Supabase</a>.</p>
+</div>
+<h2 id="before-you-start">Before you start</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>What</th><th>Where it is used</th></tr></thead>
+<tbody>
+<tr><td>Supabase account</td><td>Logging in to the dashboard at supabase.com</td></tr>
+<tr><td>Supabase project</td><td>Created with <strong>New project</strong>: region Central EU (Frankfurt), <strong>Enable Data API</strong> on, <strong>Automatically expose new tables</strong> off, <strong>Enable automatic RLS</strong> on</td></tr>
+<tr><td>Database password</td><td>Set when the project is created. Kept in a password manager, never in the repository</td></tr>
+<tr><td>Project URL and publishable key</td><td><strong>Project Settings</strong>, <strong>API Keys</strong>. Both are written in <code>js/supabase.js</code></td></tr>
+</tbody>
+</table></div>
+<p>Three different accounts are involved:</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Account</th><th>Purpose</th><th>Where you sign in with it</th></tr></thead>
+<tbody>
+<tr><td>Supabase account</td><td>Managing the project in the dashboard</td><td>supabase.com</td></tr>
+<tr><td>Database password</td><td>Direct Postgres connection, for example from pgAdmin</td><td>Nowhere in the app</td></tr>
+<tr><td>App user</td><td>You as a Cadence user; your data belongs to it through <code>user_id</code></td><td>The Cadence login form</td></tr>
+</tbody>
+</table></div>
+<h2 id="step-1-create-the-app-user">Step 1: create the app user</h2>
+<ol>
+<li><strong>Authentication</strong>, <strong>Users</strong>.</li>
+<li><strong>Add user</strong>, <strong>Create new user</strong>.</li>
+<li>Enter the email and a new password for signing in to Cadence.</li>
+<li>Check <strong>Auto Confirm User</strong>, so no confirmation email is sent.</li>
+<li><strong>Create user</strong>.</li>
+</ol>
+<p>Check: the user appears in the list with an email and a UID.</p>
+<h2 id="step-2-turn-off-sign-up">Step 2: turn off sign-up</h2>
+<ol>
+<li><strong>Authentication</strong>, <strong>Sign In / Providers</strong>.</li>
+<li>Turn off <strong>Allow new users to sign up</strong>.</li>
+<li><strong>Save changes</strong>.</li>
+<li>Leave the <strong>Email</strong> provider on.</li>
+</ol>
+<p>Nobody else can create an account in the app now.</p>
+<h2 id="step-3-set-the-addresses">Step 3: set the addresses</h2>
+<ol>
+<li><strong>Authentication</strong>, <strong>URL Configuration</strong>.</li>
+<li><strong>Site URL</strong>: <code>https://marcom-marekb.github.io/marcom-cadence/</code>, then <strong>Save changes</strong>.</li>
+<li><strong>Redirect URLs</strong>: <strong>Add URL</strong>, <code>http://localhost:3100</code>, then <strong>Save URLs</strong>.</li>
+</ol>
+<p>Signing in with a password does not use these addresses. Links in emails, such as a password reset, redirect only to addresses on this list.</p>
+<h2 id="step-4-push-the-code">Step 4: push the code</h2>
+<p>Commit and push the repository to <code>main</code>. The integration in the next step reads the migration files from GitHub, not from your disk.</p>
+<h2 id="step-5-connect-github-and-run-the-migrations">Step 5: connect GitHub and run the migrations</h2>
+<ol>
+<li><strong>Project Settings</strong>, <strong>Integrations</strong>, <strong>GitHub</strong>, <strong>Connect</strong>.</li>
+<li>Authorize Supabase on GitHub and choose the <code>marcom-cadence</code> repository.</li>
+<li><strong>Supabase directory</strong>: <code>supabase</code>.</li>
+<li><strong>Production branch</strong>: <code>main</code>.</li>
+<li>Turn on <strong>Deploy to production</strong>.</li>
+<li>Save.</li>
+</ol>
+<p>Supabase now runs every file from <code>supabase/migrations/</code> that has not run yet. If nothing happens, push any later commit to <code>main</code>.</p>
+<p>If <strong>Deploy to production</strong> is not available, open <strong>SQL Editor</strong>, <strong>New query</strong>, paste the migration file and run it.</p>
+<h2 id="step-6-check-the-database">Step 6: check the database</h2>
+<ol>
+<li><strong>Table Editor</strong>.</li>
+<li>Switch the schema in the list at the top left to <code>marcom_cadence</code>.</li>
+<li>The <code>measurements</code> table is there.</li>
+</ol>
+<h2 id="step-7-expose-the-schema-to-the-data-api">Step 7: expose the schema to the Data API</h2>
+<ol>
+<li><strong>Project Settings</strong>, <strong>Data API</strong>.</li>
+<li>Add <code>marcom_cadence</code> to <strong>Exposed schemas</strong>.</li>
+<li>Save.</li>
+</ol>
+<p>The schema list shows only schemas that already exist, so this step comes after the migration. Without it the app shows &quot;Could not load measurements&quot;.</p>
+<h2 id="step-8-test-the-app">Step 8: test the app</h2>
+<ol>
+<li>Run <code>npm start</code> in the repository folder and open <code>http://localhost:3100</code>.</li>
+<li>Sign in with the app user from step 1.</li>
+<li>Open <strong>Measurements</strong> and save a value.</li>
+<li>In <strong>Table Editor</strong>, schema <code>marcom_cadence</code>, table <code>measurements</code>, the row appears with your UID in <code>user_id</code>.</li>
+</ol>
+<p>The published site at <code>https://marcom-marekb.github.io/marcom-cadence/</code> uses the same project and data.</p>
+<h2 id="later-database-changes">Later database changes</h2>
+<p>A new file in <code>supabase/migrations/</code> pushed to <code>main</code> is run by the integration automatically. Steps 1 to 7 are not repeated. A new schema needs step 7 again.</p>
+<h2 id="when-something-fails">When something fails</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>&quot;Wrong email or password&quot;</td><td>Wrong password, or the user is not confirmed</td><td>Check the user in <strong>Users</strong>; reset the password there if needed</td></tr>
+<tr><td>&quot;Could not load measurements&quot;</td><td>Schema not in <strong>Exposed schemas</strong>, or the migration did not run</td><td>Steps 6 and 7</td></tr>
+<tr><td>Error <code>permission denied for schema marcom_cadence</code></td><td>The <code>grant</code> statements did not run</td><td>Check that the whole migration ran</td></tr>
+<tr><td>The integration fails on <code>already exists</code></td><td>The migration was also pasted into SQL Editor by hand</td><td>Drop the schema in SQL Editor (<code>drop schema marcom_cadence cascade;</code>, only while it holds no data) and push again</td></tr>
+</tbody>
+</table></div>
+<p>Details of failed requests are in the browser developer tools (F12), <strong>Network</strong> tab, and in the dashboard under <strong>Logs</strong>.</p>
+
+</main>
+</div>
+<script src="../../docs/docs.js"></script>
+</body>
+</html>

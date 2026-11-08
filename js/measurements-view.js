@@ -1,5 +1,5 @@
 import { t } from "./i18n.js";
-import { MEASURES, addEntry, getSummary, loadEntries, removeEntry, storeEntries } from "./measurements.js";
+import { MEASURES, deleteEntry, fetchEntries, getSummary, importLegacyEntries, saveValues } from "./measurements.js";
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const LABEL_LEFT_X = 4;
@@ -17,6 +17,9 @@ const FIGURE_POINTS = {
   thigh: { x: 155, y: 322, labelY: 356, side: "left" },
   calf: { x: 240, y: 380, labelY: 396, side: "right" },
 };
+
+/** Entries of the signed-in user, in time order, as last read from Supabase. */
+let entries = [];
 
 /**
  * Creates an HTML element with a class and optional text.
@@ -163,9 +166,15 @@ function renderHistory(entries) {
 
     const remove = createElement("button", "control", t("measurements.delete"));
     remove.type = "button";
-    remove.addEventListener("click", () => {
-      storeEntries(removeEntry(loadEntries(), entry));
-      renderMeasurements();
+    remove.addEventListener("click", async () => {
+      remove.disabled = true;
+      try {
+        await deleteEntry(entry.id);
+        await loadMeasurements();
+      } catch {
+        remove.disabled = false;
+        document.getElementById("measure-status").textContent = t("measurements.deleteFailed");
+      }
     });
 
     const date = new Date(`${entry.date}T00:00`).toLocaleDateString(language);
@@ -180,9 +189,8 @@ function renderHistory(entries) {
   }));
 }
 
-/** Renders the whole Measurements view. */
+/** Renders the whole Measurements view from the entries last read. */
 export function renderMeasurements() {
-  const entries = loadEntries();
   renderFigure(entries);
   renderFields(entries);
   renderChanges(entries);
@@ -190,11 +198,17 @@ export function renderMeasurements() {
   document.getElementById("measure-empty").hidden = entries.length > 0;
 }
 
+/** Reads the entries from Supabase and renders the view. */
+async function loadMeasurements() {
+  entries = await fetchEntries();
+  renderMeasurements();
+}
+
 /**
  * Saves the filled form fields for the chosen date.
  * @param {SubmitEvent} event The form submission.
  */
-function saveForm(event) {
+async function saveForm(event) {
   event.preventDefault();
 
   const values = {};
@@ -213,15 +227,46 @@ function saveForm(event) {
 
   const date = document.getElementById("measure-date").value;
   const time = document.getElementById("measure-time").value;
-  const saved = storeEntries(addEntry(loadEntries(), date, time, values));
-  renderMeasurements();
-  status.textContent = t(saved ? "measurements.saved" : "measurements.saveFailed");
+  const save = document.querySelector("#measure-form .measure-save");
+  save.disabled = true;
+  status.textContent = t("measurements.saving");
+  try {
+    await saveValues(date, time, values);
+    await loadMeasurements();
+    status.textContent = t("measurements.saved");
+  } catch {
+    status.textContent = t("measurements.saveFailed");
+  } finally {
+    save.disabled = false;
+  }
 }
 
-/** Prepares the form. */
+/**
+ * Moves measurements left in this browser into the account, then reads all entries.
+ * Runs in the background, so the rest of the app does not wait for it.
+ */
+async function loadInitialMeasurements() {
+  const status = document.getElementById("measure-status");
+  try {
+    const imported = await importLegacyEntries();
+    if (imported > 0) {
+      status.textContent = t("measurements.imported", { count: String(imported) });
+    }
+  } catch {
+    status.textContent = t("measurements.importFailed");
+  }
+  try {
+    await loadMeasurements();
+  } catch {
+    status.textContent = t("measurements.loadFailed");
+  }
+}
+
+/** Prepares the form and starts reading the saved measurements. */
 export function initMeasurements() {
   const now = new Date();
   document.getElementById("measure-date").value = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
   document.getElementById("measure-time").value = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
   document.getElementById("measure-form").addEventListener("submit", saveForm);
+  loadInitialMeasurements();
 }

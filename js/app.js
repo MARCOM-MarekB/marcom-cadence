@@ -8,6 +8,7 @@ import {
   getShoppingList,
   getWeekTotals,
 } from "./diet.js";
+import { ensureSignedIn, initSignOut } from "./auth-view.js";
 import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
 import { initMeasurements, renderMeasurements } from "./measurements-view.js";
 import { initSetTimer, renderSetTimer } from "./set-timer-view.js";
@@ -819,6 +820,25 @@ function renderTranslated() {
   renderThemeToggle();
 }
 
+/**
+ * Opens the Diet view on the day of the next meal, with its recipe expanded and scrolled into view.
+ * @param {MouseEvent} event The click on the next meal card.
+ */
+function openNextMeal(event) {
+  event.preventDefault();
+  const { position } = getNextMeal(weekPosition(new Date()));
+  selectedDietDay = Math.floor(position / 24);
+  renderDietDay();
+  location.hash = "diet";
+  showCurrentView();
+
+  const item = document.querySelector(`#diet-days .meal-item[data-position="${position}"]`);
+  if (item) {
+    item.querySelector("details").open = true;
+    item.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+}
+
 /** Shows the view named in the address and marks its menu item. */
 function showCurrentView() {
   const requested = location.hash.slice(1);
@@ -841,6 +861,9 @@ function showCurrentView() {
 }
 
 await initI18n();
+applyTranslations();
+await ensureSignedIn();
+initSignOut();
 initMeasurements();
 initSetTimer();
 renderTranslated();
@@ -851,6 +874,7 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
   toggleTheme();
   renderThemeToggle();
 });
+document.getElementById("timer-meal-card").addEventListener("click", openNextMeal);
 document.getElementById("shopping-copy").addEventListener("click", copyShoppingList);
 document.getElementById("shopping-check-all").addEventListener("click", () => setAllShoppingItems(true));
 document.getElementById("shopping-uncheck-all").addEventListener("click", () => setAllShoppingItems(false));

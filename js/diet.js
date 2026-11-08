@@ -219,15 +219,15 @@ export const DIET_DAYS = [
   {
     meals: [
       { time: 8.5, key: "skyrFruit" },
-      { time: 13, key: "hungarianStew" },
+      { time: 14, key: "hungarianStew" },
       { time: 19, key: "salmonTortilla", sweet: true },
     ],
   },
   {
     meals: [
       { time: 8.5, key: "scrambledEggs" },
-      { time: 13, key: "skyrAppleNuts" },
-      { time: 16, key: "chickenSpinachPasta" },
+      { time: 14, key: "chickenSpinachPasta" },
+      { time: 16, key: "skyrAppleNuts" },
     ],
   },
 ];

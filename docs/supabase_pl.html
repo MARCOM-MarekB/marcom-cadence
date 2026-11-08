@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="marcom-build-docs">
+<meta name="description" content="Supabase przechowuje dane osobiste marcom-cadence">
+<title>Supabase</title>
+<link rel="icon" type="image/svg+xml" href="../../docs/favicon.svg">
+<link rel="stylesheet" href="../../docs/docs.css">
+</head>
+<body data-group="other">
+<header class="topbar">
+<div><a class="brand" href="../../docs/index_pl.html">Dokumentacja Marcom</a> <span class="crumb">/ marcom-cadence</span></div>
+<div class="lang-switch"><a href="supabase.html">EN</a><span>PL</span></div>
+</header>
+<div class="layout">
+<nav class="toc">
+<a class="toc-back" href="index_pl.html">&larr; marcom-cadence</a>
+<p class="toc-title">Spis treści</p>
+<ul>
+<li><a href="#how-access-works">Jak działa dostęp</a></li>
+<li><a href="#project">Projekt</a></li>
+<li><a href="#authentication">Logowanie</a></li>
+<li><a href="#database-changes">Zmiany w bazie</a></li>
+<li><a href="#tables">Tabele</a></li>
+</ul>
+</nav>
+<main>
+<div class="hero">
+<h1>Supabase</h1>
+<p>Supabase przechowuje dane osobiste marcom-cadence: hostowana baza Postgres z logowaniem i automatycznym REST API (Data API). Przeglądarka rozmawia tylko z tym API i nigdy nie łączy się bezpośrednio z Postgresem. Podłączanie projektu krok po kroku opisuje dokument <a href="supabase-setup_pl.html">Konfiguracja Supabase</a>.</p>
+</div>
+<h2 id="how-access-works">Jak działa dostęp</h2>
+<p>Strona wysyła z każdym żądaniem dwie rzeczy:</p>
+<ul>
+<li><strong>Klucz publishable:</strong> publiczny, wskazuje projekt. Jest w <code>js/supabase.js</code> i w tym repozytorium. Sam nie daje dostępu do żadnych danych.</li>
+<li><strong>Token logowania (JWT):</strong> wydawany po zalogowaniu kontem aplikacji. Postgres wykonuje wtedy zapytanie jako rola <code>authenticated</code>, z identyfikatorem użytkownika z tokenu.</li>
+</ul>
+<p>Każda tabela ma Row Level Security z polityką, która dopuszcza tylko wiersze, w których <code>user_id</code> jest równe zalogowanemu użytkownikowi. Pilnuje tego sama baza, więc znajomość klucza publishable nie wystarcza do odczytania czegokolwiek. Rola <code>anon</code> (niezalogowany) nie ma żadnych uprawnień do schematu aplikacji.</p>
+<p>Nigdy nie trafiają do repozytorium ani do kodu strony:</p>
+<ul>
+<li><strong>klucz secret</strong> (dawniej <code>service_role</code>), który omija Row Level Security,</li>
+<li><strong>hasło do bazy</strong>, potrzebne tylko do bezpośredniego połączenia z narzędzia takiego jak pgAdmin czy <code>psql</code>,</li>
+<li><strong>tokeny dostępu konta</strong> (Access Tokens), które zarządzają całym kontem Supabase.</li>
+</ul>
+<p>Panel Supabase (Table Editor, SQL Editor) działa jako rola <code>postgres</code> i widzi wszystkie dane. To on jest narzędziem administratora; aplikacja nie ma konta admina.</p>
+<h2 id="project">Projekt</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Ustawienie</th><th>Wartość</th></tr></thead>
+<tbody>
+<tr><td>Project URL</td><td><code>https://sylmbnnigldjmjxtyeli.supabase.co</code></td></tr>
+<tr><td>Klucz publishable</td><td><code>sb_publishable_SbRDLsC4DH5pk68cia5onw_0rcwi3pE</code></td></tr>
+<tr><td>Region</td><td>Central EU (Frankfurt), <code>eu-central-1</code></td></tr>
+<tr><td>Plan</td><td>Free</td></tr>
+<tr><td>Schemat</td><td><code>marcom_cadence</code></td></tr>
+</tbody>
+</table></div>
+<p>Opcje projektu:</p>
+<ul>
+<li><strong>Enable Data API:</strong> włączone, strona korzysta z tego API.</li>
+<li><strong>Automatically expose new tables:</strong> wyłączone. Każda tabela dostaje w swojej migracji jawne instrukcje <code>grant</code> dla roli <code>authenticated</code>.</li>
+<li><strong>Enable automatic RLS:</strong> włączone. Działa tylko na schemacie <code>public</code>, więc migracje włączają RLS jawnie na każdej tabeli.</li>
+<li><strong>Data API, Exposed schemas:</strong> zawiera <code>marcom_cadence</code>. Bez tego API odpowiada, że schemat nie jest udostępniony.</li>
+</ul>
+<h2 id="authentication">Logowanie</h2>
+<p>Aplikacja ma jedno konto, założone ręcznie. Ustawienia w sekcji <strong>Authentication</strong>:</p>
+<ul>
+<li><strong>Users:</strong> konto aplikacji, założone przez <strong>Add user</strong>, <strong>Create new user</strong>, z zaznaczonym <strong>Auto Confirm User</strong>.</li>
+<li><strong>Sign In / Providers:</strong> <strong>Allow new users to sign up</strong> jest wyłączone, więc nikt inny nie założy konta.</li>
+<li><strong>URL Configuration:</strong> <strong>Site URL</strong> to <code>https://marcom-marekb.github.io/marcom-cadence/</code>, a <code>http://localhost:3100</code> jest w <strong>Redirect URLs</strong>.</li>
+</ul>
+<p>Aplikacja loguje e-mailem i hasłem. <code>supabase-js</code> trzyma sesję w pamięci przeglądarki i odświeża token, więc formularz logowania pojawia się tylko po wylogowaniu albo po wygaśnięciu sesji.</p>
+<h2 id="database-changes">Zmiany w bazie</h2>
+<p>Wszystkie tabele są w schemacie <code>marcom_cadence</code>. Zmiany schematu to pliki SQL w <code>supabase/migrations/</code>, nazwane <code>&lt;znacznik czasu&gt;_&lt;opis&gt;.sql</code>, tak jak nazywa je Supabase CLI.</p>
+<p>Uruchamia je <strong>integracja Supabase z GitHubem</strong>: projekt jest połączony z repozytorium <code>marcom-cadence</code>, z katalogiem Supabase <code>supabase</code> i gałęzią produkcyjną <code>main</code>. Przy każdym pushu do <code>main</code> Supabase uruchamia pliki migracji, których jeszcze nie uruchomił, w kolejności nazw, i zapisuje je w <code>supabase_migrations.schema_migrations</code>. To odpowiednik <code>dotnet ef database update</code> w pipeline wdrożeniowym. Zastosowane migracje i przebiegi integracji widać w panelu.</p>
+<p>Zastosowanego pliku nie zmienia się; późniejsza zmiana to nowy plik z późniejszym znacznikiem czasu.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Migracja</th><th>Zawartość</th></tr></thead>
+<tbody>
+<tr><td><code>20261108000000_create_measurements.sql</code></td><td>Schemat <code>marcom_cadence</code> z uprawnieniem usage dla <code>authenticated</code>; tabela <code>measurements</code> z jednym wierszem na datę i godzinę, jedną kolumną na każdy pomiar ciała, unikalna dla użytkownika, daty i godziny, z polityką dostępu tylko dla właściciela</td></tr>
+</tbody>
+</table></div>
+<h2 id="tables">Tabele</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Tabela</th><th>Przeznaczenie</th></tr></thead>
+<tbody>
+<tr><td><code>marcom_cadence.measurements</code></td><td>Pomiary ciała. <code>user_id</code> to zalogowany użytkownik, a polityka odrzuca każdą inną wartość.</td></tr>
+</tbody>
+</table></div>
+
+</main>
+</div>
+<script src="../../docs/docs.js"></script>
+</body>
+</html>

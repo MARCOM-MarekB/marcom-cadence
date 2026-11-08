@@ -2,7 +2,7 @@
 
 Personal app for planning fasting and eating windows, following a diet and tracking training.
 
-Plain HTML, CSS and JavaScript with no build step, hosted on GitHub Pages. Personal data will live in Supabase behind login, never in this public repository.
+Plain HTML, CSS and JavaScript with no build step, hosted on GitHub Pages. Personal data lives in Supabase behind login, never in this public repository.
 
 ## Run locally
 
@@ -23,7 +23,11 @@ https://marcom-marekb.github.io/marcom-cadence/
 ## Documentation
 
 - [Overview](docs/overview.md)
-- [Overview (Polish)](docs/overview_pl.md)
+- [Overview (Polish)](docs/overview_pl.html)
+- [Supabase](docs/supabase.md)
+- [Supabase (Polish)](docs/supabase_pl.html)
+- [Supabase setup](docs/supabase-setup.md)
+- [Supabase setup (Polish)](docs/supabase-setup_pl.html)
 
 ## Licence
 
