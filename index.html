@@ -104,6 +104,36 @@
         <div class="diet-day-picker" id="diet-day-picker"></div>
         <button class="control hours-toggle" type="button" data-hours-toggle></button>
         <div class="diet-days" id="diet-days"></div>
+
+        <div class="data-transfer">
+          <p class="empty" id="diet-source"></p>
+          <p class="empty" data-i18n="dietData.intro"></p>
+          <div class="measure-actions">
+            <button class="control measure-save" id="diet-edit" type="button" data-i18n="dietEditor.open"></button>
+            <button class="control" id="diet-export" type="button" data-i18n="dietData.export"></button>
+            <button class="control" id="diet-import" type="button" data-i18n="dietData.import"></button>
+            <input id="diet-import-file" type="file" accept="application/json,.json" hidden>
+            <span class="empty" id="diet-transfer-status" role="status"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" data-view="diet-edit" hidden>
+        <h2 data-i18n="dietEditor.title"></h2>
+        <p class="empty" data-i18n="dietEditor.intro"></p>
+        <div class="tabs" data-i18n-aria-label="dietEditor.tabsLabel">
+          <button class="control" type="button" data-diet-editor-tab="general" data-i18n="dietEditor.tab.general"></button>
+          <button class="control" type="button" data-diet-editor-tab="ingredients" data-i18n="dietEditor.tab.ingredients"></button>
+          <button class="control" type="button" data-diet-editor-tab="meals" data-i18n="dietEditor.tab.meals"></button>
+          <button class="control" type="button" data-diet-editor-tab="week" data-i18n="dietEditor.tab.week"></button>
+          <button class="control" type="button" data-diet-editor-tab="fasts" data-i18n="dietEditor.tab.fasts"></button>
+        </div>
+        <div class="measure-form diet-editor" id="diet-editor-content"></div>
+        <div class="measure-actions editor-actions">
+          <button class="control measure-save" id="diet-editor-save" type="button" data-i18n="dietEditor.save"></button>
+          <button class="control" id="diet-editor-discard" type="button" data-i18n="dietEditor.close"></button>
+          <span class="empty" id="diet-editor-status" role="status"></span>
+        </div>
       </section>
 
       <section class="view" data-view="shopping" hidden>
@@ -117,8 +147,8 @@
           <div class="shopping-days" id="shopping-sort"></div>
           <p class="timer-label" data-i18n="shopping.basket"></p>
           <div class="shopping-days" id="shopping-basket-filter"></div>
-          <p class="timer-label" data-i18n="shopping.sushi"></p>
-          <div class="shopping-days" id="shopping-sushi"></div>
+          <p class="timer-label" data-i18n="shopping.readyMade"></p>
+          <div class="shopping-days" id="shopping-ready-made"></div>
         </div>
         <div class="diet-summary">
           <p id="shopping-summary"></p>
@@ -300,7 +330,7 @@
           </div>
         </div>
 
-        <div class="training-transfer">
+        <div class="data-transfer">
           <p class="empty" data-i18n="transfer.intro"></p>
           <div class="measure-actions">
             <button class="control" id="training-export" type="button" data-i18n="transfer.export"></button>

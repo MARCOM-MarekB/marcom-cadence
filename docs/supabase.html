@@ -82,13 +82,14 @@
 <tr><td><code>20261108000000_create_measurements.sql</code></td><td><code>marcom_cadence</code> schema with usage for <code>authenticated</code>, and a first <code>measurements</code> table with one column per value</td></tr>
 <tr><td><code>20261109000000_json_content_tables.sql</code></td><td>Replaces <code>measurements</code> with the content shape, and creates <code>exercises</code> and <code>workouts</code></td></tr>
 <tr><td><code>20261110000000_create_training_schedules.sql</code></td><td>Creates <code>training_schedules</code></td></tr>
+<tr><td><code>20261111000000_create_diets.sql</code></td><td>Creates <code>diets</code></td></tr>
 </tbody>
 </table></div>
 <h2 id="table-shape">Table shape</h2>
 <p>Every table has <code>id</code>, <code>user_id</code>, explicit columns only for what is filtered, sorted or kept unique, and the rest of the record in a <code>content</code> column of type <code>jsonb</code>. It is the same shape as the JSON tables in marcom-infrastructure, with the same rule for which fields get a column:</p>
 <ul>
 <li><strong>Growing list</strong> (measurements, workouts): filter and sort fields are explicit columns from the start.</li>
-<li><strong>Versioned settings</strong> (training schedule): a <code>valid_from</code> date column, unique per user; the version in use is the latest one that is not in the future.</li>
+<li><strong>Versioned settings</strong> (training schedule, diet): a <code>valid_from</code> date column, unique per user; the version in use is the latest one that is not in the future.</li>
 <li><strong>Dictionary the user fills by hand</strong> (exercises): everything is in <code>content</code>; the app reads the whole table and sorts in the browser.</li>
 </ul>
 <p>A whole record is one row, so the app saves it with a single write, which succeeds or fails as a whole. The app has no backend that could wrap several writes in a transaction.</p>
@@ -104,6 +105,7 @@
 <tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code> and <code>notes</code> in every language, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> or <code>hold</code>), <code>perSide</code>, <code>archived</code>, <code>progressions</code> as <code>[{id, name, archived}]</code> with the name in every language</td></tr>
 <tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, indexed with <code>user_id</code> for the newest-first list</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> as <code>[{exerciseId, notes, sets}]</code>, where a set holds only the fields with a value: <code>progressionId</code>, <code>reps</code> (per side when the exercise counts per side), <code>weightKg</code>, <code>addedKg</code>, <code>band</code>, <code>holdS</code> and <code>isMax</code>; a GIN index on <code>content</code> finds workouts that use an exercise</td></tr>
 <tr><td><code>marcom_cadence.training_schedules</code></td><td><code>valid_from</code> (unique per user)</td><td><code>sessions</code> as <code>[{day, start, durationMin}]</code>, where <code>day</code> 0 is Monday and <code>start</code> is <code>HH:MM</code></td></tr>
+<tr><td><code>marcom_cadence.diets</code></td><td><code>valid_from</code> (unique per user)</td><td>The whole diet in the diet file shape without <code>format</code> and <code>version</code>; see <a href="overview.html">Overview</a></td></tr>
 </tbody>
 </table></div>
 

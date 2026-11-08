@@ -84,184 +84,91 @@
   "diet.mealKcal": "{kcal} kcal",
   "diet.weekTotal": "Suma tygodnia: {macros}",
   "diet.estimate": "Wszystkie wartości są szacunkowe. Kliknij posiłek, aby zobaczyć przepis.",
+  "dietData.intro": "Cała dieta - składniki, potrawy z przepisami, posty i plan tygodnia - w jednym pliku JSON. Zaimportowana dieta zapisuje się w bazie jako obowiązująca od dziś; wcześniejsze wersje zostają.",
+  "dietData.builtIn": "Wbudowana dieta: {name}.",
+  "dietData.saved": "Dieta {name}, obowiązuje od {date}.",
+  "dietData.savedInvalid": "Zapisana dieta nie ma postu albo posiłku, więc używana jest wbudowana.",
+  "dietData.loadFailed": "Nie udało się wczytać zapisanej diety, więc używana jest wbudowana.",
+  "dietData.export": "Eksportuj JSON",
+  "dietData.import": "Importuj JSON",
+  "dietData.importConfirm": "Zapisać dietę {name} ({meals} potraw, {ingredients} składników) jako obowiązującą od dziś?",
+  "dietData.importing": "Zapisywanie...",
+  "dietData.imported": "Zapisano dietę {name}",
+  "dietData.importFailed": "Nie udało się zapisać, spróbuj ponownie",
+  "dietData.wrongFile": "To nie jest plik diety z Cadence",
+  "dietData.noFasts": "Dieta nie ma żadnego poprawnego postu",
+  "dietData.noMeals": "Dieta nie ma żadnego zaplanowanego posiłku",
+  "dietEditor.open": "Edytuj dietę",
+  "dietEditor.title": "Edytor diety",
+  "dietEditor.intro": "Zmiany robisz na kopii obowiązującej diety. Zapis tworzy nową wersję obowiązującą od dziś; wcześniejsze wersje zostają. Każdy tekst ma pole angielskie i polskie.",
+  "dietEditor.tabsLabel": "Części edytora diety",
+  "dietEditor.tab.general": "Ogólne",
+  "dietEditor.tab.ingredients": "Składniki",
+  "dietEditor.tab.meals": "Potrawy",
+  "dietEditor.tab.week": "Tydzień",
+  "dietEditor.tab.fasts": "Posty",
+  "dietEditor.save": "Zapisz dietę",
+  "dietEditor.close": "Wróć do diety",
+  "dietEditor.discardConfirm": "Odrzucić niezapisane zmiany w diecie?",
+  "dietEditor.unsaved": "Niezapisane zmiany",
+  "dietEditor.saving": "Zapisywanie...",
+  "dietEditor.saved": "Zapisano, obowiązuje od dziś",
+  "dietEditor.saveFailed": "Nie udało się zapisać, spróbuj ponownie",
+  "dietEditor.unnamed": "(bez nazwy)",
+  "dietEditor.name": "Nazwa diety",
+  "dietEditor.treat": "Słodki dodatek",
+  "dietEditor.kcal": "kcal",
+  "dietEditor.protein": "Białko g",
+  "dietEditor.carbs": "Węglowodany g",
+  "dietEditor.fat": "Tłuszcz g",
+  "dietEditor.ingredientName": "Nazwa",
+  "dietEditor.category": "Kategoria",
+  "dietEditor.unit": "Jednostka",
+  "dietEditor.unit.g": "g",
+  "dietEditor.unit.ml": "ml",
+  "dietEditor.unit.pcs": "sztuki",
+  "dietEditor.unit.rolls": "rolki",
+  "dietEditor.addIngredient": "Dodaj składnik",
+  "dietEditor.removeIngredient": "Usuń składnik",
+  "dietEditor.ingredientInUse": "{name} jest użyty w: {meals}",
+  "dietEditor.noIngredients": "Najpierw dodaj składniki.",
+  "dietEditor.pickMeal": "Potrawa do edycji",
+  "dietEditor.newMeal": "Nowa potrawa",
+  "dietEditor.duplicateMeal": "Duplikuj",
+  "dietEditor.copySuffix": " (kopia)",
+  "dietEditor.deleteMeal": "Usuń potrawę",
+  "dietEditor.deleteMealConfirm": "Usunąć potrawę {name}?",
+  "dietEditor.mealInUse": "{name} jest zaplanowana: {days}",
+  "dietEditor.mealPlanned": "Zaplanowana: {days}",
+  "dietEditor.mealNotPlanned": "Nie jest zaplanowana w tygodniu",
+  "dietEditor.noMeals": "Nie ma jeszcze potraw.",
+  "dietEditor.mealName": "Nazwa potrawy",
+  "dietEditor.mealIngredients": "Składniki",
+  "dietEditor.ingredient": "Składnik",
+  "dietEditor.amount": "Ilość",
+  "dietEditor.addMealIngredient": "Dodaj składnik",
+  "dietEditor.removeMealIngredient": "Usuń składnik z potrawy",
+  "dietEditor.seasoning": "Przyprawy i dodatki",
+  "dietEditor.steps": "Kroki przygotowania",
+  "dietEditor.addStep": "Dodaj krok",
+  "dietEditor.removeStep": "Usuń krok",
+  "dietEditor.hasAlternative": "Gotowe danie z zamiennikiem",
+  "dietEditor.alternativeIngredients": "Składniki zamiennika",
+  "dietEditor.alternativeStep": "Przygotowanie zamiennika",
+  "dietEditor.time": "Godzina",
+  "dietEditor.meal": "Potrawa",
+  "dietEditor.sweet": "Słodkie",
+  "dietEditor.addPlannedMeal": "Dodaj posiłek",
+  "dietEditor.removePlannedMeal": "Usuń posiłek",
+  "dietEditor.fastStart": "Początek",
+  "dietEditor.fastEnd": "Koniec",
+  "dietEditor.fastLength": "{hours} h",
+  "dietEditor.addFast": "Dodaj post",
+  "dietEditor.removeFast": "Usuń post",
+  "dietEditor.mealInFast": "{day} {time}: {meal} wypada w trakcie postu",
   "diet.ingredients": "Składniki",
   "diet.steps": "Przygotowanie",
-  "diet.sweet": "+ słodkie, około 200 kcal: 3-4 kostki czekolady, mały baton albo gałka lodów",
-  "meal.chickenCurry": "Kurczak curry z żółtą papryką i kuskusem",
-  "meal.sushi": "Sushi z łososiem, 1 rolka",
-  "meal.bananaToast": "Banan i kromka chleba z dżemem",
-  "meal.roastChickenPotatoes": "Pieczone udko, ziemniaki i surówka",
-  "meal.skyrFruit": "Skyr z owocami",
-  "meal.eggsRye": "3 jajka i 2 kromki chleba żytniego",
-  "meal.skyrBowl": "Skyr z masłem orzechowym i dżemem",
-  "meal.turkeyPotatoes": "Indyk w sosie, ziemniaki i kapusta",
-  "meal.salmonGroats": "Pieczony łosoś, kasza gryczana i brokuły",
-  "meal.oatmeal": "Owsianka na mleku z borówkami i orzechami",
-  "meal.skyrBowlFruit": "Skyr z masłem orzechowym, dżemem i owocem",
-  "meal.roastChickenBulgur": "Pieczone udko, bulgur i szpinak",
-  "meal.hamSandwichesBanana": "Kanapki z szynką i banan",
-  "meal.riceCakesJam": "Wafle ryżowe z dżemem",
-  "meal.skyrOatsFruit": "Skyr z płatkami, owocem i miodem",
-  "meal.sushiOrSalmon": "Sushi z łososiem, 1 rolka, plus skyr",
-  "meal.hungarianStew": "Kociołek węgierski z chlebem",
-  "meal.salmonTortilla": "Tortille z wędzonym łososiem",
-  "meal.scrambledEggs": "Jajecznica i chleb",
-  "meal.chickenSpinachPasta": "Potrawka ze szpinakiem, kurczakiem i fetą, makaron razowy",
-  "recipes": {
-    "sushi": {
-      "steps": [
-        "Kup albo zamów. Wybieraj rolki z łososiem, a rolki z majonezem ogranicz."
-      ],
-      "alternativeStep": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podaj w misce z pokrojonym ogórkiem."
-    },
-    "bananaToast": {
-      "steps": [
-        "Posmaruj chleb dżemem i zjedz z bananem."
-      ]
-    },
-    "roastChickenPotatoes": {
-      "steps": [
-        "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego.",
-        "Ugotuj ziemniaki w osolonej wodzie, około 20 minut.",
-        "Wymieszaj kapustę i marchewkę z oliwą, sokiem z cytryny i solą."
-      ],
-      "seasoning": "Sok z cytryny, sól, pieprz, słodka papryka"
-    },
-    "skyrFruit": {
-      "steps": [
-        "Wyłóż skyr do miski i dodaj owoce. Skyr to gęsty, chudy jogurt typu islandzkiego z dużą ilością białka, dostępny w większości supermarketów."
-      ]
-    },
-    "eggsRye": {
-      "steps": [
-        "Ugotuj jajka, 8 minut.",
-        "Posmaruj chleb masłem i podaj z jajkami i warzywami."
-      ]
-    },
-    "skyrBowl": {
-      "steps": [
-        "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe i dżem."
-      ]
-    },
-    "turkeyPotatoes": {
-      "steps": [
-        "Rozbij filet, dopraw solą, pieprzem i czosnkiem, a potem obsmaż z obu stron na 10 g oliwy.",
-        "Przełóż do garnka z gotującym się bulionem. Na patelni podsmaż cebulę w kostkę i startą marchewkę, 3 minuty, i dodaj do garnka.",
-        "Dodaj paprykę w proszku i zioła, przykryj i gotuj 20 minut.",
-        "Wmieszaj śmietankę, zagęść mąką i gotuj 3 minuty.",
-        "Osobno ugotuj ziemniaki i kapustę. Kapustę polej 5 g oliwy."
-      ],
-      "seasoning": "Papryka w proszku, zioła prowansalskie, sól, pieprz"
-    },
-    "salmonGroats": {
-      "steps": [
-        "Dopraw łososia i piecz w 200°C przez 15 minut.",
-        "Ugotuj kaszę według opakowania.",
-        "Ugotuj brokuły na parze, 5-7 minut."
-      ],
-      "seasoning": "Cytryna, sól, pieprz"
-    },
-    "oatmeal": {
-      "steps": [
-        "Gotuj płatki w mleku 5 minut, mieszając.",
-        "Dodaj borówki, posiekane orzechy i ekspandowaną jagłę lub grykę."
-      ]
-    },
-    "skyrBowlFruit": {
-      "steps": [
-        "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe, dżem i owoce."
-      ]
-    },
-    "roastChickenBulgur": {
-      "steps": [
-        "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego.",
-        "Ugotuj bulgur według opakowania.",
-        "Krótko podsmaż czosnek na oliwie i duś szpinak 2-3 minuty."
-      ],
-      "seasoning": "Sól, pieprz, słodka papryka"
-    },
-    "hamSandwichesBanana": {
-      "steps": [
-        "Zrób kanapki z szynką i pomidorem i zjedz z bananem."
-      ]
-    },
-    "riceCakesJam": {
-      "steps": [
-        "Posmaruj wafle dżemem."
-      ]
-    },
-    "skyrOatsFruit": {
-      "steps": [
-        "Wymieszaj skyr z płatkami i miodem, a na wierzch dodaj owoce."
-      ]
-    },
-    "sushiOrSalmon": {
-      "steps": [
-        "Kup albo zamów sushi, a skyr zjedz jako dodatek."
-      ],
-      "alternativeStep": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podduś szpinak na oliwie. Skyr zjedz jako dodatek."
-    },
-    "hungarianStew": {
-      "steps": [
-        "Pokrój w kostkę indyka, cebulę, paprykę i ziemniaki, a pieczarki w plasterki.",
-        "Duś indyka z cebulą na oliwie 5 minut. Dodaj pieczarki i paprykę i duś 10 minut.",
-        "Dodaj pomidory, ziemniaki i bulion i gotuj 25 minut.",
-        "Dopraw, posyp natką i podaj z chlebem."
-      ],
-      "seasoning": "Natka pietruszki, sól, pieprz, chili"
-    },
-    "salmonTortilla": {
-      "steps": [
-        "Wymieszaj jogurt z sokiem z cytryny, koperkiem i pieprzem.",
-        "Posmaruj tortille, dodaj łososia i warzywa, a potem zwiń."
-      ],
-      "seasoning": "Cytryna, koperek, pieprz"
-    },
-    "scrambledEggs": {
-      "steps": [
-        "Roztrzep jajka z solą i pieprzem.",
-        "Rozpuść masło na patelni i delikatnie mieszaj jajka na małym ogniu, aż się zetną.",
-        "Podaj ze szczypiorkiem, chlebem i pomidorem."
-      ],
-      "seasoning": "Szczypiorek, sól, pieprz"
-    },
-    "chickenSpinachPasta": {
-      "steps": [
-        "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut.",
-        "Dodaj cebulę i czosnek w kostkę i duś 5 minut.",
-        "Dodaj szpinak i duś 10 minut. Na koniec wmieszaj fetę i przyprawy.",
-        "Ugotuj makaron według opakowania i podaj razem."
-      ],
-      "seasoning": "Sól, pieprz, bazylia"
-    },
-    "chickenCurry": {
-      "steps": [
-        "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut.",
-        "Dodaj pokrojoną cebulę i paprykę, posyp przyprawami i podlej 80 ml wody.",
-        "Duś 10-15 minut, a potem zagęść jogurtem i dopraw do smaku.",
-        "Zalej kuskus wrzątkiem, przykryj na 5 minut i spulchnij widelcem."
-      ],
-      "seasoning": "Curry, sól, pieprz, słodka papryka"
-    },
-    "skyrFruitLarge": {
-      "steps": [
-        "Wyłóż skyr do miski i dodaj owoce."
-      ]
-    },
-    "skyrAppleNuts": {
-      "steps": [
-        "Pokrój jabłko w kostkę, posiekaj orzechy i wymieszaj ze skyrem."
-      ]
-    },
-    "chickenRice": {
-      "seasoning": "Sos sojowy, sól, pieprz, słodka papryka",
-      "steps": [
-        "Ugotuj ryż według opakowania.",
-        "Pokrój kurczaka w kostkę, dopraw i smaż na oliwie 6-8 minut.",
-        "Dodaj pokrojoną paprykę, brokuły i czosnek, smaż 5 minut i podaj z ryżem."
-      ]
-    }
-  },
+  "diet.sweet": "+ słodkie, około {kcal} kcal: 3-4 kostki czekolady, mały baton albo gałka lodów",
   "training.title": "Treningi",
   "training.tabsLabel": "Części widoku Treningi",
   "training.tab.timer": "Timer serii",
@@ -391,10 +298,12 @@
   "setTimer.phase.rest": "Przerwa",
   "setTimer.phase.done": "Koniec",
   "setTimer.phase.paused": "Pauza",
-  "meal.skyrFruitLarge": "Duży skyr z owocami",
   "nav.shopping": "Zakupy",
   "shopping.title": "Lista zakupów",
   "shopping.days": "Na ile dni?",
+  "shopping.readyMade": "Gotowe dania",
+  "shopping.readyMadeBuy": "Kupuję gotowe",
+  "shopping.readyMadeReplace": "Biorę zamienniki",
   "shopping.summary": "{from} do {to}: posiłków {meals}",
   "shopping.spices": "Lista nie obejmuje przypraw, ziół i cytryny.",
   "shopping.layout": "Widok",
@@ -430,62 +339,8 @@
     "many": "rolek",
     "other": "rolki"
   },
-  "ingredient.skyr": "Skyr naturalny",
-  "ingredient.yoghurt": "Jogurt naturalny",
-  "ingredient.greekYoghurt": "Jogurt grecki",
-  "ingredient.cream": "Śmietanka 12%",
-  "ingredient.milk": "Mleko 1,5%",
-  "ingredient.butter": "Masło",
-  "ingredient.feta": "Feta",
-  "ingredient.egg": "Jajka",
-  "ingredient.chickenLeg": "Udka z kurczaka (250 g z kością)",
-  "ingredient.chickenBreast": "Pierś z kurczaka",
-  "ingredient.turkey": "Pierś z indyka",
-  "ingredient.ham": "Szynka",
-  "ingredient.salmon": "Filet z łososia",
-  "ingredient.smokedSalmon": "Łosoś wędzony",
-  "ingredient.sushi": "Sushi z łososiem",
-  "ingredient.potatoes": "Ziemniaki",
-  "ingredient.cabbage": "Kapusta biała",
-  "ingredient.carrot": "Marchewka",
-  "ingredient.tomato": "Pomidory",
-  "ingredient.cucumber": "Ogórek",
-  "ingredient.lettuce": "Sałata",
-  "ingredient.onion": "Cebula",
-  "ingredient.garlic": "Ząbki czosnku",
-  "ingredient.broccoli": "Brokuły",
-  "ingredient.spinach": "Szpinak",
-  "ingredient.pepper": "Papryka",
-  "ingredient.mushrooms": "Pieczarki",
-  "ingredient.fruit": "Dowolne owoce",
-  "ingredient.apple": "Jabłka (200 g)",
-  "ingredient.banana": "Banany (150 g)",
-  "ingredient.ryeBread": "Chleb żytni",
-  "ingredient.oats": "Płatki owsiane",
-  "ingredient.buckwheat": "Kasza gryczana",
-  "ingredient.bulgur": "Kasza bulgur",
-  "ingredient.couscous": "Kuskus",
-  "ingredient.pasta": "Makaron razowy",
-  "ingredient.riceCakes": "Wafle ryżowe",
-  "ingredient.tortilla": "Tortille",
-  "ingredient.flour": "Mąka",
-  "ingredient.oliveOil": "Oliwa",
-  "ingredient.peanutButter": "Masło orzechowe",
-  "ingredient.jam": "Dżem 100% owoców",
-  "ingredient.honey": "Miód",
-  "ingredient.stock": "Bulion",
   "agenda.training": "Trening do {end}",
   "agenda.fastStart": "Początek postu",
   "agenda.fastEnd": "Koniec postu",
-  "shopping.sushi": "Sushi",
-  "shopping.sushiBuy": "Kupuję sushi",
-  "shopping.sushiReplace": "Biorę zamiennik",
-  "diet.alternative": "Nie ma sushi? Zamiennik",
-  "ingredient.blueberries": "Borówki",
-  "ingredient.almonds": "Migdały",
-  "ingredient.cashews": "Nerkowce",
-  "ingredient.puffedGrain": "Jagła lub gryka ekspandowana",
-  "ingredient.rice": "Ryż",
-  "meal.skyrAppleNuts": "Skyr z jabłkiem i orzechami",
-  "meal.chickenRice": "Kurczak z ryżem i warzywami"
+  "diet.alternative": "Zamiennik gotowego dania"
 }

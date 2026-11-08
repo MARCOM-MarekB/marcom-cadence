@@ -82,6 +82,7 @@
 <tr><td><code>20261108000000_create_measurements.sql</code></td><td>Schemat <code>marcom_cadence</code> z uprawnieniem usage dla <code>authenticated</code> i pierwsza tabela <code>measurements</code> z kolumną na każdą wartość</td></tr>
 <tr><td><code>20261109000000_json_content_tables.sql</code></td><td>Zastępuje <code>measurements</code> wersją z <code>content</code> i tworzy <code>exercises</code> oraz <code>workouts</code></td></tr>
 <tr><td><code>20261110000000_create_training_schedules.sql</code></td><td>Tworzy <code>training_schedules</code></td></tr>
+<tr><td><code>20261111000000_create_diets.sql</code></td><td>Tworzy <code>diets</code></td></tr>
 </tbody>
 </table></div>
 <h2 id="table-shape">Kształt tabel</h2>
@@ -89,7 +90,7 @@
 <ul>
 <li><strong>Rosnąca lista</strong> (pomiary, treningi): pola do filtrowania i sortowania są jawnymi kolumnami od początku.</li>
 <li><strong>Słownik wypełniany ręcznie</strong> (ćwiczenia): wszystko jest w <code>content</code>; aplikacja czyta całą tabelę i sortuje w przeglądarce.</li>
-<li><strong>Ustawienia z wersjami</strong> (harmonogram treningów): kolumna z datą <code>valid_from</code>, unikalna dla użytkownika; obowiązuje najpóźniejsza wersja, która nie jest w przyszłości.</li>
+<li><strong>Ustawienia z wersjami</strong> (harmonogram treningów, dieta): kolumna z datą <code>valid_from</code>, unikalna dla użytkownika; obowiązuje najpóźniejsza wersja, która nie jest w przyszłości.</li>
 </ul>
 <p>Cały rekord to jeden wiersz, więc aplikacja zapisuje go jednym zapisem, który udaje się albo nie w całości. Aplikacja nie ma backendu, który mógłby objąć kilka zapisów transakcją.</p>
 <p>Kod czytający <code>content</code> pomija nieznane pola i nadaje brakującym wartości domyślne, więc wiersze zapisane w starszym kształcie dalej się czytają po zmianie kształtu.</p>
@@ -103,6 +104,7 @@
 <tr><td><code>marcom_cadence.measurements</code></td><td><code>measured_on</code>, <code>measured_at</code> (unikalne dla użytkownika, daty i godziny)</td><td>Wartości według klucza pomiaru, np. <code>{&quot;weight&quot;: 78, &quot;waist&quot;: 100}</code></td></tr>
 <tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code> i <code>notes</code> w każdym języku, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> albo <code>hold</code>), <code>perSide</code>, <code>archived</code>, <code>progressions</code> jako <code>[{id, name, archived}]</code> z nazwą w każdym języku</td></tr>
 <tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, z indeksem razem z <code>user_id</code> dla listy od najnowszego</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> jako <code>[{exerciseId, notes, sets}]</code>, gdzie seria ma tylko pola z wartością: <code>progressionId</code>, <code>reps</code> (na stronę, gdy ćwiczenie liczy na stronę), <code>weightKg</code>, <code>addedKg</code>, <code>band</code>, <code>holdS</code> i <code>isMax</code>; indeks GIN na <code>content</code> znajduje treningi z danym ćwiczeniem</td></tr>
+<tr><td><code>marcom_cadence.diets</code></td><td><code>valid_from</code> (unikalne dla użytkownika)</td><td>Cała dieta w kształcie pliku diety bez <code>format</code> i <code>version</code>; zob. <a href="overview_pl.html">Przegląd</a></td></tr>
 <tr><td><code>marcom_cadence.training_schedules</code></td><td><code>valid_from</code> (unikalne dla użytkownika)</td><td><code>sessions</code> jako <code>[{day, start, durationMin}]</code>, gdzie <code>day</code> 0 to poniedziałek, a <code>start</code> to <code>HH:MM</code></td></tr>
 </tbody>
 </table></div>

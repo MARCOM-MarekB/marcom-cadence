@@ -10,8 +10,15 @@ The app has a navigation menu with six views:
 
 - **Today:** current status with progress, live countdowns to the end of the fast or the next fast, the next meal and the next training, the week timeline and today's meals with past and next meals marked. Clicking the next meal card opens the Diet view on that meal's day with its recipe expanded.
 - **Week:** the week timeline and the list of fasting and eating periods. The current period is marked, and eating periods expand into an hour calendar of that period, one section per day.
-- **Diet:** a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe.
-- **Shopping:** a shopping list for the next 1 to 14 days, counted from now and summed from the planned meals. It can be shown by category or as a flat list, sorted by default order or alphabetically, and switched from sushi to its replacement ingredients. Items can be ticked one by one or all at once, ticked items can be hidden, and the visible list can be copied or printed on A4. Spices are not included. Ticks last until the page is reloaded.
+- **Diet:** a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe. Under the calendar, the diet in use is named with its start date, **Edit diet** opens the diet editor, **Export JSON** downloads it as one file, and **Import JSON** saves such a file in the database as the diet valid from today, after a confirmation; earlier versions stay. A diet needs at least one fast and one planned meal.
+- **Diet editor** (`#diet-edit`, opened from the Diet view): edits a copy of the diet in use in five tabs. Every text has an English and a Polish field.
+  - **General:** the diet name, the energy and macronutrients of the sweet treat, and the week totals.
+  - **Ingredients:** name, shopping category and unit (g, ml, pieces or rolls) of each ingredient. An ingredient used in a meal cannot be removed.
+  - **Meals:** a meal picker with new, duplicate and delete, and the form of the chosen meal: name, values, ingredients with amounts, spices and extras, preparation steps, and optionally the replacement of a ready-made meal with its own ingredients and preparation. The form says on which days the meal is planned; a planned meal cannot be deleted.
+  - **Week:** a day picker and the meals of that day with time, meal and the sweet treat mark, plus the day totals.
+  - **Fasts:** start and end of each fast as day and time, with its length.
+  - The Week and Fasts tabs list planned meals that fall inside a fast; a meal at the very start or end of a fast is allowed. **Save diet** stores the copy as a new diet version valid from today, after the same checks as an import. **Back to the diet** asks before throwing away unsaved changes; changes are also kept while moving to another view, and closing the page with unsaved changes asks first.
+- **Shopping:** a shopping list for the next 1 to 14 days, counted from now and summed from the planned meals. It can be shown by category or as a flat list, sorted by default order or alphabetically, and switched from ready-made meals, such as sushi, to their replacement ingredients. Items can be ticked one by one or all at once, ticked items can be hidden, and the visible list can be copied or printed on A4. Spices are not included. Ticks last until the page is reloaded.
 - **Training:** five tabs, and the open tab is remembered in the browser.
   - **Set timer:** exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser.
   - **Log:** the workout log in Supabase, the 100 most recent workouts newest first. Each row sums up the workout, one line per exercise, with equal sets in a row counted, such as "RDL: 3×8+8 @ 60 kg" or "Back lever: Tuck 3×10 s". A new workout starts at today's training from the schedule, or at the current time when none is planned today. **Copy previous workout** opens a new workout with the exercises and sets of the most recent one, and **Copy** on a row does the same for that workout; the start is suggested again and max marks are cleared. In the form, exercises are added from the catalog, each with its sets; the set inputs follow the exercise: repetitions (per side when the exercise counts per side), weight, added weight and band, or hold time, plus the progression when the exercise has any and a max mark. **+ set** adds a copy of the last set. Next to each set the form shows its share of the previous max of the same exercise and progression, the last max before the workout start. Sets with no values are left out when saving, and the whole workout is saved in one write.
@@ -25,7 +32,7 @@ The week timeline is one bar for the whole week. Dashed lines mark each midnight
 
 The header also switches between light and dark mode and between English and Polish. Both choices are remembered in the browser. Without a saved choice, the app follows the system theme and the browser language.
 
-The fasting periods and the meal plan are fixed in code.
+The diet in use is the latest version saved in the database that is not in the future. Until one is saved, or when the saved one cannot be read or has no fast or planned meal, the built-in diet from `data/diet.json` is used. The diet holds the ingredients, the meals with values and recipes, the sweet treat, the fasting periods and the meals planned for each day; the fasting periods drive the status, countdowns and timelines.
 
 ## Structure
 
@@ -37,8 +44,12 @@ The fasting periods and the meal plan are fixed in code.
 | `img/mascot.svg` | Cartoon figure, not used yet |
 | `favicon.svg` | App icon, in the style of the Marcom logo (white letter on a teal circle) |
 | `i18n/*.json` | Interface texts, one file per language |
+| `data/diet.json` | Built-in diet in the diet file format, used until a diet is saved in the database |
 | `js/app.js` | Rendering, navigation and the once-a-second refresh |
-| `js/diet.js` | Products, meals with values and ingredients, weekly plan, totals and shopping list calculation; names and recipe steps are in `i18n/*.json` |
+| `js/diet.js` | Diet file cleaning and checks, the diet in use, totals, next meal and shopping list calculation |
+| `js/diets.js` | Reading the built-in diet, and reading and saving diet versions in Supabase |
+| `js/diet-view.js` | Loading the diet in use, its name and source, the diet export and import, and saving a diet as the one in use |
+| `js/diet-editor-view.js` | Diet editor view |
 | `js/set-timer.js` | Set timer logic, based on end times so background delays are caught up |
 | `js/set-timer-view.js` | Set timer form, sound, screen wake lock and rendering |
 | `js/supabase.js` | Supabase client: project URL, publishable key and the `marcom_cadence` schema |
@@ -58,7 +69,7 @@ The fasting periods and the meal plan are fixed in code.
 | `js/dates.js` | Local date and time formatting for inputs and date columns |
 | `js/training-tabs.js` | Tabs of the Training view |
 | `js/i18n.js` | Language loading, translation lookup, and user texts stored in every language |
-| `js/schedule.js` | Fasting periods, the training sessions in use and pure time calculations |
+| `js/schedule.js` | Fasting periods and training sessions in use, and pure time calculations |
 | `js/theme.js` | Theme switching |
 | `js/theme-init.js` | Applies the saved theme before the page is drawn |
 | `supabase/migrations/*.sql` | Database schema in Supabase, applied by the Supabase GitHub integration on push to `main`; see [Supabase](supabase.md) |
@@ -69,8 +80,9 @@ The fasting periods and the meal plan are fixed in code.
 
 - Plain HTML, CSS and JavaScript modules, with no build step.
 - All URLs are relative, because the site is served from `/marcom-cadence/`.
-- Navigation uses the address hash (`#today`, `#week`, `#diet`, `#shopping`, `#training`, `#measurements`), which works on GitHub Pages without server rules.
+- Navigation uses the address hash (`#today`, `#week`, `#diet`, `#diet-edit`, `#shopping`, `#training`, `#measurements`), which works on GitHub Pages without server rules.
 - Meal ingredients are structured data, so recipes and the shopping list use one source.
+- The diet file (`data/diet.json`, the database content and the export) has `format` `marcom-cadence/diet` and `version` 1, then `name`, `treat`, `ingredients` (`id`, `name`, `category`, `unit`), `meals` (`id`, `name`, `kcal`, `protein`, `carbs`, `fat`, `ingredients` as `[{ingredientId, amount}]`, `steps`, optional `seasoning` and `alternative` with `ingredients` and `step`), `fasts` (`start` and `end` as `{day, time}`) and `days` (`day` and `meals` as `[{time, mealId, sweet}]`). Days count from 0 for Monday and times are `HH:MM`. Ids only need to be unique within the diet. Every text is stored in English and Polish. Reading the file drops unknown fields and references to missing ingredients or meals.
 - Translated texts in `index.html` use the `data-i18n` attribute. Every language file must contain the same keys.
 - Texts the user writes into the database, such as exercise and progression names, are stored in every language as `{"en": "...", "pl": "..."}`. A plain string reads as the same text in every language. Free notes of a workout are stored as written, in one language.
 - Schedule times are hours counted from Monday 00:00, in the viewer's local time. A period may wrap past the end of the week.
@@ -78,7 +90,7 @@ The fasting periods and the meal plan are fixed in code.
 
 ## Data and privacy
 
-The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements, the exercise catalog, the workouts and the training schedule, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in [Supabase](supabase.md). Browser storage holds the login session, the theme, language and hour display choice, the set timer settings and the open Training tab.
+The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements, the exercise catalog, the workouts, the training schedule and the saved diets, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in [Supabase](supabase.md). Browser storage holds the login session, the theme, language and hour display choice, the set timer settings and the open Training tab.
 
 ## Debugging
 

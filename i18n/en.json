@@ -84,184 +84,91 @@
   "diet.mealKcal": "{kcal} kcal",
   "diet.weekTotal": "Weekly total: {macros}",
   "diet.estimate": "All values are estimates. Tap a meal to see its recipe.",
+  "dietData.intro": "The whole diet - ingredients, meals with recipes, fasts and the week plan - as one JSON file. An imported diet is saved in the database as valid from today; earlier versions stay.",
+  "dietData.builtIn": "Built-in diet: {name}.",
+  "dietData.saved": "Diet {name}, in use since {date}.",
+  "dietData.savedInvalid": "The saved diet has no fast or no planned meal, so the built-in one is used.",
+  "dietData.loadFailed": "Could not load the saved diet, so the built-in one is used.",
+  "dietData.export": "Export JSON",
+  "dietData.import": "Import JSON",
+  "dietData.importConfirm": "Save the diet {name} ({meals} meals, {ingredients} ingredients) as valid from today?",
+  "dietData.importing": "Saving...",
+  "dietData.imported": "Saved the diet {name}",
+  "dietData.importFailed": "Could not save, try again",
+  "dietData.wrongFile": "This is not a Cadence diet file",
+  "dietData.noFasts": "The diet has no valid fast",
+  "dietData.noMeals": "The diet has no planned meal",
+  "dietEditor.open": "Edit diet",
+  "dietEditor.title": "Diet editor",
+  "dietEditor.intro": "Changes are made on a copy of the diet in use. Saving stores them as a new version valid from today; earlier versions stay. Every text has an English and a Polish field.",
+  "dietEditor.tabsLabel": "Diet editor sections",
+  "dietEditor.tab.general": "General",
+  "dietEditor.tab.ingredients": "Ingredients",
+  "dietEditor.tab.meals": "Meals",
+  "dietEditor.tab.week": "Week",
+  "dietEditor.tab.fasts": "Fasts",
+  "dietEditor.save": "Save diet",
+  "dietEditor.close": "Back to the diet",
+  "dietEditor.discardConfirm": "Discard the unsaved changes to the diet?",
+  "dietEditor.unsaved": "Unsaved changes",
+  "dietEditor.saving": "Saving...",
+  "dietEditor.saved": "Saved, valid from today",
+  "dietEditor.saveFailed": "Could not save, try again",
+  "dietEditor.unnamed": "(no name)",
+  "dietEditor.name": "Diet name",
+  "dietEditor.treat": "Sweet treat",
+  "dietEditor.kcal": "kcal",
+  "dietEditor.protein": "Protein g",
+  "dietEditor.carbs": "Carbs g",
+  "dietEditor.fat": "Fat g",
+  "dietEditor.ingredientName": "Name",
+  "dietEditor.category": "Category",
+  "dietEditor.unit": "Unit",
+  "dietEditor.unit.g": "g",
+  "dietEditor.unit.ml": "ml",
+  "dietEditor.unit.pcs": "pieces",
+  "dietEditor.unit.rolls": "rolls",
+  "dietEditor.addIngredient": "Add ingredient",
+  "dietEditor.removeIngredient": "Remove ingredient",
+  "dietEditor.ingredientInUse": "{name} is used in: {meals}",
+  "dietEditor.noIngredients": "Add ingredients first.",
+  "dietEditor.pickMeal": "Meal to edit",
+  "dietEditor.newMeal": "New meal",
+  "dietEditor.duplicateMeal": "Duplicate",
+  "dietEditor.copySuffix": " (copy)",
+  "dietEditor.deleteMeal": "Delete meal",
+  "dietEditor.deleteMealConfirm": "Delete the meal {name}?",
+  "dietEditor.mealInUse": "{name} is planned on: {days}",
+  "dietEditor.mealPlanned": "Planned: {days}",
+  "dietEditor.mealNotPlanned": "Not planned in the week",
+  "dietEditor.noMeals": "No meals yet.",
+  "dietEditor.mealName": "Meal name",
+  "dietEditor.mealIngredients": "Ingredients",
+  "dietEditor.ingredient": "Ingredient",
+  "dietEditor.amount": "Amount",
+  "dietEditor.addMealIngredient": "Add ingredient",
+  "dietEditor.removeMealIngredient": "Remove ingredient from the meal",
+  "dietEditor.seasoning": "Spices and extras",
+  "dietEditor.steps": "Preparation steps",
+  "dietEditor.addStep": "Add step",
+  "dietEditor.removeStep": "Remove step",
+  "dietEditor.hasAlternative": "Ready-made meal with a replacement",
+  "dietEditor.alternativeIngredients": "Replacement ingredients",
+  "dietEditor.alternativeStep": "Replacement preparation",
+  "dietEditor.time": "Time",
+  "dietEditor.meal": "Meal",
+  "dietEditor.sweet": "Sweet treat",
+  "dietEditor.addPlannedMeal": "Add meal",
+  "dietEditor.removePlannedMeal": "Remove meal",
+  "dietEditor.fastStart": "Start",
+  "dietEditor.fastEnd": "End",
+  "dietEditor.fastLength": "{hours} h",
+  "dietEditor.addFast": "Add fast",
+  "dietEditor.removeFast": "Remove fast",
+  "dietEditor.mealInFast": "{day} {time}: {meal} falls inside a fast",
   "diet.ingredients": "Ingredients",
   "diet.steps": "Preparation",
-  "diet.sweet": "+ sweet treat, about 200 kcal: 3-4 squares of chocolate, a small bar or a scoop of ice cream",
-  "meal.chickenCurry": "Chicken curry with yellow pepper and couscous",
-  "meal.sushi": "Salmon sushi, 1 roll",
-  "meal.bananaToast": "Banana and a slice of bread with jam",
-  "meal.roastChickenPotatoes": "Roast chicken leg, potatoes and salad",
-  "meal.skyrFruit": "Skyr with fruit",
-  "meal.eggsRye": "3 eggs and 2 slices of rye bread",
-  "meal.skyrBowl": "Skyr with peanut butter and jam",
-  "meal.turkeyPotatoes": "Turkey in sauce, potatoes and cabbage",
-  "meal.salmonGroats": "Baked salmon, buckwheat and broccoli",
-  "meal.oatmeal": "Oatmeal with milk, blueberries and nuts",
-  "meal.skyrBowlFruit": "Skyr with peanut butter, jam and fruit",
-  "meal.roastChickenBulgur": "Roast chicken leg, bulgur and spinach",
-  "meal.hamSandwichesBanana": "Ham sandwiches and a banana",
-  "meal.riceCakesJam": "Rice cakes with jam",
-  "meal.skyrOatsFruit": "Skyr with oats, fruit and honey",
-  "meal.sushiOrSalmon": "Salmon sushi, 1 roll, plus skyr",
-  "meal.hungarianStew": "Hungarian turkey stew with bread",
-  "meal.salmonTortilla": "Tortillas with smoked salmon",
-  "meal.scrambledEggs": "Scrambled eggs and bread",
-  "meal.chickenSpinachPasta": "Chicken with spinach and feta, wholegrain pasta",
-  "recipes": {
-    "sushi": {
-      "steps": [
-        "Buy or order it. Choose salmon rolls, and go easy on mayonnaise rolls."
-      ],
-      "alternativeStep": "Bake the salmon at 200°C for 15 minutes, cook the rice and serve as a bowl with sliced cucumber."
-    },
-    "bananaToast": {
-      "steps": [
-        "Spread the jam on the bread and eat with the banana."
-      ]
-    },
-    "roastChickenPotatoes": {
-      "steps": [
-        "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
-        "Boil the potatoes in salted water for about 20 minutes.",
-        "Mix the cabbage and carrot with oil, lemon juice and salt."
-      ],
-      "seasoning": "Lemon juice, salt, pepper, sweet paprika"
-    },
-    "skyrFruit": {
-      "steps": [
-        "Put the skyr in a bowl and top with the fruit. Skyr is a thick, low-fat, high-protein Icelandic-style yoghurt, sold in most supermarkets."
-      ]
-    },
-    "eggsRye": {
-      "steps": [
-        "Boil the eggs for 8 minutes.",
-        "Butter the bread and serve with the eggs and vegetables."
-      ]
-    },
-    "skyrBowl": {
-      "steps": [
-        "Put the skyr in a bowl and add the peanut butter and jam on top."
-      ]
-    },
-    "turkeyPotatoes": {
-      "steps": [
-        "Flatten the fillet, season it with salt, pepper and garlic, and brown it on both sides in 10 g oil.",
-        "Move it to a pot of boiling stock. Fry the diced onion and grated carrot for 3 minutes and add them to the pot.",
-        "Add paprika and herbs, cover and simmer for 20 minutes.",
-        "Stir in the cream, thicken with the flour and boil for 3 minutes.",
-        "Boil the potatoes and cabbage separately. Dress the cabbage with 5 g oil."
-      ],
-      "seasoning": "Paprika, Provence herbs, salt, pepper"
-    },
-    "salmonGroats": {
-      "steps": [
-        "Season the salmon and bake at 200°C for 15 minutes.",
-        "Cook the buckwheat according to the packet.",
-        "Steam the broccoli for 5-7 minutes."
-      ],
-      "seasoning": "Lemon, salt, pepper"
-    },
-    "oatmeal": {
-      "steps": [
-        "Simmer the oats in the milk for 5 minutes, stirring.",
-        "Top with the blueberries, chopped nuts and puffed grain."
-      ]
-    },
-    "skyrBowlFruit": {
-      "steps": [
-        "Put the skyr in a bowl and add the peanut butter, jam and fruit on top."
-      ]
-    },
-    "roastChickenBulgur": {
-      "steps": [
-        "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
-        "Cook the bulgur according to the packet.",
-        "Fry the garlic briefly in the oil and wilt the spinach for 2-3 minutes."
-      ],
-      "seasoning": "Salt, pepper, sweet paprika"
-    },
-    "hamSandwichesBanana": {
-      "steps": [
-        "Make the sandwiches with ham and tomato and eat with the banana."
-      ]
-    },
-    "riceCakesJam": {
-      "steps": [
-        "Spread the jam on the rice cakes."
-      ]
-    },
-    "skyrOatsFruit": {
-      "steps": [
-        "Mix the skyr with the oats and honey, and top with the fruit."
-      ]
-    },
-    "sushiOrSalmon": {
-      "steps": [
-        "Buy or order the sushi and eat the skyr on the side."
-      ],
-      "alternativeStep": "Bake the salmon at 200°C for 15 minutes, cook the rice and wilt the spinach in the oil. Eat the skyr on the side."
-    },
-    "hungarianStew": {
-      "steps": [
-        "Dice the turkey, onion, pepper and potatoes, and slice the mushrooms.",
-        "Fry the turkey and onion in the oil for 5 minutes. Add the mushrooms and pepper and fry for 10 minutes.",
-        "Add the tomatoes, potatoes and stock and simmer for 25 minutes.",
-        "Season, sprinkle with parsley and serve with the bread."
-      ],
-      "seasoning": "Parsley, salt, pepper, chilli"
-    },
-    "salmonTortilla": {
-      "steps": [
-        "Mix the yoghurt with lemon juice, dill and pepper.",
-        "Spread it on the tortillas, add the salmon and vegetables, and roll up."
-      ],
-      "seasoning": "Lemon, dill, pepper"
-    },
-    "scrambledEggs": {
-      "steps": [
-        "Beat the eggs with salt and pepper.",
-        "Melt the butter in a pan and stir the eggs gently over low heat until just set.",
-        "Serve with chives, bread and tomato."
-      ],
-      "seasoning": "Chives, salt, pepper"
-    },
-    "chickenSpinachPasta": {
-      "steps": [
-        "Dice the chicken, season it and fry in the oil for 5 minutes.",
-        "Add the diced onion and garlic and fry for 5 minutes.",
-        "Add the spinach and simmer for 10 minutes. Stir in the feta and seasoning at the end.",
-        "Cook the pasta according to the packet and serve together."
-      ],
-      "seasoning": "Salt, pepper, basil"
-    },
-    "chickenCurry": {
-      "steps": [
-        "Dice the chicken, season it and fry in the oil for 5 minutes.",
-        "Add the chopped onion and pepper, sprinkle with spices and add 80 ml water.",
-        "Simmer for 10-15 minutes, then stir in the yoghurt and adjust the seasoning.",
-        "Pour boiling water over the couscous, cover for 5 minutes and fluff with a fork."
-      ],
-      "seasoning": "Curry powder, salt, pepper, sweet paprika"
-    },
-    "skyrFruitLarge": {
-      "steps": [
-        "Put the skyr in a bowl and top with the fruit."
-      ]
-    },
-    "skyrAppleNuts": {
-      "steps": [
-        "Dice the apple, chop the nuts and mix them into the skyr."
-      ]
-    },
-    "chickenRice": {
-      "seasoning": "Soy sauce, salt, pepper, sweet paprika",
-      "steps": [
-        "Cook the rice according to the packet.",
-        "Dice the chicken, season it and fry in the oil for 6-8 minutes.",
-        "Add the chopped pepper, broccoli and garlic and fry for 5 minutes, then serve with the rice."
-      ]
-    }
-  },
+  "diet.sweet": "+ sweet treat, about {kcal} kcal: 3-4 squares of chocolate, a small bar or a scoop of ice cream",
   "training.title": "Training",
   "training.tabsLabel": "Training sections",
   "training.tab.timer": "Set timer",
@@ -391,10 +298,12 @@
   "setTimer.phase.rest": "Rest",
   "setTimer.phase.done": "Finished",
   "setTimer.phase.paused": "Paused",
-  "meal.skyrFruitLarge": "Large skyr with fruit",
   "nav.shopping": "Shopping",
   "shopping.title": "Shopping list",
   "shopping.days": "How many days?",
+  "shopping.readyMade": "Ready-made meals",
+  "shopping.readyMadeBuy": "I am buying them",
+  "shopping.readyMadeReplace": "Use the replacements",
   "shopping.summary": "{from} to {to}: {meals} meals",
   "shopping.spices": "Spices, herbs and lemon are not included.",
   "shopping.layout": "Layout",
@@ -428,62 +337,8 @@
     "one": "roll",
     "other": "rolls"
   },
-  "ingredient.skyr": "Natural skyr",
-  "ingredient.yoghurt": "Natural yoghurt",
-  "ingredient.greekYoghurt": "Greek yoghurt",
-  "ingredient.cream": "12% cream",
-  "ingredient.milk": "1.5% milk",
-  "ingredient.butter": "Butter",
-  "ingredient.feta": "Feta",
-  "ingredient.egg": "Eggs",
-  "ingredient.chickenLeg": "Chicken legs (250 g with bone)",
-  "ingredient.chickenBreast": "Chicken breast",
-  "ingredient.turkey": "Turkey breast",
-  "ingredient.ham": "Ham",
-  "ingredient.salmon": "Salmon fillet",
-  "ingredient.smokedSalmon": "Smoked salmon",
-  "ingredient.sushi": "Salmon sushi",
-  "ingredient.potatoes": "Potatoes",
-  "ingredient.cabbage": "White cabbage",
-  "ingredient.carrot": "Carrots",
-  "ingredient.tomato": "Tomatoes",
-  "ingredient.cucumber": "Cucumber",
-  "ingredient.lettuce": "Lettuce",
-  "ingredient.onion": "Onions",
-  "ingredient.garlic": "Garlic cloves",
-  "ingredient.broccoli": "Broccoli",
-  "ingredient.spinach": "Spinach",
-  "ingredient.pepper": "Peppers",
-  "ingredient.mushrooms": "Mushrooms",
-  "ingredient.fruit": "Fruit of your choice",
-  "ingredient.apple": "Apples (200 g)",
-  "ingredient.banana": "Bananas (150 g)",
-  "ingredient.ryeBread": "Rye bread",
-  "ingredient.oats": "Oats",
-  "ingredient.buckwheat": "Buckwheat",
-  "ingredient.bulgur": "Bulgur",
-  "ingredient.couscous": "Couscous",
-  "ingredient.pasta": "Wholegrain pasta",
-  "ingredient.riceCakes": "Rice cakes",
-  "ingredient.tortilla": "Tortillas",
-  "ingredient.flour": "Flour",
-  "ingredient.oliveOil": "Olive oil",
-  "ingredient.peanutButter": "Peanut butter",
-  "ingredient.jam": "Fruit-only jam",
-  "ingredient.honey": "Honey",
-  "ingredient.stock": "Stock",
   "agenda.training": "Training until {end}",
   "agenda.fastStart": "Fast starts",
   "agenda.fastEnd": "Fast ends",
-  "shopping.sushi": "Sushi",
-  "shopping.sushiBuy": "I am buying sushi",
-  "shopping.sushiReplace": "Use the replacement",
-  "diet.alternative": "No sushi? Replacement",
-  "ingredient.blueberries": "Blueberries",
-  "ingredient.almonds": "Almonds",
-  "ingredient.cashews": "Cashews",
-  "ingredient.puffedGrain": "Puffed millet or buckwheat",
-  "ingredient.rice": "Rice",
-  "meal.skyrAppleNuts": "Skyr with apple and nuts",
-  "meal.chickenRice": "Chicken with rice and vegetables"
+  "diet.alternative": "Replacement for the ready-made meal"
 }

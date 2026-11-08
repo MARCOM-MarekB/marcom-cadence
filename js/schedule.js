@@ -11,12 +11,19 @@ export const HOURS_PER_WEEK = 168;
  */
 const at = (dayIndex, hour) => dayIndex * 24 + hour;
 
-/** Fasting periods in chronological order, starting from the one that ends on Monday. */
-export const FASTS = [
-  { start: at(6, 16), end: at(0, 12) },
-  { start: at(2, 12), end: at(3, 8.5) },
-  { start: at(4, 12), end: at(5, 8.5) },
-];
+/**
+ * Fasting periods of the diet in use, ordered by their end, so each fast is followed by the eating period
+ * up to the start of the next one. Replaced by setFasts when a diet is applied.
+ */
+export let FASTS = [];
+
+/**
+ * Sets the fasting periods of the week.
+ * @param {Array<{start: number, end: number}>} fasts Fasts as week positions; a fast may wrap past the end of the week.
+ */
+export function setFasts(fasts) {
+  FASTS = [...fasts].sort((a, b) => a.end - b.end);
+}
 
 /**
  * Training sessions of the week in chronological order, as week positions.

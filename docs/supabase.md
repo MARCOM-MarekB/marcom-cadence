@@ -59,13 +59,14 @@ An applied file is never edited; a later change is a new file with a later times
 | `20261108000000_create_measurements.sql` | `marcom_cadence` schema with usage for `authenticated`, and a first `measurements` table with one column per value |
 | `20261109000000_json_content_tables.sql` | Replaces `measurements` with the content shape, and creates `exercises` and `workouts` |
 | `20261110000000_create_training_schedules.sql` | Creates `training_schedules` |
+| `20261111000000_create_diets.sql` | Creates `diets` |
 
 ## Table shape
 
 Every table has `id`, `user_id`, explicit columns only for what is filtered, sorted or kept unique, and the rest of the record in a `content` column of type `jsonb`. It is the same shape as the JSON tables in marcom-infrastructure, with the same rule for which fields get a column:
 
 - **Growing list** (measurements, workouts): filter and sort fields are explicit columns from the start.
-- **Versioned settings** (training schedule): a `valid_from` date column, unique per user; the version in use is the latest one that is not in the future.
+- **Versioned settings** (training schedule, diet): a `valid_from` date column, unique per user; the version in use is the latest one that is not in the future.
 - **Dictionary the user fills by hand** (exercises): everything is in `content`; the app reads the whole table and sorts in the browser.
 
 A whole record is one row, so the app saves it with a single write, which succeeds or fails as a whole. The app has no backend that could wrap several writes in a transaction.
@@ -86,3 +87,4 @@ All tables have `user_id` set to the signed-in user, an owner-only policy, and a
 | `marcom_cadence.exercises` | - | `name` and `notes` in every language, `metric` (`reps`, `weight`, `bodyweight` or `hold`), `perSide`, `archived`, `progressions` as `[{id, name, archived}]` with the name in every language |
 | `marcom_cadence.workouts` | `started_at`, indexed with `user_id` for the newest-first list | `durationMin`, `notes`, `items` as `[{exerciseId, notes, sets}]`, where a set holds only the fields with a value: `progressionId`, `reps` (per side when the exercise counts per side), `weightKg`, `addedKg`, `band`, `holdS` and `isMax`; a GIN index on `content` finds workouts that use an exercise |
 | `marcom_cadence.training_schedules` | `valid_from` (unique per user) | `sessions` as `[{day, start, durationMin}]`, where `day` 0 is Monday and `start` is `HH:MM` |
+| `marcom_cadence.diets` | `valid_from` (unique per user) | The whole diet in the diet file shape without `format` and `version`; see [Overview](overview.md) |

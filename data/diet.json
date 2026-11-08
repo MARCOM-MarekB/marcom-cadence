@@ -1,0 +1,1676 @@
+{
+  "format": "marcom-cadence/diet",
+  "version": 1,
+  "name": {
+    "en": "20 h fasts, about 13100 kcal a week",
+    "pl": "Posty 20 h, około 13100 kcal tygodniowo"
+  },
+  "treat": {
+    "kcal": 200,
+    "protein": 2,
+    "carbs": 25,
+    "fat": 10
+  },
+  "ingredients": [
+    {
+      "id": "skyr",
+      "name": {
+        "en": "Natural skyr",
+        "pl": "Skyr naturalny"
+      },
+      "category": "dairy",
+      "unit": "g"
+    },
+    {
+      "id": "yoghurt",
+      "name": {
+        "en": "Natural yoghurt",
+        "pl": "Jogurt naturalny"
+      },
+      "category": "dairy",
+      "unit": "g"
+    },
+    {
+      "id": "greekYoghurt",
+      "name": {
+        "en": "Greek yoghurt",
+        "pl": "Jogurt grecki"
+      },
+      "category": "dairy",
+      "unit": "g"
+    },
+    {
+      "id": "cream",
+      "name": {
+        "en": "12% cream",
+        "pl": "Śmietanka 12%"
+      },
+      "category": "dairy",
+      "unit": "ml"
+    },
+    {
+      "id": "milk",
+      "name": {
+        "en": "1.5% milk",
+        "pl": "Mleko 1,5%"
+      },
+      "category": "dairy",
+      "unit": "ml"
+    },
+    {
+      "id": "butter",
+      "name": {
+        "en": "Butter",
+        "pl": "Masło"
+      },
+      "category": "dairy",
+      "unit": "g"
+    },
+    {
+      "id": "feta",
+      "name": {
+        "en": "Feta",
+        "pl": "Feta"
+      },
+      "category": "dairy",
+      "unit": "g"
+    },
+    {
+      "id": "egg",
+      "name": {
+        "en": "Eggs",
+        "pl": "Jajka"
+      },
+      "category": "dairy",
+      "unit": "pcs"
+    },
+    {
+      "id": "chickenLeg",
+      "name": {
+        "en": "Chicken legs (250 g with bone)",
+        "pl": "Udka z kurczaka (250 g z kością)"
+      },
+      "category": "meatFish",
+      "unit": "pcs"
+    },
+    {
+      "id": "chickenBreast",
+      "name": {
+        "en": "Chicken breast",
+        "pl": "Pierś z kurczaka"
+      },
+      "category": "meatFish",
+      "unit": "g"
+    },
+    {
+      "id": "turkey",
+      "name": {
+        "en": "Turkey breast",
+        "pl": "Pierś z indyka"
+      },
+      "category": "meatFish",
+      "unit": "g"
+    },
+    {
+      "id": "ham",
+      "name": {
+        "en": "Ham",
+        "pl": "Szynka"
+      },
+      "category": "meatFish",
+      "unit": "g"
+    },
+    {
+      "id": "salmon",
+      "name": {
+        "en": "Salmon fillet",
+        "pl": "Filet z łososia"
+      },
+      "category": "meatFish",
+      "unit": "g"
+    },
+    {
+      "id": "smokedSalmon",
+      "name": {
+        "en": "Smoked salmon",
+        "pl": "Łosoś wędzony"
+      },
+      "category": "meatFish",
+      "unit": "g"
+    },
+    {
+      "id": "sushi",
+      "name": {
+        "en": "Salmon sushi",
+        "pl": "Sushi z łososiem"
+      },
+      "category": "meatFish",
+      "unit": "rolls"
+    },
+    {
+      "id": "potatoes",
+      "name": {
+        "en": "Potatoes",
+        "pl": "Ziemniaki"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "cabbage",
+      "name": {
+        "en": "White cabbage",
+        "pl": "Kapusta biała"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "carrot",
+      "name": {
+        "en": "Carrots",
+        "pl": "Marchewka"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "tomato",
+      "name": {
+        "en": "Tomatoes",
+        "pl": "Pomidory"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "cucumber",
+      "name": {
+        "en": "Cucumber",
+        "pl": "Ogórek"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "lettuce",
+      "name": {
+        "en": "Lettuce",
+        "pl": "Sałata"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "onion",
+      "name": {
+        "en": "Onions",
+        "pl": "Cebula"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "garlic",
+      "name": {
+        "en": "Garlic cloves",
+        "pl": "Ząbki czosnku"
+      },
+      "category": "vegetables",
+      "unit": "pcs"
+    },
+    {
+      "id": "broccoli",
+      "name": {
+        "en": "Broccoli",
+        "pl": "Brokuły"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "spinach",
+      "name": {
+        "en": "Spinach",
+        "pl": "Szpinak"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "pepper",
+      "name": {
+        "en": "Peppers",
+        "pl": "Papryka"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "mushrooms",
+      "name": {
+        "en": "Mushrooms",
+        "pl": "Pieczarki"
+      },
+      "category": "vegetables",
+      "unit": "g"
+    },
+    {
+      "id": "fruit",
+      "name": {
+        "en": "Fruit of your choice",
+        "pl": "Dowolne owoce"
+      },
+      "category": "fruit",
+      "unit": "g"
+    },
+    {
+      "id": "blueberries",
+      "name": {
+        "en": "Blueberries",
+        "pl": "Borówki"
+      },
+      "category": "fruit",
+      "unit": "g"
+    },
+    {
+      "id": "apple",
+      "name": {
+        "en": "Apples (200 g)",
+        "pl": "Jabłka (200 g)"
+      },
+      "category": "fruit",
+      "unit": "pcs"
+    },
+    {
+      "id": "banana",
+      "name": {
+        "en": "Bananas (150 g)",
+        "pl": "Banany (150 g)"
+      },
+      "category": "fruit",
+      "unit": "pcs"
+    },
+    {
+      "id": "ryeBread",
+      "name": {
+        "en": "Rye bread",
+        "pl": "Chleb żytni"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "oats",
+      "name": {
+        "en": "Oats",
+        "pl": "Płatki owsiane"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "puffedGrain",
+      "name": {
+        "en": "Puffed millet or buckwheat",
+        "pl": "Jagła lub gryka ekspandowana"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "rice",
+      "name": {
+        "en": "Rice",
+        "pl": "Ryż"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "buckwheat",
+      "name": {
+        "en": "Buckwheat",
+        "pl": "Kasza gryczana"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "bulgur",
+      "name": {
+        "en": "Bulgur",
+        "pl": "Kasza bulgur"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "couscous",
+      "name": {
+        "en": "Couscous",
+        "pl": "Kuskus"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "pasta",
+      "name": {
+        "en": "Wholegrain pasta",
+        "pl": "Makaron razowy"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "riceCakes",
+      "name": {
+        "en": "Rice cakes",
+        "pl": "Wafle ryżowe"
+      },
+      "category": "grains",
+      "unit": "pcs"
+    },
+    {
+      "id": "tortilla",
+      "name": {
+        "en": "Tortillas",
+        "pl": "Tortille"
+      },
+      "category": "grains",
+      "unit": "pcs"
+    },
+    {
+      "id": "flour",
+      "name": {
+        "en": "Flour",
+        "pl": "Mąka"
+      },
+      "category": "grains",
+      "unit": "g"
+    },
+    {
+      "id": "oliveOil",
+      "name": {
+        "en": "Olive oil",
+        "pl": "Oliwa"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "peanutButter",
+      "name": {
+        "en": "Peanut butter",
+        "pl": "Masło orzechowe"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "jam",
+      "name": {
+        "en": "Fruit-only jam",
+        "pl": "Dżem 100% owoców"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "honey",
+      "name": {
+        "en": "Honey",
+        "pl": "Miód"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "almonds",
+      "name": {
+        "en": "Almonds",
+        "pl": "Migdały"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "cashews",
+      "name": {
+        "en": "Cashews",
+        "pl": "Nerkowce"
+      },
+      "category": "other",
+      "unit": "g"
+    },
+    {
+      "id": "stock",
+      "name": {
+        "en": "Stock",
+        "pl": "Bulion"
+      },
+      "category": "other",
+      "unit": "ml"
+    }
+  ],
+  "meals": [
+    {
+      "id": "sushi",
+      "name": {
+        "en": "Salmon sushi, 1 roll",
+        "pl": "Sushi z łososiem, 1 rolka"
+      },
+      "kcal": 400,
+      "protein": 16,
+      "carbs": 67,
+      "fat": 7,
+      "ingredients": [
+        {
+          "ingredientId": "sushi",
+          "amount": 1
+        }
+      ],
+      "steps": [
+        {
+          "en": "Buy or order it. Choose salmon rolls, and go easy on mayonnaise rolls.",
+          "pl": "Kup albo zamów. Wybieraj rolki z łososiem, a rolki z majonezem ogranicz."
+        }
+      ],
+      "alternative": {
+        "ingredients": [
+          {
+            "ingredientId": "salmon",
+            "amount": 100
+          },
+          {
+            "ingredientId": "rice",
+            "amount": 60
+          },
+          {
+            "ingredientId": "cucumber",
+            "amount": 50
+          }
+        ],
+        "step": {
+          "en": "Bake the salmon at 200°C for 15 minutes, cook the rice and serve as a bowl with sliced cucumber.",
+          "pl": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podaj w misce z pokrojonym ogórkiem."
+        }
+      }
+    },
+    {
+      "id": "bananaToast",
+      "name": {
+        "en": "Banana and a slice of bread with jam",
+        "pl": "Banan i kromka chleba z dżemem"
+      },
+      "kcal": 255,
+      "protein": 4,
+      "carbs": 56,
+      "fat": 1,
+      "ingredients": [
+        {
+          "ingredientId": "banana",
+          "amount": 1
+        },
+        {
+          "ingredientId": "ryeBread",
+          "amount": 40
+        },
+        {
+          "ingredientId": "jam",
+          "amount": 20
+        }
+      ],
+      "steps": [
+        {
+          "en": "Spread the jam on the bread and eat with the banana.",
+          "pl": "Posmaruj chleb dżemem i zjedz z bananem."
+        }
+      ]
+    },
+    {
+      "id": "roastChickenPotatoes",
+      "name": {
+        "en": "Roast chicken leg, potatoes and salad",
+        "pl": "Pieczone udko, ziemniaki i surówka"
+      },
+      "kcal": 670,
+      "protein": 43,
+      "carbs": 61,
+      "fat": 26,
+      "ingredients": [
+        {
+          "ingredientId": "chickenLeg",
+          "amount": 1
+        },
+        {
+          "ingredientId": "potatoes",
+          "amount": 300
+        },
+        {
+          "ingredientId": "cabbage",
+          "amount": 100
+        },
+        {
+          "ingredientId": "carrot",
+          "amount": 50
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 5
+        }
+      ],
+      "steps": [
+        {
+          "en": "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
+          "pl": "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego."
+        },
+        {
+          "en": "Boil the potatoes in salted water for about 20 minutes.",
+          "pl": "Ugotuj ziemniaki w osolonej wodzie, około 20 minut."
+        },
+        {
+          "en": "Mix the cabbage and carrot with oil, lemon juice and salt.",
+          "pl": "Wymieszaj kapustę i marchewkę z oliwą, sokiem z cytryny i solą."
+        }
+      ],
+      "seasoning": {
+        "en": "Lemon juice, salt, pepper, sweet paprika",
+        "pl": "Sok z cytryny, sól, pieprz, słodka papryka"
+      }
+    },
+    {
+      "id": "skyrFruit",
+      "name": {
+        "en": "Skyr with fruit",
+        "pl": "Skyr z owocami"
+      },
+      "kcal": 180,
+      "protein": 25,
+      "carbs": 20,
+      "fat": 0,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        },
+        {
+          "ingredientId": "fruit",
+          "amount": 100
+        }
+      ],
+      "steps": [
+        {
+          "en": "Put the skyr in a bowl and top with the fruit. Skyr is a thick, low-fat, high-protein Icelandic-style yoghurt, sold in most supermarkets.",
+          "pl": "Wyłóż skyr do miski i dodaj owoce. Skyr to gęsty, chudy jogurt typu islandzkiego z dużą ilością białka, dostępny w większości supermarketów."
+        }
+      ]
+    },
+    {
+      "id": "skyrFruitLarge",
+      "name": {
+        "en": "Large skyr with fruit",
+        "pl": "Duży skyr z owocami"
+      },
+      "kcal": 245,
+      "protein": 37,
+      "carbs": 24,
+      "fat": 0,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 300
+        },
+        {
+          "ingredientId": "fruit",
+          "amount": 100
+        }
+      ],
+      "steps": [
+        {
+          "en": "Put the skyr in a bowl and top with the fruit.",
+          "pl": "Wyłóż skyr do miski i dodaj owoce."
+        }
+      ]
+    },
+    {
+      "id": "eggsRye",
+      "name": {
+        "en": "3 eggs and 2 slices of rye bread",
+        "pl": "3 jajka i 2 kromki chleba żytniego"
+      },
+      "kcal": 470,
+      "protein": 25,
+      "carbs": 36,
+      "fat": 22,
+      "ingredients": [
+        {
+          "ingredientId": "egg",
+          "amount": 3
+        },
+        {
+          "ingredientId": "ryeBread",
+          "amount": 80
+        },
+        {
+          "ingredientId": "butter",
+          "amount": 5
+        },
+        {
+          "ingredientId": "tomato",
+          "amount": 100
+        }
+      ],
+      "steps": [
+        {
+          "en": "Boil the eggs for 8 minutes.",
+          "pl": "Ugotuj jajka, 8 minut."
+        },
+        {
+          "en": "Butter the bread and serve with the eggs and vegetables.",
+          "pl": "Posmaruj chleb masłem i podaj z jajkami i warzywami."
+        }
+      ]
+    },
+    {
+      "id": "skyrBowl",
+      "name": {
+        "en": "Skyr with peanut butter and jam",
+        "pl": "Skyr z masłem orzechowym i dżemem"
+      },
+      "kcal": 255,
+      "protein": 28,
+      "carbs": 16,
+      "fat": 8,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        },
+        {
+          "ingredientId": "peanutButter",
+          "amount": 15
+        },
+        {
+          "ingredientId": "jam",
+          "amount": 20
+        }
+      ],
+      "steps": [
+        {
+          "en": "Put the skyr in a bowl and add the peanut butter and jam on top.",
+          "pl": "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe i dżem."
+        }
+      ]
+    },
+    {
+      "id": "turkeyPotatoes",
+      "name": {
+        "en": "Turkey in sauce, potatoes and cabbage",
+        "pl": "Indyk w sosie, ziemniaki i kapusta"
+      },
+      "kcal": 775,
+      "protein": 57,
+      "carbs": 78,
+      "fat": 23,
+      "ingredients": [
+        {
+          "ingredientId": "turkey",
+          "amount": 200
+        },
+        {
+          "ingredientId": "potatoes",
+          "amount": 300
+        },
+        {
+          "ingredientId": "cabbage",
+          "amount": 150
+        },
+        {
+          "ingredientId": "onion",
+          "amount": 30
+        },
+        {
+          "ingredientId": "carrot",
+          "amount": 100
+        },
+        {
+          "ingredientId": "garlic",
+          "amount": 1
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 15
+        },
+        {
+          "ingredientId": "stock",
+          "amount": 200
+        },
+        {
+          "ingredientId": "cream",
+          "amount": 50
+        },
+        {
+          "ingredientId": "flour",
+          "amount": 10
+        }
+      ],
+      "steps": [
+        {
+          "en": "Flatten the fillet, season it with salt, pepper and garlic, and brown it on both sides in 10 g oil.",
+          "pl": "Rozbij filet, dopraw solą, pieprzem i czosnkiem, a potem obsmaż z obu stron na 10 g oliwy."
+        },
+        {
+          "en": "Move it to a pot of boiling stock. Fry the diced onion and grated carrot for 3 minutes and add them to the pot.",
+          "pl": "Przełóż do garnka z gotującym się bulionem. Na patelni podsmaż cebulę w kostkę i startą marchewkę, 3 minuty, i dodaj do garnka."
+        },
+        {
+          "en": "Add paprika and herbs, cover and simmer for 20 minutes.",
+          "pl": "Dodaj paprykę w proszku i zioła, przykryj i gotuj 20 minut."
+        },
+        {
+          "en": "Stir in the cream, thicken with the flour and boil for 3 minutes.",
+          "pl": "Wmieszaj śmietankę, zagęść mąką i gotuj 3 minuty."
+        },
+        {
+          "en": "Boil the potatoes and cabbage separately. Dress the cabbage with 5 g oil.",
+          "pl": "Osobno ugotuj ziemniaki i kapustę. Kapustę polej 5 g oliwy."
+        }
+      ],
+      "seasoning": {
+        "en": "Paprika, Provence herbs, salt, pepper",
+        "pl": "Papryka w proszku, zioła prowansalskie, sól, pieprz"
+      }
+    },
+    {
+      "id": "salmonGroats",
+      "name": {
+        "en": "Baked salmon, buckwheat and broccoli",
+        "pl": "Pieczony łosoś, kasza gryczana i brokuły"
+      },
+      "kcal": 695,
+      "protein": 47,
+      "carbs": 76,
+      "fat": 24,
+      "ingredients": [
+        {
+          "ingredientId": "salmon",
+          "amount": 150
+        },
+        {
+          "ingredientId": "buckwheat",
+          "amount": 90
+        },
+        {
+          "ingredientId": "broccoli",
+          "amount": 200
+        }
+      ],
+      "steps": [
+        {
+          "en": "Season the salmon and bake at 200°C for 15 minutes.",
+          "pl": "Dopraw łososia i piecz w 200°C przez 15 minut."
+        },
+        {
+          "en": "Cook the buckwheat according to the packet.",
+          "pl": "Ugotuj kaszę według opakowania."
+        },
+        {
+          "en": "Steam the broccoli for 5-7 minutes.",
+          "pl": "Ugotuj brokuły na parze, 5-7 minut."
+        }
+      ],
+      "seasoning": {
+        "en": "Lemon, salt, pepper",
+        "pl": "Cytryna, sól, pieprz"
+      }
+    },
+    {
+      "id": "oatmeal",
+      "name": {
+        "en": "Oatmeal with milk, blueberries and nuts",
+        "pl": "Owsianka na mleku z borówkami i orzechami"
+      },
+      "kcal": 560,
+      "protein": 22,
+      "carbs": 75,
+      "fat": 18,
+      "ingredients": [
+        {
+          "ingredientId": "oats",
+          "amount": 60
+        },
+        {
+          "ingredientId": "milk",
+          "amount": 250
+        },
+        {
+          "ingredientId": "blueberries",
+          "amount": 100
+        },
+        {
+          "ingredientId": "almonds",
+          "amount": 10
+        },
+        {
+          "ingredientId": "cashews",
+          "amount": 10
+        },
+        {
+          "ingredientId": "puffedGrain",
+          "amount": 10
+        }
+      ],
+      "steps": [
+        {
+          "en": "Simmer the oats in the milk for 5 minutes, stirring.",
+          "pl": "Gotuj płatki w mleku 5 minut, mieszając."
+        },
+        {
+          "en": "Top with the blueberries, chopped nuts and puffed grain.",
+          "pl": "Dodaj borówki, posiekane orzechy i ekspandowaną jagłę lub grykę."
+        }
+      ]
+    },
+    {
+      "id": "skyrBowlFruit",
+      "name": {
+        "en": "Skyr with peanut butter, jam and fruit",
+        "pl": "Skyr z masłem orzechowym, dżemem i owocem"
+      },
+      "kcal": 330,
+      "protein": 28,
+      "carbs": 34,
+      "fat": 8,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        },
+        {
+          "ingredientId": "peanutButter",
+          "amount": 15
+        },
+        {
+          "ingredientId": "jam",
+          "amount": 20
+        },
+        {
+          "ingredientId": "fruit",
+          "amount": 150
+        }
+      ],
+      "steps": [
+        {
+          "en": "Put the skyr in a bowl and add the peanut butter, jam and fruit on top.",
+          "pl": "Wyłóż skyr do miski, a na wierzch dodaj masło orzechowe, dżem i owoce."
+        }
+      ]
+    },
+    {
+      "id": "roastChickenBulgur",
+      "name": {
+        "en": "Roast chicken leg, bulgur and spinach",
+        "pl": "Pieczone udko, bulgur i szpinak"
+      },
+      "kcal": 605,
+      "protein": 49,
+      "carbs": 47,
+      "fat": 26,
+      "ingredients": [
+        {
+          "ingredientId": "chickenLeg",
+          "amount": 1
+        },
+        {
+          "ingredientId": "bulgur",
+          "amount": 60
+        },
+        {
+          "ingredientId": "spinach",
+          "amount": 150
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 5
+        },
+        {
+          "ingredientId": "garlic",
+          "amount": 1
+        }
+      ],
+      "steps": [
+        {
+          "en": "Season the chicken and roast at 200°C for about 45 minutes, or use a ready roasted leg.",
+          "pl": "Dopraw udko i piecz w 200°C około 45 minut albo użyj gotowego pieczonego."
+        },
+        {
+          "en": "Cook the bulgur according to the packet.",
+          "pl": "Ugotuj bulgur według opakowania."
+        },
+        {
+          "en": "Fry the garlic briefly in the oil and wilt the spinach for 2-3 minutes.",
+          "pl": "Krótko podsmaż czosnek na oliwie i duś szpinak 2-3 minuty."
+        }
+      ],
+      "seasoning": {
+        "en": "Salt, pepper, sweet paprika",
+        "pl": "Sól, pieprz, słodka papryka"
+      }
+    },
+    {
+      "id": "skyrAppleNuts",
+      "name": {
+        "en": "Skyr with apple and nuts",
+        "pl": "Skyr z jabłkiem i orzechami"
+      },
+      "kcal": 345,
+      "protein": 28,
+      "carbs": 38,
+      "fat": 10,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        },
+        {
+          "ingredientId": "apple",
+          "amount": 1
+        },
+        {
+          "ingredientId": "almonds",
+          "amount": 10
+        },
+        {
+          "ingredientId": "cashews",
+          "amount": 10
+        }
+      ],
+      "steps": [
+        {
+          "en": "Dice the apple, chop the nuts and mix them into the skyr.",
+          "pl": "Pokrój jabłko w kostkę, posiekaj orzechy i wymieszaj ze skyrem."
+        }
+      ]
+    },
+    {
+      "id": "chickenRice",
+      "name": {
+        "en": "Chicken with rice and vegetables",
+        "pl": "Kurczak z ryżem i warzywami"
+      },
+      "kcal": 520,
+      "protein": 44,
+      "carbs": 68,
+      "fat": 8,
+      "ingredients": [
+        {
+          "ingredientId": "chickenBreast",
+          "amount": 150
+        },
+        {
+          "ingredientId": "rice",
+          "amount": 70
+        },
+        {
+          "ingredientId": "pepper",
+          "amount": 100
+        },
+        {
+          "ingredientId": "broccoli",
+          "amount": 100
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 5
+        },
+        {
+          "ingredientId": "garlic",
+          "amount": 1
+        }
+      ],
+      "steps": [
+        {
+          "en": "Cook the rice according to the packet.",
+          "pl": "Ugotuj ryż według opakowania."
+        },
+        {
+          "en": "Dice the chicken, season it and fry in the oil for 6-8 minutes.",
+          "pl": "Pokrój kurczaka w kostkę, dopraw i smaż na oliwie 6-8 minut."
+        },
+        {
+          "en": "Add the chopped pepper, broccoli and garlic and fry for 5 minutes, then serve with the rice.",
+          "pl": "Dodaj pokrojoną paprykę, brokuły i czosnek, smaż 5 minut i podaj z ryżem."
+        }
+      ],
+      "seasoning": {
+        "en": "Soy sauce, salt, pepper, sweet paprika",
+        "pl": "Sos sojowy, sól, pieprz, słodka papryka"
+      }
+    },
+    {
+      "id": "hamSandwichesBanana",
+      "name": {
+        "en": "Ham sandwiches and a banana",
+        "pl": "Kanapki z szynką i banan"
+      },
+      "kcal": 385,
+      "protein": 19,
+      "carbs": 68,
+      "fat": 5,
+      "ingredients": [
+        {
+          "ingredientId": "ryeBread",
+          "amount": 80
+        },
+        {
+          "ingredientId": "ham",
+          "amount": 60
+        },
+        {
+          "ingredientId": "tomato",
+          "amount": 100
+        },
+        {
+          "ingredientId": "banana",
+          "amount": 1
+        }
+      ],
+      "steps": [
+        {
+          "en": "Make the sandwiches with ham and tomato and eat with the banana.",
+          "pl": "Zrób kanapki z szynką i pomidorem i zjedz z bananem."
+        }
+      ]
+    },
+    {
+      "id": "riceCakesJam",
+      "name": {
+        "en": "Rice cakes with jam",
+        "pl": "Wafle ryżowe z dżemem"
+      },
+      "kcal": 115,
+      "protein": 2,
+      "carbs": 25,
+      "fat": 0,
+      "ingredients": [
+        {
+          "ingredientId": "riceCakes",
+          "amount": 2
+        },
+        {
+          "ingredientId": "jam",
+          "amount": 20
+        }
+      ],
+      "steps": [
+        {
+          "en": "Spread the jam on the rice cakes.",
+          "pl": "Posmaruj wafle dżemem."
+        }
+      ]
+    },
+    {
+      "id": "skyrOatsFruit",
+      "name": {
+        "en": "Skyr with oats, fruit and honey",
+        "pl": "Skyr z płatkami, owocem i miodem"
+      },
+      "kcal": 385,
+      "protein": 31,
+      "carbs": 68,
+      "fat": 3,
+      "ingredients": [
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        },
+        {
+          "ingredientId": "oats",
+          "amount": 40
+        },
+        {
+          "ingredientId": "fruit",
+          "amount": 150
+        },
+        {
+          "ingredientId": "honey",
+          "amount": 10
+        }
+      ],
+      "steps": [
+        {
+          "en": "Mix the skyr with the oats and honey, and top with the fruit.",
+          "pl": "Wymieszaj skyr z płatkami i miodem, a na wierzch dodaj owoce."
+        }
+      ]
+    },
+    {
+      "id": "sushiOrSalmon",
+      "name": {
+        "en": "Salmon sushi, 1 roll, plus skyr",
+        "pl": "Sushi z łososiem, 1 rolka, plus skyr"
+      },
+      "kcal": 530,
+      "protein": 40,
+      "carbs": 75,
+      "fat": 7,
+      "ingredients": [
+        {
+          "ingredientId": "sushi",
+          "amount": 1
+        },
+        {
+          "ingredientId": "skyr",
+          "amount": 200
+        }
+      ],
+      "steps": [
+        {
+          "en": "Buy or order the sushi and eat the skyr on the side.",
+          "pl": "Kup albo zamów sushi, a skyr zjedz jako dodatek."
+        }
+      ],
+      "alternative": {
+        "ingredients": [
+          {
+            "ingredientId": "salmon",
+            "amount": 100
+          },
+          {
+            "ingredientId": "rice",
+            "amount": 60
+          },
+          {
+            "ingredientId": "spinach",
+            "amount": 100
+          },
+          {
+            "ingredientId": "oliveOil",
+            "amount": 5
+          },
+          {
+            "ingredientId": "skyr",
+            "amount": 200
+          }
+        ],
+        "step": {
+          "en": "Bake the salmon at 200°C for 15 minutes, cook the rice and wilt the spinach in the oil. Eat the skyr on the side.",
+          "pl": "Upiecz łososia w 200°C przez 15 minut, ugotuj ryż i podduś szpinak na oliwie. Skyr zjedz jako dodatek."
+        }
+      }
+    },
+    {
+      "id": "hungarianStew",
+      "name": {
+        "en": "Hungarian turkey stew with bread",
+        "pl": "Kociołek węgierski z chlebem"
+      },
+      "kcal": 550,
+      "protein": 51,
+      "carbs": 52,
+      "fat": 15,
+      "ingredients": [
+        {
+          "ingredientId": "turkey",
+          "amount": 200
+        },
+        {
+          "ingredientId": "potatoes",
+          "amount": 100
+        },
+        {
+          "ingredientId": "pepper",
+          "amount": 100
+        },
+        {
+          "ingredientId": "tomato",
+          "amount": 150
+        },
+        {
+          "ingredientId": "onion",
+          "amount": 30
+        },
+        {
+          "ingredientId": "mushrooms",
+          "amount": 40
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 10
+        },
+        {
+          "ingredientId": "stock",
+          "amount": 200
+        },
+        {
+          "ingredientId": "ryeBread",
+          "amount": 40
+        }
+      ],
+      "steps": [
+        {
+          "en": "Dice the turkey, onion, pepper and potatoes, and slice the mushrooms.",
+          "pl": "Pokrój w kostkę indyka, cebulę, paprykę i ziemniaki, a pieczarki w plasterki."
+        },
+        {
+          "en": "Fry the turkey and onion in the oil for 5 minutes. Add the mushrooms and pepper and fry for 10 minutes.",
+          "pl": "Duś indyka z cebulą na oliwie 5 minut. Dodaj pieczarki i paprykę i duś 10 minut."
+        },
+        {
+          "en": "Add the tomatoes, potatoes and stock and simmer for 25 minutes.",
+          "pl": "Dodaj pomidory, ziemniaki i bulion i gotuj 25 minut."
+        },
+        {
+          "en": "Season, sprinkle with parsley and serve with the bread.",
+          "pl": "Dopraw, posyp natką i podaj z chlebem."
+        }
+      ],
+      "seasoning": {
+        "en": "Parsley, salt, pepper, chilli",
+        "pl": "Natka pietruszki, sól, pieprz, chili"
+      }
+    },
+    {
+      "id": "salmonTortilla",
+      "name": {
+        "en": "Tortillas with smoked salmon",
+        "pl": "Tortille z wędzonym łososiem"
+      },
+      "kcal": 700,
+      "protein": 38,
+      "carbs": 74,
+      "fat": 24,
+      "ingredients": [
+        {
+          "ingredientId": "tortilla",
+          "amount": 2
+        },
+        {
+          "ingredientId": "smokedSalmon",
+          "amount": 120
+        },
+        {
+          "ingredientId": "yoghurt",
+          "amount": 50
+        },
+        {
+          "ingredientId": "lettuce",
+          "amount": 30
+        },
+        {
+          "ingredientId": "tomato",
+          "amount": 40
+        },
+        {
+          "ingredientId": "cucumber",
+          "amount": 30
+        }
+      ],
+      "steps": [
+        {
+          "en": "Mix the yoghurt with lemon juice, dill and pepper.",
+          "pl": "Wymieszaj jogurt z sokiem z cytryny, koperkiem i pieprzem."
+        },
+        {
+          "en": "Spread it on the tortillas, add the salmon and vegetables, and roll up.",
+          "pl": "Posmaruj tortille, dodaj łososia i warzywa, a potem zwiń."
+        }
+      ],
+      "seasoning": {
+        "en": "Lemon, dill, pepper",
+        "pl": "Cytryna, koperek, pieprz"
+      }
+    },
+    {
+      "id": "scrambledEggs",
+      "name": {
+        "en": "Scrambled eggs and bread",
+        "pl": "Jajecznica i chleb"
+      },
+      "kcal": 470,
+      "protein": 25,
+      "carbs": 36,
+      "fat": 22,
+      "ingredients": [
+        {
+          "ingredientId": "egg",
+          "amount": 3
+        },
+        {
+          "ingredientId": "butter",
+          "amount": 5
+        },
+        {
+          "ingredientId": "ryeBread",
+          "amount": 80
+        },
+        {
+          "ingredientId": "tomato",
+          "amount": 100
+        }
+      ],
+      "steps": [
+        {
+          "en": "Beat the eggs with salt and pepper.",
+          "pl": "Roztrzep jajka z solą i pieprzem."
+        },
+        {
+          "en": "Melt the butter in a pan and stir the eggs gently over low heat until just set.",
+          "pl": "Rozpuść masło na patelni i delikatnie mieszaj jajka na małym ogniu, aż się zetną."
+        },
+        {
+          "en": "Serve with chives, bread and tomato.",
+          "pl": "Podaj ze szczypiorkiem, chlebem i pomidorem."
+        }
+      ],
+      "seasoning": {
+        "en": "Chives, salt, pepper",
+        "pl": "Szczypiorek, sól, pieprz"
+      }
+    },
+    {
+      "id": "chickenSpinachPasta",
+      "name": {
+        "en": "Chicken with spinach and feta, wholegrain pasta",
+        "pl": "Potrawka ze szpinakiem, kurczakiem i fetą, makaron razowy"
+      },
+      "kcal": 760,
+      "protein": 65,
+      "carbs": 56,
+      "fat": 28,
+      "ingredients": [
+        {
+          "ingredientId": "chickenBreast",
+          "amount": 180
+        },
+        {
+          "ingredientId": "spinach",
+          "amount": 100
+        },
+        {
+          "ingredientId": "onion",
+          "amount": 40
+        },
+        {
+          "ingredientId": "garlic",
+          "amount": 1
+        },
+        {
+          "ingredientId": "feta",
+          "amount": 70
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 10
+        },
+        {
+          "ingredientId": "pasta",
+          "amount": 70
+        }
+      ],
+      "steps": [
+        {
+          "en": "Dice the chicken, season it and fry in the oil for 5 minutes.",
+          "pl": "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut."
+        },
+        {
+          "en": "Add the diced onion and garlic and fry for 5 minutes.",
+          "pl": "Dodaj cebulę i czosnek w kostkę i duś 5 minut."
+        },
+        {
+          "en": "Add the spinach and simmer for 10 minutes. Stir in the feta and seasoning at the end.",
+          "pl": "Dodaj szpinak i duś 10 minut. Na koniec wmieszaj fetę i przyprawy."
+        },
+        {
+          "en": "Cook the pasta according to the packet and serve together.",
+          "pl": "Ugotuj makaron według opakowania i podaj razem."
+        }
+      ],
+      "seasoning": {
+        "en": "Salt, pepper, basil",
+        "pl": "Sól, pieprz, bazylia"
+      }
+    },
+    {
+      "id": "chickenCurry",
+      "name": {
+        "en": "Chicken curry with yellow pepper and couscous",
+        "pl": "Kurczak curry z żółtą papryką i kuskusem"
+      },
+      "kcal": 700,
+      "protein": 56,
+      "carbs": 68,
+      "fat": 18,
+      "ingredients": [
+        {
+          "ingredientId": "chickenBreast",
+          "amount": 200
+        },
+        {
+          "ingredientId": "pepper",
+          "amount": 150
+        },
+        {
+          "ingredientId": "onion",
+          "amount": 40
+        },
+        {
+          "ingredientId": "oliveOil",
+          "amount": 10
+        },
+        {
+          "ingredientId": "greekYoghurt",
+          "amount": 80
+        },
+        {
+          "ingredientId": "couscous",
+          "amount": 70
+        }
+      ],
+      "steps": [
+        {
+          "en": "Dice the chicken, season it and fry in the oil for 5 minutes.",
+          "pl": "Pokrój kurczaka w kostkę, dopraw i duś na oliwie 5 minut."
+        },
+        {
+          "en": "Add the chopped onion and pepper, sprinkle with spices and add 80 ml water.",
+          "pl": "Dodaj pokrojoną cebulę i paprykę, posyp przyprawami i podlej 80 ml wody."
+        },
+        {
+          "en": "Simmer for 10-15 minutes, then stir in the yoghurt and adjust the seasoning.",
+          "pl": "Duś 10-15 minut, a potem zagęść jogurtem i dopraw do smaku."
+        },
+        {
+          "en": "Pour boiling water over the couscous, cover for 5 minutes and fluff with a fork.",
+          "pl": "Zalej kuskus wrzątkiem, przykryj na 5 minut i spulchnij widelcem."
+        }
+      ],
+      "seasoning": {
+        "en": "Curry powder, salt, pepper, sweet paprika",
+        "pl": "Curry, sól, pieprz, słodka papryka"
+      }
+    }
+  ],
+  "fasts": [
+    {
+      "start": {
+        "day": 6,
+        "time": "16:00"
+      },
+      "end": {
+        "day": 0,
+        "time": "12:00"
+      }
+    },
+    {
+      "start": {
+        "day": 2,
+        "time": "12:00"
+      },
+      "end": {
+        "day": 3,
+        "time": "08:30"
+      }
+    },
+    {
+      "start": {
+        "day": 4,
+        "time": "12:00"
+      },
+      "end": {
+        "day": 5,
+        "time": "08:30"
+      }
+    }
+  ],
+  "days": [
+    {
+      "day": 0,
+      "meals": [
+        {
+          "time": "12:00",
+          "mealId": "chickenCurry"
+        },
+        {
+          "time": "16:00",
+          "mealId": "roastChickenPotatoes"
+        },
+        {
+          "time": "17:30",
+          "mealId": "bananaToast"
+        },
+        {
+          "time": "22:00",
+          "mealId": "sushi"
+        },
+        {
+          "time": "22:30",
+          "mealId": "skyrFruitLarge",
+          "sweet": true
+        }
+      ]
+    },
+    {
+      "day": 1,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "eggsRye"
+        },
+        {
+          "time": "11:00",
+          "mealId": "skyrBowl"
+        },
+        {
+          "time": "14:00",
+          "mealId": "turkeyPotatoes"
+        },
+        {
+          "time": "19:00",
+          "mealId": "salmonGroats"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "oatmeal"
+        },
+        {
+          "time": "12:00",
+          "mealId": "chickenRice"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "skyrBowlFruit"
+        },
+        {
+          "time": "10:30",
+          "mealId": "oatmeal"
+        },
+        {
+          "time": "13:00",
+          "mealId": "roastChickenBulgur"
+        },
+        {
+          "time": "14:30",
+          "mealId": "skyrAppleNuts"
+        },
+        {
+          "time": "16:00",
+          "mealId": "hamSandwichesBanana"
+        },
+        {
+          "time": "18:00",
+          "mealId": "riceCakesJam"
+        },
+        {
+          "time": "22:30",
+          "mealId": "skyrOatsFruit",
+          "sweet": true
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "oatmeal"
+        },
+        {
+          "time": "10:00",
+          "mealId": "skyrFruit"
+        },
+        {
+          "time": "12:00",
+          "mealId": "sushiOrSalmon"
+        }
+      ]
+    },
+    {
+      "day": 5,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "skyrFruit"
+        },
+        {
+          "time": "14:00",
+          "mealId": "hungarianStew"
+        },
+        {
+          "time": "19:00",
+          "mealId": "salmonTortilla",
+          "sweet": true
+        }
+      ]
+    },
+    {
+      "day": 6,
+      "meals": [
+        {
+          "time": "08:30",
+          "mealId": "scrambledEggs"
+        },
+        {
+          "time": "14:00",
+          "mealId": "chickenSpinachPasta"
+        },
+        {
+          "time": "16:00",
+          "mealId": "skyrAppleNuts"
+        }
+      ]
+    }
+  ]
+}

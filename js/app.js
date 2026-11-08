@@ -1,15 +1,19 @@
 import {
   CATEGORIES,
-  DIET_DAYS,
-  INGREDIENTS,
-  MEALS,
+  getDayMeals,
   getDayTotals,
+  getIngredient,
+  getIngredients,
+  getMeal,
   getNextMeal,
   getShoppingList,
+  getTreat,
   getWeekTotals,
 } from "./diet.js";
 import { ensureSignedIn, initSignOut } from "./auth-view.js";
-import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
+import { applyTranslations, initI18n, localize, t, toggleLanguage } from "./i18n.js";
+import { initDietTransfer, loadDiet, renderDietSource } from "./diet-view.js";
+import { initDietEditor, openDietEditor, renderDietEditor } from "./diet-editor-view.js";
 import { initExercises, loadExercises, onExercisesChanged, renderExercises } from "./exercises-view.js";
 import { initMeasurements, renderMeasurements } from "./measurements-view.js";
 import { initSetTimer, renderSetTimer } from "./set-timer-view.js";
@@ -53,8 +57,8 @@ const checkedShoppingItems = new Set();
 /** Whether ticked products are left out of the shopping list. */
 let hideCheckedShoppingItems = false;
 
-/** Whether the shopping list counts the replacement instead of sushi. */
-let useSushiAlternative = false;
+/** Whether the shopping list counts the replacement ingredients instead of ready-made meals. */
+let useAlternatives = false;
 
 /** Whether empty hours are listed one by one instead of being collapsed. */
 let showAllHours = readShowAllHours();
@@ -111,12 +115,12 @@ function formatClock(hourOfDay) {
 
 /**
  * Formats an ingredient amount, using kg and l for large values.
- * @param {string} id Ingredient key.
+ * @param {string} id Ingredient id.
  * @param {number} amount Amount in the ingredient's unit.
  * @returns {string} A label such as "1,2 kg" or "6 szt.".
  */
 function formatAmount(id, amount) {
-  const { unit } = INGREDIENTS[id];
+  const { unit } = getIngredient(id);
   const language = document.documentElement.lang;
 
   if (unit === "pcs") {
@@ -298,20 +302,19 @@ function createAgendaEvent(time, className, ...content) {
 
 /**
  * Creates one meal with an expandable recipe.
- * @param {{time: number, key: string, sweet?: boolean}} meal The planned meal.
+ * @param {{time: number, mealId: string, sweet: boolean}} meal The planned meal.
  * @param {number} dayIndex Day of the week, where 0 is Monday.
  * @returns {HTMLDivElement} The agenda event.
  */
 function createMealItem(meal, dayIndex) {
-  const values = MEALS[meal.key];
-  const recipe = t("recipes")[meal.key];
-  const formatIngredients = (list) => Object.entries(list)
-    .map(([id, amount]) => `${t(`ingredient.${id}`)}: ${formatAmount(id, amount)}`);
+  const values = getMeal(meal.mealId);
+  const formatIngredients = (list) => list.map(({ ingredientId, amount }) =>
+    `${localize(getIngredient(ingredientId).name)}: ${formatAmount(ingredientId, amount)}`);
   const ingredients = formatIngredients(values.ingredients);
 
   const summary = document.createElement("summary");
   summary.append(
-    createElement("span", "meal-name", t(`meal.${meal.key}`)),
+    createElement("span", "meal-name", localize(values.name)),
     createElement("span", "meal-kcal", t("diet.mealKcal", { kcal: String(values.kcal) })),
   );
 
@@ -319,16 +322,22 @@ function createMealItem(meal, dayIndex) {
   details.append(
     summary,
     createElement("p", "meal-macros", formatMacros(values)),
-    createRecipeSection("diet.ingredients", "ul", recipe.seasoning ? [...ingredients, recipe.seasoning] : ingredients),
-    createRecipeSection("diet.steps", "ol", recipe.steps),
+    createRecipeSection("diet.ingredients", "ul", values.seasoning ? [...ingredients, localize(values.seasoning)] : ingredients),
   );
+  if (values.steps.length > 0) {
+    details.append(createRecipeSection("diet.steps", "ol", values.steps.map(localize)));
+  }
   if (values.alternative) {
-    details.append(
-      createRecipeSection("diet.alternative", "ul", [...formatIngredients(values.alternative), recipe.alternativeStep]),
-    );
+    const step = localize(values.alternative.step);
+    details.append(createRecipeSection(
+      "diet.alternative",
+      "ul",
+      [...formatIngredients(values.alternative.ingredients), ...(step ? [step] : [])],
+    ));
   }
 
-  const content = meal.sweet ? [details, createElement("span", "meal-sweet", t("diet.sweet"))] : [details];
+  const sweet = t("diet.sweet", { kcal: String(getTreat().kcal) });
+  const content = meal.sweet ? [details, createElement("span", "meal-sweet", sweet)] : [details];
   const item = createAgendaEvent(meal.time, "meal-item", ...content);
   item.dataset.position = String(dayIndex * 24 + meal.time);
   return item;
@@ -351,7 +360,7 @@ function createAgenda(dayIndex, fromHour = 0, toHour = 23) {
       order: 0,
       create: () => createAgendaEvent(fast.end - dayStart, "agenda-fast", t("agenda.fastEnd")),
     })),
-    ...DIET_DAYS[dayIndex].meals.map((meal) => ({
+    ...getDayMeals(dayIndex).map((meal) => ({
       time: meal.time,
       order: 1,
       create: () => createMealItem(meal, dayIndex),
@@ -453,12 +462,10 @@ function renderDietDay() {
  * @returns {HTMLElement} The day card.
  */
 function createDietDay(dayIndex) {
-  const day = DIET_DAYS[dayIndex];
-
   const head = createElement("div", "diet-day-head");
   head.append(
     createElement("h3", "", t("daysLong")[dayIndex]),
-    createElement("span", "diet-day-kcal", formatMacros(getDayTotals(day))),
+    createElement("span", "diet-day-kcal", formatMacros(getDayTotals(dayIndex))),
   );
 
   const card = createElement("article", "diet-day");
@@ -568,9 +575,9 @@ function renderShoppingOptions() {
     createShoppingOption(t("shopping.basketShow"), !hideCheckedShoppingItems, () => { hideCheckedShoppingItems = false; }),
     createShoppingOption(t("shopping.basketHide"), hideCheckedShoppingItems, () => { hideCheckedShoppingItems = true; }),
   );
-  document.getElementById("shopping-sushi").replaceChildren(
-    createShoppingOption(t("shopping.sushiBuy"), !useSushiAlternative, () => { useSushiAlternative = false; }),
-    createShoppingOption(t("shopping.sushiReplace"), useSushiAlternative, () => { useSushiAlternative = true; }),
+  document.getElementById("shopping-ready-made").replaceChildren(
+    createShoppingOption(t("shopping.readyMadeBuy"), !useAlternatives, () => { useAlternatives = false; }),
+    createShoppingOption(t("shopping.readyMadeReplace"), useAlternatives, () => { useAlternatives = true; }),
   );
 }
 
@@ -596,16 +603,17 @@ function sortShoppingItems(items) {
  */
 function groupShoppingItems(amounts) {
   const createItems = (ids) => sortShoppingItems(
-    ids.map((id) => ({ id, name: t(`ingredient.${id}`), amount: formatAmount(id, amounts[id]) })),
+    ids.map((id) => ({ id, name: localize(getIngredient(id).name), amount: formatAmount(id, amounts[id]) })),
   );
-  const ids = Object.keys(INGREDIENTS)
+  const ids = getIngredients()
+    .map((ingredient) => ingredient.id)
     .filter((id) => amounts[id] && !(hideCheckedShoppingItems && checkedShoppingItems.has(id)));
 
   const groups = shoppingLayout === "flat"
     ? [{ category: null, items: createItems(ids) }]
     : CATEGORIES.map((category) => ({
       category,
-      items: createItems(ids.filter((id) => INGREDIENTS[id].category === category)),
+      items: createItems(ids.filter((id) => getIngredient(id).category === category)),
     }));
   return groups.filter((group) => group.items.length > 0);
 }
@@ -644,7 +652,7 @@ function createShoppingItem(item) {
 /** Renders the shopping list for the selected number of days, starting now. */
 function renderShoppingList() {
   const position = weekPosition(new Date());
-  const { mealCount, amounts } = getShoppingList(position, shoppingDays, useSushiAlternative);
+  const { mealCount, amounts } = getShoppingList(position, shoppingDays, useAlternatives);
   const groups = groupShoppingItems(amounts);
 
   document.getElementById("shopping-summary").textContent = t("shopping.summary", {
@@ -691,7 +699,7 @@ function setAllShoppingItems(checked) {
 
 /** Copies the shopping list as plain text. */
 async function copyShoppingList() {
-  const { amounts } = getShoppingList(weekPosition(new Date()), shoppingDays, useSushiAlternative);
+  const { amounts } = getShoppingList(weekPosition(new Date()), shoppingDays, useAlternatives);
   const text = groupShoppingItems(amounts)
     .map((group) => [
       ...(group.category ? [t(`category.${group.category}`)] : []),
@@ -794,7 +802,7 @@ function renderNow() {
     "meal",
     "timer.nextMeal",
     hoursUntil(position, nextMeal.position),
-    `${formatPosition(nextMeal.position)}: ${t(`meal.${nextMeal.key}`)}`,
+    `${formatPosition(nextMeal.position)}: ${localize(getMeal(nextMeal.mealId).name)}`,
   );
   renderTimer(
     "training",
@@ -820,6 +828,8 @@ function renderTranslated() {
   renderShoppingOptions();
   renderShoppingList();
   renderHoursToggles();
+  renderDietSource();
+  renderDietEditor();
   renderMeasurements();
   renderExercises();
   renderWorkouts();
@@ -868,12 +878,26 @@ function showCurrentView() {
   if (current === "shopping") {
     renderShoppingList();
   }
+  if (current === "diet-edit") {
+    openDietEditor();
+  }
 }
 
 await initI18n();
 applyTranslations();
 await ensureSignedIn();
 initSignOut();
+await loadDiet();
+initDietTransfer(() => {
+  checkedShoppingItems.clear();
+  renderContent();
+  renderShoppingList();
+  renderNow();
+});
+initDietEditor();
+document.getElementById("diet-edit").addEventListener("click", () => {
+  location.hash = "diet-edit";
+});
 initMeasurements();
 initSetTimer();
 initTrainingTabs();
