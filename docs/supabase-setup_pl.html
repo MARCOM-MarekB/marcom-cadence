@@ -86,13 +86,13 @@
 <ol>
 <li><strong>Project Settings</strong>, <strong>Integrations</strong>, <strong>GitHub</strong>, <strong>Connect</strong>.</li>
 <li>Autoryzuj Supabase na GitHubie i wybierz repozytorium <code>marcom-cadence</code>.</li>
-<li><strong>Supabase directory</strong>: <code>supabase</code>.</li>
-<li><strong>Production branch</strong>: <code>main</code>.</li>
+<li><strong>Working directory</strong>: <code>.</code>, czyli folder, w którym leży <code>supabase/</code>, tutaj katalog główny repozytorium.</li>
 <li>Włącz <strong>Deploy to production</strong>.</li>
+<li><strong>Production branch name</strong>: <code>main</code>.</li>
+<li><strong>Automatic branching</strong> zostaje wyłączone; wymaga planu Pro.</li>
 <li>Zapisz.</li>
 </ol>
 <p>Supabase uruchamia teraz każdy plik z <code>supabase/migrations/</code>, który jeszcze nie był uruchomiony. Jeśli nic się nie dzieje, wypchnij dowolny kolejny commit do <code>main</code>.</p>
-<p>Jeśli opcji <strong>Deploy to production</strong> nie ma, otwórz <strong>SQL Editor</strong>, <strong>New query</strong>, wklej plik migracji i go uruchom.</p>
 <h2 id="step-6-check-the-database">Krok 6: sprawdzenie bazy</h2>
 <ol>
 <li><strong>Table Editor</strong>.</li>

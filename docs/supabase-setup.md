@@ -54,14 +54,13 @@ Commit and push the repository to `main`. The integration in the next step reads
 
 1. **Project Settings**, **Integrations**, **GitHub**, **Connect**.
 2. Authorize Supabase on GitHub and choose the `marcom-cadence` repository.
-3. **Supabase directory**: `supabase`.
-4. **Production branch**: `main`.
-5. Turn on **Deploy to production**.
-6. Save.
+3. **Working directory**: `.`, the folder that contains `supabase/`, here the repository root.
+4. Turn on **Deploy to production**.
+5. **Production branch name**: `main`.
+6. Leave **Automatic branching** off; it needs the Pro plan.
+7. Save.
 
 Supabase now runs every file from `supabase/migrations/` that has not run yet. If nothing happens, push any later commit to `main`.
-
-If **Deploy to production** is not available, open **SQL Editor**, **New query**, paste the migration file and run it.
 
 ## Step 6: check the database
 

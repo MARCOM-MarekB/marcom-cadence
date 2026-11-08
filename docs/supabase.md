@@ -50,7 +50,7 @@ The app signs in with email and password. `supabase-js` keeps the session in bro
 
 All tables live in the `marcom_cadence` schema. Schema changes are SQL files in `supabase/migrations/`, named `<timestamp>_<description>.sql`, the naming the Supabase CLI uses.
 
-The **Supabase GitHub integration** applies them: the project is connected to the `marcom-cadence` repository with Supabase directory `supabase` and production branch `main`. On every push to `main`, Supabase runs the migration files it has not run yet, in name order, and records them in `supabase_migrations.schema_migrations`. This is the equivalent of `dotnet ef database update` in a deployment pipeline. Applied migrations and integration runs are visible in the dashboard.
+The **Supabase GitHub integration** applies them: the project is connected to the `MARCOM-MarekB/marcom-cadence` repository with working directory `.` (the folder that contains `supabase/`) and production branch `main`. It runs on the Free plan; preview branches per pull request would need the Pro plan and are not used. On every push to `main`, Supabase runs the migration files it has not run yet, in name order, and records them in `supabase_migrations.schema_migrations`. This is the equivalent of `dotnet ef database update` in a deployment pipeline. Applied migrations and integration runs are visible in the dashboard.
 
 An applied file is never edited; a later change is a new file with a later timestamp.
 
