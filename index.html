@@ -20,7 +20,20 @@
       </label>
       <label class="measure-field" for="login-password">
         <span class="measure-name" data-i18n="login.password"></span>
-        <input id="login-password" type="password" autocomplete="current-password" required>
+        <span class="password-box">
+          <input id="login-password" type="password" autocomplete="current-password" required>
+          <button class="control password-toggle" id="login-password-toggle" type="button" aria-pressed="false">
+            <svg class="password-icon-show" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg class="password-icon-hide" viewBox="0 0 24 24" aria-hidden="true" hidden>
+              <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M3 3l18 18"/>
+            </svg>
+          </button>
+        </span>
       </label>
       <div class="measure-actions">
         <button class="control measure-save" id="login-submit" type="submit" data-i18n="login.submit"></button>

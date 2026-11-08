@@ -53,6 +53,8 @@
   "measurements.importFailed": "Nie udało się przenieść wpisów zapisanych w tej przeglądarce, kolejna próba przy następnym uruchomieniu",
   "login.email": "E-mail",
   "login.password": "Hasło",
+  "login.showPassword": "Pokaż hasło",
+  "login.hidePassword": "Ukryj hasło",
   "login.submit": "Zaloguj",
   "login.signingIn": "Logowanie...",
   "login.failed": "Błędny e-mail lub hasło",

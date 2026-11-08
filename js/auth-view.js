@@ -11,12 +11,34 @@ export async function ensureSignedIn() {
   const { data } = await supabase.auth.getSession();
 
   if (!data.session) {
+    initPasswordToggle();
     login.hidden = false;
     document.getElementById("login-email").focus();
     await waitForSignIn();
     login.hidden = true;
   }
   app.hidden = false;
+}
+
+/** Connects the button that shows or hides the typed password. */
+function initPasswordToggle() {
+  const input = document.getElementById("login-password");
+  const button = document.getElementById("login-password-toggle");
+
+  const render = () => {
+    const isShown = input.type === "text";
+    button.setAttribute("aria-pressed", String(isShown));
+    button.setAttribute("aria-label", t(isShown ? "login.hidePassword" : "login.showPassword"));
+    button.querySelector(".password-icon-show").toggleAttribute("hidden", isShown);
+    button.querySelector(".password-icon-hide").toggleAttribute("hidden", !isShown);
+  };
+
+  button.addEventListener("click", () => {
+    input.type = input.type === "password" ? "text" : "password";
+    render();
+    input.focus();
+  });
+  render();
 }
 
 /**
@@ -46,6 +68,7 @@ function waitForSignIn() {
       }
       status.textContent = "";
       form.reset();
+      document.getElementById("login-password").type = "password";
       resolve();
     });
   });

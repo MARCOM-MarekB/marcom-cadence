@@ -4,7 +4,7 @@ marcom-cadence is a personal app for fasting and eating windows, a diet plan and
 
 ## Current state
 
-The app opens with a login form (email and password of the Supabase account) and shows the views after sign-in. The session is kept in the browser, so the form appears again only after signing out with the header button or when the session expires.
+The app opens with a login form (email and password of the Supabase account) and shows the views after sign-in. A button with an eye next to the password field shows the typed password in a fixed-width font, so similar characters such as I and l can be told apart. The session is kept in the browser, so the form appears again only after signing out with the header button or when the session expires.
 
 The app has a navigation menu with six views:
 

@@ -70,8 +70,8 @@ Supabase now runs every file from `supabase/migrations/` that has not run yet. I
 
 ## Step 7: expose the schema to the Data API
 
-1. **Project Settings**, **Data API**.
-2. Add `marcom_cadence` to **Exposed schemas**.
+1. **Integrations**, **Data API**, **Settings** tab.
+2. Add `marcom_cadence` to **Exposed schemas**, keeping the schemas already there.
 3. Save.
 
 The schema list shows only schemas that already exist, so this step comes after the migration. Without it the app shows "Could not load measurements".

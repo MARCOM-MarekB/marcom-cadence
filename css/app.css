@@ -230,6 +230,34 @@ h2 {
   font-size: 24px;
 }
 
+.password-box {
+  display: flex;
+  gap: 6px;
+}
+
+/* A shown password uses a fixed-width font, so I, l and 1 look different. */
+.password-box input[type="text"] {
+  font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+.password-toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 38px;
+  padding: 0;
+}
+
+.password-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .timer-link {
   color: inherit;
   text-decoration: none;
