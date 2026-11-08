@@ -138,7 +138,10 @@
         <h2 data-i18n="training.title"></h2>
         <div class="tabs" data-i18n-aria-label="training.tabsLabel">
           <button class="control" type="button" data-training-tab="timer" data-i18n="training.tab.timer"></button>
+          <button class="control" type="button" data-training-tab="log" data-i18n="training.tab.log"></button>
+          <button class="control" type="button" data-training-tab="maxes" data-i18n="training.tab.maxes"></button>
           <button class="control" type="button" data-training-tab="exercises" data-i18n="training.tab.exercises"></button>
+          <button class="control" type="button" data-training-tab="schedule" data-i18n="training.tab.schedule"></button>
         </div>
 
         <div class="tab-panel" data-training-panel="timer">
@@ -178,14 +181,77 @@
         </form>
         </div>
 
+        <div class="tab-panel" data-training-panel="log" hidden>
+          <div class="measure-actions">
+            <button class="control measure-save" id="workout-new" type="button" data-i18n="workouts.new"></button>
+            <button class="control" id="workout-copy-last" type="button" data-i18n="workouts.copyLast"></button>
+            <span class="empty" id="workout-status" role="status"></span>
+          </div>
+
+          <form class="measure-form" id="workout-form" hidden>
+            <h3 class="form-title" id="workout-form-title"></h3>
+            <div class="workout-head">
+              <label class="measure-field" for="workout-started">
+                <span class="measure-name" data-i18n="workouts.started"></span>
+                <input id="workout-started" type="datetime-local" required>
+              </label>
+              <label class="measure-field" for="workout-duration">
+                <span class="measure-name" data-i18n="workouts.duration"></span>
+                <input id="workout-duration" type="number" inputmode="numeric" min="1" step="5">
+              </label>
+            </div>
+            <label class="measure-field" for="workout-notes">
+              <span class="measure-name" data-i18n="workouts.notes"></span>
+              <textarea id="workout-notes" rows="2" maxlength="1000"></textarea>
+            </label>
+            <ol class="workout-items" id="workout-items"></ol>
+            <div class="workout-add measure-field">
+              <select id="workout-exercise-picker" data-i18n-aria-label="workouts.pickExercise"></select>
+              <button class="control" id="workout-add-exercise" type="button" data-i18n="workouts.addExercise"></button>
+            </div>
+            <p class="empty" id="workout-no-exercises" data-i18n="workouts.noExercises" hidden></p>
+            <div class="measure-actions">
+              <button class="control measure-save" id="workout-save" type="submit" data-i18n="workouts.save"></button>
+              <button class="control" id="workout-cancel" type="button" data-i18n="workouts.cancel"></button>
+              <button class="control" id="workout-delete" type="button" data-i18n="workouts.delete" hidden></button>
+            </div>
+          </form>
+
+          <p class="empty" id="workout-empty" data-i18n="workouts.empty" hidden></p>
+          <ul class="measure-history" id="workout-list"></ul>
+        </div>
+
+        <div class="tab-panel" data-training-panel="maxes" hidden>
+          <p class="empty" data-i18n="maxes.intro"></p>
+          <p class="empty" id="maxes-status" role="status"></p>
+          <p class="empty" id="maxes-empty" data-i18n="maxes.empty" hidden></p>
+          <ul class="measure-history" id="maxes-list"></ul>
+        </div>
+
+        <div class="tab-panel" data-training-panel="schedule" hidden>
+          <form class="measure-form schedule-form" id="schedule-form">
+            <p class="empty" data-i18n="schedule.intro"></p>
+            <p class="empty" id="schedule-valid-from"></p>
+            <ol class="set-list" id="schedule-sessions"></ol>
+            <button class="control progression-add" id="schedule-add" type="button" data-i18n="schedule.add"></button>
+            <div class="measure-actions">
+              <button class="control measure-save" id="schedule-save" type="submit" data-i18n="schedule.save"></button>
+              <span class="empty" id="schedule-status" role="status"></span>
+            </div>
+          </form>
+        </div>
+
         <div class="tab-panel" data-training-panel="exercises" hidden>
           <div class="exercise-layout">
             <form class="measure-form" id="exercise-form">
               <h3 class="form-title" id="exercise-form-title"></h3>
-              <label class="measure-field" for="exercise-name">
+              <div class="measure-field">
                 <span class="measure-name" data-i18n="exercises.name"></span>
-                <input id="exercise-name" type="text" maxlength="80" required>
-              </label>
+                <div class="lang-pair">
+                  <input id="exercise-name-en" type="text" maxlength="80" placeholder="EN" data-i18n-aria-label="exercises.name.en">
+                  <input id="exercise-name-pl" type="text" maxlength="80" placeholder="PL" data-i18n-aria-label="exercises.name.pl">
+                </div>
+              </div>
               <label class="measure-field" for="exercise-metric">
                 <span class="measure-name" data-i18n="exercises.metric"></span>
                 <select id="exercise-metric">
@@ -204,10 +270,13 @@
                 <ol class="progression-list" id="exercise-progressions"></ol>
                 <button class="control progression-add" id="exercise-add-progression" type="button" data-i18n="exercises.addProgression"></button>
               </div>
-              <label class="measure-field" for="exercise-notes">
+              <div class="measure-field">
                 <span class="measure-name" data-i18n="exercises.notes"></span>
-                <textarea id="exercise-notes" rows="2" maxlength="500"></textarea>
-              </label>
+                <div class="lang-pair">
+                  <textarea id="exercise-notes-en" rows="2" maxlength="500" placeholder="EN" data-i18n-aria-label="exercises.notes.en"></textarea>
+                  <textarea id="exercise-notes-pl" rows="2" maxlength="500" placeholder="PL" data-i18n-aria-label="exercises.notes.pl"></textarea>
+                </div>
+              </div>
               <label class="check-field" id="exercise-archived-field" hidden>
                 <input id="exercise-archived" type="checkbox">
                 <span data-i18n="exercises.archived"></span>
@@ -228,6 +297,16 @@
               <p class="empty" id="exercise-empty" data-i18n="exercises.empty" hidden></p>
               <ul class="measure-history" id="exercise-list"></ul>
             </div>
+          </div>
+        </div>
+
+        <div class="training-transfer">
+          <p class="empty" data-i18n="transfer.intro"></p>
+          <div class="measure-actions">
+            <button class="control" id="training-export" type="button" data-i18n="transfer.export"></button>
+            <button class="control" id="training-import" type="button" data-i18n="transfer.import"></button>
+            <input id="training-import-file" type="file" accept="application/json,.json" hidden>
+            <span class="empty" id="training-transfer-status" role="status"></span>
           </div>
         </div>
       </section>

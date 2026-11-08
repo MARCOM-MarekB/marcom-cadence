@@ -10,10 +10,14 @@ import {
 } from "./diet.js";
 import { ensureSignedIn, initSignOut } from "./auth-view.js";
 import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
-import { initExercises, renderExercises } from "./exercises-view.js";
+import { initExercises, loadExercises, onExercisesChanged, renderExercises } from "./exercises-view.js";
 import { initMeasurements, renderMeasurements } from "./measurements-view.js";
 import { initSetTimer, renderSetTimer } from "./set-timer-view.js";
+import { initTrainingSchedule, loadTrainingSchedule, renderTrainingSchedule } from "./training-schedule-view.js";
 import { initTrainingTabs } from "./training-tabs.js";
+import { initTrainingTransfer } from "./training-transfer-view.js";
+import { initMaxes, loadMaxes, onMaxesChanged, refreshMaxes, renderMaxes } from "./maxes-view.js";
+import { initWorkouts, loadWorkouts, onWorkoutSaved, renderWorkouts } from "./workouts-view.js";
 import {
   FASTS,
   HOURS_PER_WEEK,
@@ -795,8 +799,8 @@ function renderNow() {
   renderTimer(
     "training",
     "timer.nextTraining",
-    hoursUntil(position, training.start),
-    formatPosition(training.start),
+    training ? hoursUntil(position, training.start) : 0,
+    training ? formatPosition(training.start) : t("timer.noTraining"),
   );
   renderNowMarkers(position, nextMeal.position);
 }
@@ -818,6 +822,9 @@ function renderTranslated() {
   renderHoursToggles();
   renderMeasurements();
   renderExercises();
+  renderWorkouts();
+  renderMaxes();
+  renderTrainingSchedule();
   renderSetTimer();
   renderNow();
   renderThemeToggle();
@@ -870,11 +877,30 @@ initSignOut();
 initMeasurements();
 initSetTimer();
 initTrainingTabs();
+initTrainingSchedule(() => {
+  renderContent();
+  renderNow();
+});
+onExercisesChanged(() => {
+  renderWorkouts();
+  refreshMaxes();
+});
+onMaxesChanged(renderWorkouts);
+onWorkoutSaved(() => loadMaxes().catch(() => {}));
 initExercises();
+initWorkouts();
+initMaxes();
+initTrainingTransfer(() => Promise.all([loadExercises(), loadWorkouts(), loadTrainingSchedule(), loadMaxes()]));
 renderTranslated();
 showCurrentView();
 
-window.addEventListener("hashchange", showCurrentView);
+window.addEventListener("hashchange", () => {
+  showCurrentView();
+  // Body weight for bodyweight maxes comes from measurements, which may have changed in the meantime.
+  if (location.hash === "#training") {
+    loadMaxes().catch(() => {});
+  }
+});
 document.getElementById("theme-toggle").addEventListener("click", () => {
   toggleTheme();
   renderThemeToggle();

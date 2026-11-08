@@ -33,25 +33,28 @@
 <p>marcom-cadence to osobista aplikacja do planowania postów i okien jedzenia, prowadzenia diety i śledzenia treningów.</p>
 </div>
 <h2 id="current-state">Stan obecny</h2>
-<p>Aplikacja otwiera się formularzem logowania (e-mail i hasło konta Supabase) i pokazuje widoki po zalogowaniu. Przycisk z okiem obok pola hasła pokazuje wpisane hasło czcionką o stałej szerokości, więc podobne znaki, takie jak I i l, da się odróżnić. Sesja jest trzymana w przeglądarce, więc formularz pojawia się ponownie dopiero po wylogowaniu przyciskiem w nagłówku albo po wygaśnięciu sesji.</p>
+<p>Aplikacja otwiera się formularzem logowania (e-mail i hasło konta Supabase) i pokazuje widoki po zalogowaniu. Przycisk z okiem obok pola hasła pokazuje wpisane hasło czcionką o stałej szerokości, więc podobne znaki, takie jak I i l, da się odróżnić. Sesja jest trzymana w przeglądarce, więc formularz pojawia się ponownie dopiero po wylogowaniu przyciskiem w nagłówku albo po wygaśnięciu sesji. Wylogowanie kończy też sesję na serwerze; gdy to żądanie się nie uda, np. na telefonie bez sieci, sesja i tak jest usuwana z przeglądarki.</p>
 <p>Aplikacja ma menu nawigacji z sześcioma widokami:</p>
 <ul>
 <li><strong>Dziś:</strong> aktualny stan z postępem, odliczanie na żywo do końca postu lub następnego postu, następnego posiłku i następnego treningu, oś tygodnia oraz dzisiejsze posiłki z oznaczeniem minionych i następnego. Kliknięcie karty następnego posiłku otwiera widok Dieta na dniu tego posiłku z rozwiniętym przepisem.</li>
 <li><strong>Tydzień:</strong> oś tygodnia i lista okresów postu i jedzenia. Bieżący okres jest zaznaczony, a okresy jedzenia rozwijają się do kalendarza godzin tego okresu, z osobną sekcją na każdy dzień.</li>
 <li><strong>Dieta:</strong> wybór dnia i wybrany dzień jako kalendarz z wierszami godzin, z posiłkami, treningami oraz początkami i końcami postów w ich godzinach. Kilka pustych godzin z rzędu zwija się do jednego krótkiego wiersza, a przycisk pokazuje zamiast tego wszystkie godziny. Wybór jest zapamiętywany w przeglądarce. Godziny postu i treningu są zacieniowane, a bieżąca godzina zaznaczona. Posiłki mają szacunkowe kalorie i makroskładniki oraz rozwijany przepis.</li>
 <li><strong>Zakupy:</strong> lista zakupów na najbliższe 1 do 14 dni, liczona od teraz i zsumowana z zaplanowanych posiłków. Można ją pokazać według kategorii lub jako płaską listę, sortować domyślnie albo alfabetycznie i przełączyć z sushi na składniki zamiennika. Pozycje można odhaczać pojedynczo lub wszystkie naraz, odhaczone można ukryć, a widoczną listę skopiować albo wydrukować na A4. Lista nie obejmuje przypraw. Odhaczenia trwają do przeładowania strony.</li>
-<li><strong>Treningi:</strong> dwie zakładki, a otwarta zakładka jest zapamiętywana w przeglądarce.
+<li><strong>Treningi:</strong> pięć zakładek, a otwarta zakładka jest zapamiętywana w przeglądarce.
 <ul>
 <li><strong>Timer serii:</strong> nazwa ćwiczenia, czas serii, przerwa i liczba serii. Czas serii 0 oznacza, że każdą serię kończy przycisk. Zmiany fazy dają dźwięk i wibrację, jeśli urządzenie ją obsługuje, a ekran nie gaśnie, gdy timer działa. Ustawienia są zapamiętywane w przeglądarce.</li>
-<li><strong>Ćwiczenia:</strong> katalog ćwiczeń w Supabase. Każde ćwiczenie ma nazwę, sposób pomiaru (powtórzenia, powtórzenia i ciężar, masa ciała z dociążeniem lub gumą albo czas utrzymania), informację, czy powtórzenia liczą się na stronę, notatki i progresje od najłatwiejszej do najtrudniejszej, np. tuck, advanced tuck i pełny back lever. Progresja usunięta w formularzu zostaje zapisana jako zarchiwizowana, więc serie, które jej używały, zachowują jej nazwę. Ćwiczenia użytego w treningu nie da się usunąć, tylko zarchiwizować; zarchiwizowane są ukryte, chyba że lista je pokazuje.</li>
-<li>Dziennika treningów jeszcze nie ma.</li>
+<li><strong>Dziennik:</strong> dziennik treningów w Supabase, 100 ostatnich treningów od najnowszego. Każdy wiersz podsumowuje trening, po jednej linii na ćwiczenie, z jednakowymi seriami pod rząd zliczonymi, np. „RDL: 3×8+8 @ 60 kg” albo „Back lever: Tuck 3×10 s”. Nowy trening zaczyna się o godzinie dzisiejszego treningu z harmonogramu, a gdy dziś nie ma treningu, o bieżącej godzinie. <strong>Kopiuj poprzedni trening</strong> otwiera nowy trening z ćwiczeniami i seriami ostatniego, a <strong>Kopiuj</strong> przy wierszu robi to samo dla tego treningu; początek jest podpowiadany od nowa, a znaczniki maksa są czyszczone. W formularzu ćwiczenia dodaje się z katalogu, każde z seriami; pola serii zależą od ćwiczenia: powtórzenia (na stronę, gdy ćwiczenie liczy na stronę), ciężar, dociążenie i guma albo czas utrzymania, do tego progresja, gdy ćwiczenie ją ma, i znacznik maksa. <strong>+ seria</strong> dodaje kopię ostatniej serii. Przy każdej serii formularz pokazuje jej procent poprzedniego maksa tego samego ćwiczenia i progresji, czyli ostatniego maksa przed początkiem treningu. Serie bez wartości są pomijane przy zapisie, a cały trening zapisuje się jednym zapisem.</li>
+<li><strong>Maksy:</strong> jedna karta na ćwiczenie i progresję z seriami oznaczonymi jako max: ostatni max z datą i zmianą względem poprzedniego oraz najlepszy, gdy nie jest ostatnim. Karta rozwija się w historię maksów od najnowszego, każdy z seriami tego ćwiczenia z jego treningu i ich procentem maksa sprzed tego treningu, więc da się odczytać rampę, np. 8 serii od 50% do pojedynczego powtórzenia na 100% lub więcej. Obciążenie to ciężar w ćwiczeniach z ciężarem, a w ćwiczeniach z masą ciała masa ciała z ostatniego pomiaru przed treningiem (albo z pierwszego po nim, gdy wcześniej nie ma żadnego) plus dociążenie; serie z gumą nie mają obciążenia i nie są liczone. Ćwiczenia na powtórzenia porównują powtórzenia, a na czas utrzymania sekundy. Gdy trening ma kilka serii max dla jednego ćwiczenia i progresji, liczy się najwyższa. Maksy są czytane ponownie po zapisie, usunięciu lub imporcie treningu i po otwarciu widoku Treningi.</li>
+<li><strong>Ćwiczenia:</strong> katalog ćwiczeń w Supabase. Każde ćwiczenie ma nazwę i notatki po angielsku i po polsku, pokazywane w języku interfejsu albo w drugim języku, gdy w tym są puste, sposób pomiaru (powtórzenia, powtórzenia i ciężar, masa ciała z dociążeniem lub gumą albo czas utrzymania), informację, czy powtórzenia liczą się na stronę, notatki i progresje od najłatwiejszej do najtrudniejszej, np. tuck, advanced tuck i pełny back lever. Progresja usunięta w formularzu zostaje zapisana jako zarchiwizowana, więc serie, które jej używały, zachowują jej nazwę. Nazwy progresji też są w obu językach. Ćwiczenia użytego w treningu nie da się usunąć, tylko zarchiwizować; zarchiwizowane są ukryte, chyba że lista je pokazuje, i nie da się ich dodać do treningu.</li>
+<li><strong>Harmonogram:</strong> dni treningowe tygodnia z godziną i czasem trwania, z których korzystają osie czasu, odliczanie w widoku Dziś, kalendarz w widoku Dieta i nowe treningi. Zapis tworzy wersję obowiązującą od dziś i zostawia wcześniejsze; dopóki żadna nie jest zapisana, używany jest wbudowany harmonogram (poniedziałek 19:30 i czwartek 20:00, po dwie godziny).</li>
+<li>Pod zakładkami <strong>Eksportuj JSON</strong> pobiera ćwiczenia, treningi i wersje harmonogramu w jednym pliku, a <strong>Importuj JSON</strong> zapisuje taki plik na koncie po pokazaniu, co zawiera. Wpisy o tym samym id i harmonogramy o tej samej dacie początku są zastępowane, reszta zostaje.</li>
 </ul>
 </li>
 <li><strong>Pomiary:</strong> rysunkowa postać z punktami pomiarowymi i ostatnimi wartościami, formularz zapisu pomiarów z datą i godziną, zmiany od pierwszego wpisu i historia. Pomiary są zapisywane w Supabase. Ponowny zapis tej samej daty i godziny łączy wartości. Wpisy pozostawione w pamięci przeglądarki przez wcześniejszą wersję działającą tylko w przeglądarce są przy starcie przenoszone na konto, a potem usuwane z przeglądarki.</li>
 </ul>
 <p>Oś tygodnia to jeden pasek na cały tydzień. Przerywane linie oznaczają każdą północ, a kreska z napisem Teraz pokazuje bieżący dzień i godzinę.</p>
 <p>W nagłówku można też przełączać tryb jasny i ciemny oraz język angielski i polski. Oba wybory są zapamiętywane w przeglądarce. Bez zapisanego wyboru aplikacja używa motywu systemu i języka przeglądarki.</p>
-<p>Harmonogram tygodnia i jadłospis są zapisane w kodzie.</p>
+<p>Okresy postu i jadłospis są zapisane w kodzie.</p>
 <h2 id="structure">Struktura</h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Ścieżka</th><th>Przeznaczenie</th></tr></thead>
@@ -72,9 +75,18 @@
 <tr><td><code>js/measurements-view.js</code></td><td>Renderowanie i formularz widoku Pomiary</td></tr>
 <tr><td><code>js/exercises.js</code></td><td>Odczyt, zapis i usuwanie ćwiczeń w Supabase</td></tr>
 <tr><td><code>js/exercises-view.js</code></td><td>Lista i formularz katalogu ćwiczeń w widoku Treningi</td></tr>
+<tr><td><code>js/workouts.js</code></td><td>Odczyt, zapis i usuwanie treningów w Supabase oraz odczyt wszystkich treningów z serią max</td></tr>
+<tr><td><code>js/workouts-view.js</code></td><td>Lista i formularz dziennika treningów</td></tr>
+<tr><td><code>js/maxes.js</code></td><td>Obliczenia maksów: obciążenie serii, masa ciała w danej chwili, historia maksów i procenty</td></tr>
+<tr><td><code>js/maxes-view.js</code></td><td>Zakładka Maksy; czyta treningi z maksami i masy ciała, a formularzowi treningu podaje poprzedni max</td></tr>
+<tr><td><code>js/training-schedule.js</code></td><td>Odczyt i zapis wersji harmonogramu treningów oraz wbudowany harmonogram</td></tr>
+<tr><td><code>js/training-schedule-view.js</code></td><td>Formularz harmonogramu; stosuje obowiązujący harmonogram w całej aplikacji</td></tr>
+<tr><td><code>js/training-transfer.js</code></td><td>Eksport i import dziennika treningów jako JSON</td></tr>
+<tr><td><code>js/training-transfer-view.js</code></td><td>Przyciski eksportu i importu</td></tr>
+<tr><td><code>js/dates.js</code></td><td>Formatowanie lokalnej daty i godziny dla pól formularzy i kolumn z datą</td></tr>
 <tr><td><code>js/training-tabs.js</code></td><td>Zakładki widoku Treningi</td></tr>
-<tr><td><code>js/i18n.js</code></td><td>Ładowanie języka i wyszukiwanie tłumaczeń</td></tr>
-<tr><td><code>js/schedule.js</code></td><td>Harmonogram tygodnia i czyste obliczenia czasu</td></tr>
+<tr><td><code>js/i18n.js</code></td><td>Ładowanie języka, wyszukiwanie tłumaczeń i teksty użytkownika zapisane w każdym języku</td></tr>
+<tr><td><code>js/schedule.js</code></td><td>Okresy postu, obowiązujące treningi i czyste obliczenia czasu</td></tr>
 <tr><td><code>js/theme.js</code></td><td>Przełączanie motywu</td></tr>
 <tr><td><code>js/theme-init.js</code></td><td>Ustawia zapisany motyw przed narysowaniem strony</td></tr>
 <tr><td><code>supabase/migrations/*.sql</code></td><td>Schemat bazy w Supabase, uruchamiany przez integrację Supabase z GitHubem przy pushu do <code>main</code>; zobacz <a href="supabase_pl.html">Supabase</a></td></tr>
@@ -89,11 +101,12 @@
 <li>Nawigacja używa fragmentu adresu (<code>#today</code>, <code>#week</code>, <code>#diet</code>, <code>#shopping</code>, <code>#training</code>, <code>#measurements</code>), który działa na GitHub Pages bez reguł serwera.</li>
 <li>Składniki posiłków to dane strukturalne, więc przepisy i lista zakupów korzystają z jednego źródła.</li>
 <li>Teksty tłumaczone w <code>index.html</code> mają atrybut <code>data-i18n</code>. Każdy plik języka musi zawierać te same klucze.</li>
+<li>Teksty, które użytkownik wpisuje do bazy, np. nazwy ćwiczeń i progresji, są zapisane w każdym języku jako <code>{&quot;en&quot;: &quot;...&quot;, &quot;pl&quot;: &quot;...&quot;}</code>. Zwykły napis czyta się jako ten sam tekst w każdym języku. Swobodne notatki treningu są zapisane tak, jak je wpisano, w jednym języku.</li>
 <li>Czasy w harmonogramie to godziny liczone od poniedziałku 00:00, w czasie lokalnym użytkownika. Okres może przechodzić przez koniec tygodnia.</li>
 <li>Biblioteka klienta Supabase (<code>supabase-js</code>) jest ładowana jako moduł z CDN jsDelivr z przypiętą wersją, więc nadal nie ma etapu budowania ani <code>node_modules</code>.</li>
 </ul>
 <h2 id="data-and-privacy">Dane i prywatność</h2>
-<p>Repozytorium i strona są publiczne. Trafiają tu tylko kod i ogólne treści. Dane osobiste, na razie pomiary i katalog ćwiczeń, są w Supabase za logowaniem, z Row Level Security na każdej tabeli; konfiguracja i zasady są w dokumencie <a href="supabase_pl.html">Supabase</a>. W pamięci przeglądarki są sesja logowania, motyw, język, sposób wyświetlania godzin, ustawienia timera serii i otwarta zakładka widoku Treningi.</p>
+<p>Repozytorium i strona są publiczne. Trafiają tu tylko kod i ogólne treści. Dane osobiste, na razie pomiary, katalog ćwiczeń, treningi i harmonogram treningów, są w Supabase za logowaniem, z Row Level Security na każdej tabeli; konfiguracja i zasady są w dokumencie <a href="supabase_pl.html">Supabase</a>. W pamięci przeglądarki są sesja logowania, motyw, język, sposób wyświetlania godzin, ustawienia timera serii i otwarta zakładka widoku Treningi.</p>
 <h2 id="debugging">Debugowanie</h2>
 <p><code>npm start</code> serwuje pliki źródłowe bez zmian, więc przeglądarka wykonuje dokładnie kod z repozytorium. Breakpointy można stawiać w narzędziach deweloperskich przeglądarki (F12, Sources) albo w VS Code, przez konfigurację uruchomienia typu <code>msedge</code> lub <code>chrome</code> wskazującą na <code>http://localhost:3100</code>, gdy działa <code>npm start</code>. Lokalne uruchomienie korzysta z tego samego projektu Supabase i tych samych danych co opublikowana strona.</p>
 <h2 id="running-and-deployment">Uruchamianie i wdrożenie</h2>

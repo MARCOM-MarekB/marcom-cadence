@@ -81,16 +81,19 @@
 <tbody>
 <tr><td><code>20261108000000_create_measurements.sql</code></td><td><code>marcom_cadence</code> schema with usage for <code>authenticated</code>, and a first <code>measurements</code> table with one column per value</td></tr>
 <tr><td><code>20261109000000_json_content_tables.sql</code></td><td>Replaces <code>measurements</code> with the content shape, and creates <code>exercises</code> and <code>workouts</code></td></tr>
+<tr><td><code>20261110000000_create_training_schedules.sql</code></td><td>Creates <code>training_schedules</code></td></tr>
 </tbody>
 </table></div>
 <h2 id="table-shape">Table shape</h2>
 <p>Every table has <code>id</code>, <code>user_id</code>, explicit columns only for what is filtered, sorted or kept unique, and the rest of the record in a <code>content</code> column of type <code>jsonb</code>. It is the same shape as the JSON tables in marcom-infrastructure, with the same rule for which fields get a column:</p>
 <ul>
 <li><strong>Growing list</strong> (measurements, workouts): filter and sort fields are explicit columns from the start.</li>
+<li><strong>Versioned settings</strong> (training schedule): a <code>valid_from</code> date column, unique per user; the version in use is the latest one that is not in the future.</li>
 <li><strong>Dictionary the user fills by hand</strong> (exercises): everything is in <code>content</code>; the app reads the whole table and sorts in the browser.</li>
 </ul>
 <p>A whole record is one row, so the app saves it with a single write, which succeeds or fails as a whole. The app has no backend that could wrap several writes in a transaction.</p>
 <p>Code that reads <code>content</code> ignores unknown fields and gives missing fields a default, so rows written with an older shape still read after the shape changes.</p>
+<p>Texts the user writes, such as exercise and progression names, are stored in every language, for example <code>{&quot;en&quot;: &quot;Pull-up&quot;, &quot;pl&quot;: &quot;Podciąganie&quot;}</code>; a plain string reads as the same text in every language.</p>
 <p>There are no foreign keys into <code>content</code>. An exercise used in a workout is therefore archived instead of deleted, and a removed progression stays in the exercise content as archived.</p>
 <h2 id="tables">Tables</h2>
 <p>All tables have <code>user_id</code> set to the signed-in user, an owner-only policy, and access only for <code>authenticated</code>.</p>
@@ -98,8 +101,9 @@
 <thead><tr><th>Table</th><th>Columns besides <code>id</code> and <code>user_id</code></th><th><code>content</code></th></tr></thead>
 <tbody>
 <tr><td><code>marcom_cadence.measurements</code></td><td><code>measured_on</code>, <code>measured_at</code> (unique per user, date and time)</td><td>Values by measurement key, such as <code>{&quot;weight&quot;: 78, &quot;waist&quot;: 100}</code></td></tr>
-<tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code>, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> or <code>hold</code>), <code>perSide</code>, <code>notes</code>, <code>archived</code>, <code>progressions</code> as <code>[{id, name, archived}]</code></td></tr>
-<tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, indexed with <code>user_id</code> for the newest-first list</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> as <code>[{exerciseId, notes, sets}]</code>; a GIN index on <code>content</code> finds workouts that use an exercise</td></tr>
+<tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code> and <code>notes</code> in every language, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> or <code>hold</code>), <code>perSide</code>, <code>archived</code>, <code>progressions</code> as <code>[{id, name, archived}]</code> with the name in every language</td></tr>
+<tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, indexed with <code>user_id</code> for the newest-first list</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> as <code>[{exerciseId, notes, sets}]</code>, where a set holds only the fields with a value: <code>progressionId</code>, <code>reps</code> (per side when the exercise counts per side), <code>weightKg</code>, <code>addedKg</code>, <code>band</code>, <code>holdS</code> and <code>isMax</code>; a GIN index on <code>content</code> finds workouts that use an exercise</td></tr>
+<tr><td><code>marcom_cadence.training_schedules</code></td><td><code>valid_from</code> (unique per user)</td><td><code>sessions</code> as <code>[{day, start, durationMin}]</code>, where <code>day</code> 0 is Monday and <code>start</code> is <code>HH:MM</code></td></tr>
 </tbody>
 </table></div>
 

@@ -490,6 +490,8 @@ h2 {
 .measure-field select,
 .measure-field textarea,
 .progression-row input,
+.set-field input,
+.set-field select,
 .measure-field input {
   width: 100%;
   min-width: 0;
@@ -560,6 +562,165 @@ h2 {
 .progression-row {
   display: flex;
   gap: 6px;
+}
+
+.progression-row input {
+  flex: 1 1 0;
+}
+
+/* Inputs for the same text in each language, side by side. */
+.lang-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.workout-head {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.workout-items,
+.set-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.set-list {
+  gap: 6px;
+}
+
+.workout-item {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.workout-item-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.workout-item-head .measure-values {
+  flex: 1;
+}
+
+.set-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 6px;
+}
+
+.set-index {
+  align-self: center;
+  min-width: 22px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.set-field {
+  display: grid;
+  gap: 2px;
+  width: 84px;
+}
+
+.set-field-progression,
+.set-field-band {
+  width: 130px;
+}
+
+.schedule-form .set-field {
+  width: 140px;
+}
+
+.set-field-name {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.set-max {
+  align-self: center;
+  font-size: 14px;
+}
+
+.workout-item-footer,
+.workout-add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.workout-item-footer input,
+.workout-add select {
+  flex: 1 1 160px;
+  width: auto;
+}
+
+.workout-summary {
+  display: grid;
+  gap: 2px;
+}
+
+.workout-entry-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.set-percent {
+  align-self: center;
+  min-width: 40px;
+  color: var(--muted);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.max-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.max-summary {
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.max-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.max-history {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0 14px 12px;
+  list-style: none;
+}
+
+.max-entry {
+  display: grid;
+  gap: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.training-transfer {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
 }
 
 .progression-remove {
@@ -1116,6 +1277,11 @@ h2 {
   .timers,
   .exercise-layout {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workout-entry {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
   }
 
   .period {

@@ -1,6 +1,9 @@
 const STORAGE_KEY = "cadence.language";
 const SUPPORTED_LANGUAGES = ["en", "pl"];
 
+/** Languages of the interface and of user texts stored in every language. */
+export const LANGUAGES = SUPPORTED_LANGUAGES;
+
 let language = "en";
 let messages = {};
 
@@ -67,6 +70,38 @@ export function t(key, params = {}) {
     return message;
   }
   return message.replace(/\{(\w+)\}/g, (placeholder, name) => params[name] ?? placeholder);
+}
+
+/**
+ * Reads user text that is stored in every supported language, such as {"en": "Pull-up", "pl": "Podciąganie"}.
+ * A plain string counts as the same text in every language.
+ * @param {*} value The stored text.
+ * @returns {Record<string, string>} The text for each supported language, empty where missing.
+ */
+export function toLocalized(value) {
+  return Object.fromEntries(SUPPORTED_LANGUAGES.map((code) => [
+    code,
+    typeof value === "string" ? value : typeof value?.[code] === "string" ? value[code] : "",
+  ]));
+}
+
+/**
+ * Picks user text in the current language, or in another language when it is missing there.
+ * @param {*} value Text stored as {"en": "...", "pl": "..."} or as a plain string.
+ * @returns {string} The text to show.
+ */
+export function localize(value) {
+  const texts = toLocalized(value);
+  return texts[language] || SUPPORTED_LANGUAGES.map((code) => texts[code]).find((text) => text !== "") || "";
+}
+
+/**
+ * Tells whether user text is empty in every language.
+ * @param {Record<string, string>} texts The text for each language.
+ * @returns {boolean} True when no language has text.
+ */
+export function isLocalizedEmpty(texts) {
+  return SUPPORTED_LANGUAGES.every((code) => !texts[code]);
 }
 
 /** Translates every element marked with a data-i18n attribute. */

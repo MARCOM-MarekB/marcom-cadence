@@ -76,7 +76,16 @@ function waitForSignIn() {
 
 /** Connects the sign-out button and returns to the login form when the session ends. */
 export function initSignOut() {
-  document.getElementById("sign-out").addEventListener("click", () => supabase.auth.signOut());
+  document.getElementById("sign-out").addEventListener("click", async () => {
+    // A global sign-out ends the session on the server too. When that request fails, for example
+    // because the phone was offline or the token expired while it slept, the session is still removed
+    // from this browser, so the button always signs out.
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      await supabase.auth.signOut({ scope: "local" });
+    }
+    location.reload();
+  });
   supabase.auth.onAuthStateChange((event) => {
     if (event === "SIGNED_OUT") {
       location.reload();

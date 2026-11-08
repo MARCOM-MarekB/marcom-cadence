@@ -1,3 +1,5 @@
+import { timeToHours } from "./dates.js";
+
 /** Hours in one week. */
 export const HOURS_PER_WEEK = 168;
 
@@ -16,11 +18,25 @@ export const FASTS = [
   { start: at(4, 12), end: at(5, 8.5) },
 ];
 
-/** Training sessions in chronological order. */
-export const TRAININGS = [
-  { start: at(0, 19.5), end: at(0, 21.5) },
-  { start: at(3, 20), end: at(3, 22) },
-];
+/**
+ * Training sessions of the week in chronological order, as week positions.
+ * Replaced by setTrainings when the training schedule is read from Supabase.
+ */
+export let TRAININGS = [];
+
+/**
+ * Sets the training sessions of the week.
+ * @param {Array<{day: number, start: string, durationMin: number}>} sessions Sessions with the day (0 is Monday),
+ * start time as HH:MM and duration in minutes.
+ */
+export function setTrainings(sessions) {
+  TRAININGS = sessions
+    .map((session) => {
+      const start = at(session.day, timeToHours(session.start));
+      return { start, end: start + session.durationMin / 60 };
+    })
+    .sort((a, b) => a.start - b.start);
+}
 
 /**
  * Returns the number of hours from one week position forward to another.
@@ -75,10 +91,10 @@ export function getStatus(position) {
 /**
  * Finds the next training that has not started.
  * @param {number} position Hours since Monday 00:00.
- * @returns {{start: number, end: number}} The next training.
+ * @returns {{start: number, end: number} | null} The next training, or null when none is planned.
  */
 export function getNextTraining(position) {
-  return TRAININGS.find((training) => position < training.start) ?? TRAININGS[0];
+  return TRAININGS.find((training) => position < training.start) ?? TRAININGS[0] ?? null;
 }
 
 /**
