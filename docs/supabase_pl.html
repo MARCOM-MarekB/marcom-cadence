@@ -23,6 +23,7 @@
 <li><a href="#project">Projekt</a></li>
 <li><a href="#authentication">Logowanie</a></li>
 <li><a href="#database-changes">Zmiany w bazie</a></li>
+<li><a href="#table-shape">Kształt tabel</a></li>
 <li><a href="#tables">Tabele</a></li>
 </ul>
 </nav>
@@ -74,18 +75,31 @@
 <h2 id="database-changes">Zmiany w bazie</h2>
 <p>Wszystkie tabele są w schemacie <code>marcom_cadence</code>. Zmiany schematu to pliki SQL w <code>supabase/migrations/</code>, nazwane <code>&lt;znacznik czasu&gt;_&lt;opis&gt;.sql</code>, tak jak nazywa je Supabase CLI.</p>
 <p>Uruchamia je <strong>integracja Supabase z GitHubem</strong>: projekt jest połączony z repozytorium <code>MARCOM-MarekB/marcom-cadence</code>, z katalogiem roboczym <code>.</code> (folder, w którym leży <code>supabase/</code>) i gałęzią produkcyjną <code>main</code>. Działa na planie Free; osobne gałęzie bazy dla pull requestów wymagałyby planu Pro i nie są używane. Przy każdym pushu do <code>main</code> Supabase uruchamia pliki migracji, których jeszcze nie uruchomił, w kolejności nazw, i zapisuje je w <code>supabase_migrations.schema_migrations</code>. To odpowiednik <code>dotnet ef database update</code> w pipeline wdrożeniowym. Zastosowane migracje i przebiegi integracji widać w panelu.</p>
-<p>Zastosowanego pliku nie zmienia się; późniejsza zmiana to nowy plik z późniejszym znacznikiem czasu.</p>
+<p>Zastosowanego pliku nie zmienia się; późniejsza zmiana to nowy plik z późniejszym znacznikiem czasu. Zastosowane migracje są w panelu w sekcji <strong>Database</strong>, <strong>Migrations</strong>.</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Migracja</th><th>Zawartość</th></tr></thead>
 <tbody>
-<tr><td><code>20261108000000_create_measurements.sql</code></td><td>Schemat <code>marcom_cadence</code> z uprawnieniem usage dla <code>authenticated</code>; tabela <code>measurements</code> z jednym wierszem na datę i godzinę, jedną kolumną na każdy pomiar ciała, unikalna dla użytkownika, daty i godziny, z polityką dostępu tylko dla właściciela</td></tr>
+<tr><td><code>20261108000000_create_measurements.sql</code></td><td>Schemat <code>marcom_cadence</code> z uprawnieniem usage dla <code>authenticated</code> i pierwsza tabela <code>measurements</code> z kolumną na każdą wartość</td></tr>
+<tr><td><code>20261109000000_json_content_tables.sql</code></td><td>Zastępuje <code>measurements</code> wersją z <code>content</code> i tworzy <code>exercises</code> oraz <code>workouts</code></td></tr>
 </tbody>
 </table></div>
+<h2 id="table-shape">Kształt tabel</h2>
+<p>Każda tabela ma <code>id</code>, <code>user_id</code>, jawne kolumny tylko dla tego, po czym się filtruje, sortuje albo co musi być unikalne, a resztę rekordu w kolumnie <code>content</code> typu <code>jsonb</code>. To ten sam kształt co tabele JSON w marcom-infrastructure, z tą samą regułą, które pola dostają kolumnę:</p>
+<ul>
+<li><strong>Rosnąca lista</strong> (pomiary, treningi): pola do filtrowania i sortowania są jawnymi kolumnami od początku.</li>
+<li><strong>Słownik wypełniany ręcznie</strong> (ćwiczenia): wszystko jest w <code>content</code>; aplikacja czyta całą tabelę i sortuje w przeglądarce.</li>
+</ul>
+<p>Cały rekord to jeden wiersz, więc aplikacja zapisuje go jednym zapisem, który udaje się albo nie w całości. Aplikacja nie ma backendu, który mógłby objąć kilka zapisów transakcją.</p>
+<p>Kod czytający <code>content</code> pomija nieznane pola i nadaje brakującym wartości domyślne, więc wiersze zapisane w starszym kształcie dalej się czytają po zmianie kształtu.</p>
+<p>Do <code>content</code> nie prowadzą klucze obce. Dlatego ćwiczenie użyte w treningu się archiwizuje zamiast usuwać, a usunięta progresja zostaje w <code>content</code> ćwiczenia jako zarchiwizowana.</p>
 <h2 id="tables">Tabele</h2>
+<p>Wszystkie tabele mają <code>user_id</code> ustawiane na zalogowanego użytkownika, politykę tylko dla właściciela i dostęp tylko dla <code>authenticated</code>.</p>
 <div class="table-wrap"><table>
-<thead><tr><th>Tabela</th><th>Przeznaczenie</th></tr></thead>
+<thead><tr><th>Tabela</th><th>Kolumny poza <code>id</code> i <code>user_id</code></th><th><code>content</code></th></tr></thead>
 <tbody>
-<tr><td><code>marcom_cadence.measurements</code></td><td>Pomiary ciała. <code>user_id</code> to zalogowany użytkownik, a polityka odrzuca każdą inną wartość.</td></tr>
+<tr><td><code>marcom_cadence.measurements</code></td><td><code>measured_on</code>, <code>measured_at</code> (unikalne dla użytkownika, daty i godziny)</td><td>Wartości według klucza pomiaru, np. <code>{&quot;weight&quot;: 78, &quot;waist&quot;: 100}</code></td></tr>
+<tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code>, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> albo <code>hold</code>), <code>perSide</code>, <code>notes</code>, <code>archived</code>, <code>progressions</code> jako <code>[{id, name, archived}]</code></td></tr>
+<tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, z indeksem razem z <code>user_id</code> dla listy od najnowszego</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> jako <code>[{exerciseId, notes, sets}]</code>; indeks GIN na <code>content</code> znajduje treningi z danym ćwiczeniem</td></tr>
 </tbody>
 </table></div>
 

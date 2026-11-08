@@ -40,7 +40,13 @@
 <li><strong>Tydzień:</strong> oś tygodnia i lista okresów postu i jedzenia. Bieżący okres jest zaznaczony, a okresy jedzenia rozwijają się do kalendarza godzin tego okresu, z osobną sekcją na każdy dzień.</li>
 <li><strong>Dieta:</strong> wybór dnia i wybrany dzień jako kalendarz z wierszami godzin, z posiłkami, treningami oraz początkami i końcami postów w ich godzinach. Kilka pustych godzin z rzędu zwija się do jednego krótkiego wiersza, a przycisk pokazuje zamiast tego wszystkie godziny. Wybór jest zapamiętywany w przeglądarce. Godziny postu i treningu są zacieniowane, a bieżąca godzina zaznaczona. Posiłki mają szacunkowe kalorie i makroskładniki oraz rozwijany przepis.</li>
 <li><strong>Zakupy:</strong> lista zakupów na najbliższe 1 do 14 dni, liczona od teraz i zsumowana z zaplanowanych posiłków. Można ją pokazać według kategorii lub jako płaską listę, sortować domyślnie albo alfabetycznie i przełączyć z sushi na składniki zamiennika. Pozycje można odhaczać pojedynczo lub wszystkie naraz, odhaczone można ukryć, a widoczną listę skopiować albo wydrukować na A4. Lista nie obejmuje przypraw. Odhaczenia trwają do przeładowania strony.</li>
-<li><strong>Treningi:</strong> timer serii z nazwą ćwiczenia, czasem serii, przerwą i liczbą serii. Czas serii 0 oznacza, że każdą serię kończy przycisk. Zmiany fazy dają dźwięk i wibrację, jeśli urządzenie ją obsługuje, a ekran nie gaśnie, gdy timer działa. Ustawienia są zapamiętywane w przeglądarce. Dziennika treningów jeszcze nie ma.</li>
+<li><strong>Treningi:</strong> dwie zakładki, a otwarta zakładka jest zapamiętywana w przeglądarce.
+<ul>
+<li><strong>Timer serii:</strong> nazwa ćwiczenia, czas serii, przerwa i liczba serii. Czas serii 0 oznacza, że każdą serię kończy przycisk. Zmiany fazy dają dźwięk i wibrację, jeśli urządzenie ją obsługuje, a ekran nie gaśnie, gdy timer działa. Ustawienia są zapamiętywane w przeglądarce.</li>
+<li><strong>Ćwiczenia:</strong> katalog ćwiczeń w Supabase. Każde ćwiczenie ma nazwę, sposób pomiaru (powtórzenia, powtórzenia i ciężar, masa ciała z dociążeniem lub gumą albo czas utrzymania), informację, czy powtórzenia liczą się na stronę, notatki i progresje od najłatwiejszej do najtrudniejszej, np. tuck, advanced tuck i pełny back lever. Progresja usunięta w formularzu zostaje zapisana jako zarchiwizowana, więc serie, które jej używały, zachowują jej nazwę. Ćwiczenia użytego w treningu nie da się usunąć, tylko zarchiwizować; zarchiwizowane są ukryte, chyba że lista je pokazuje.</li>
+<li>Dziennika treningów jeszcze nie ma.</li>
+</ul>
+</li>
 <li><strong>Pomiary:</strong> rysunkowa postać z punktami pomiarowymi i ostatnimi wartościami, formularz zapisu pomiarów z datą i godziną, zmiany od pierwszego wpisu i historia. Pomiary są zapisywane w Supabase. Ponowny zapis tej samej daty i godziny łączy wartości. Wpisy pozostawione w pamięci przeglądarki przez wcześniejszą wersję działającą tylko w przeglądarce są przy starcie przenoszone na konto, a potem usuwane z przeglądarki.</li>
 </ul>
 <p>Oś tygodnia to jeden pasek na cały tydzień. Przerywane linie oznaczają każdą północ, a kreska z napisem Teraz pokazuje bieżący dzień i godzinę.</p>
@@ -64,6 +70,9 @@
 <tr><td><code>js/auth-view.js</code></td><td>Formularz logowania pokazywany przed aplikacją oraz wylogowanie</td></tr>
 <tr><td><code>js/measurements.js</code></td><td>Odczyt, zapis i usuwanie pomiarów w Supabase, przenoszenie starych wpisów z przeglądarki i obliczenia</td></tr>
 <tr><td><code>js/measurements-view.js</code></td><td>Renderowanie i formularz widoku Pomiary</td></tr>
+<tr><td><code>js/exercises.js</code></td><td>Odczyt, zapis i usuwanie ćwiczeń w Supabase</td></tr>
+<tr><td><code>js/exercises-view.js</code></td><td>Lista i formularz katalogu ćwiczeń w widoku Treningi</td></tr>
+<tr><td><code>js/training-tabs.js</code></td><td>Zakładki widoku Treningi</td></tr>
 <tr><td><code>js/i18n.js</code></td><td>Ładowanie języka i wyszukiwanie tłumaczeń</td></tr>
 <tr><td><code>js/schedule.js</code></td><td>Harmonogram tygodnia i czyste obliczenia czasu</td></tr>
 <tr><td><code>js/theme.js</code></td><td>Przełączanie motywu</td></tr>
@@ -84,7 +93,7 @@
 <li>Biblioteka klienta Supabase (<code>supabase-js</code>) jest ładowana jako moduł z CDN jsDelivr z przypiętą wersją, więc nadal nie ma etapu budowania ani <code>node_modules</code>.</li>
 </ul>
 <h2 id="data-and-privacy">Dane i prywatność</h2>
-<p>Repozytorium i strona są publiczne. Trafiają tu tylko kod i ogólne treści. Dane osobiste, na razie pomiary, są w Supabase za logowaniem, z Row Level Security na każdej tabeli; konfiguracja i zasady są w dokumencie <a href="supabase_pl.html">Supabase</a>. W pamięci przeglądarki są sesja logowania, motyw, język, sposób wyświetlania godzin i ustawienia timera serii.</p>
+<p>Repozytorium i strona są publiczne. Trafiają tu tylko kod i ogólne treści. Dane osobiste, na razie pomiary i katalog ćwiczeń, są w Supabase za logowaniem, z Row Level Security na każdej tabeli; konfiguracja i zasady są w dokumencie <a href="supabase_pl.html">Supabase</a>. W pamięci przeglądarki są sesja logowania, motyw, język, sposób wyświetlania godzin, ustawienia timera serii i otwarta zakładka widoku Treningi.</p>
 <h2 id="debugging">Debugowanie</h2>
 <p><code>npm start</code> serwuje pliki źródłowe bez zmian, więc przeglądarka wykonuje dokładnie kod z repozytorium. Breakpointy można stawiać w narzędziach deweloperskich przeglądarki (F12, Sources) albo w VS Code, przez konfigurację uruchomienia typu <code>msedge</code> lub <code>chrome</code> wskazującą na <code>http://localhost:3100</code>, gdy działa <code>npm start</code>. Lokalne uruchomienie korzysta z tego samego projektu Supabase i tych samych danych co opublikowana strona.</p>
 <h2 id="running-and-deployment">Uruchamianie i wdrożenie</h2>

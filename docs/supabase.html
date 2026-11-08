@@ -23,6 +23,7 @@
 <li><a href="#project">Project</a></li>
 <li><a href="#authentication">Authentication</a></li>
 <li><a href="#database-changes">Database changes</a></li>
+<li><a href="#table-shape">Table shape</a></li>
 <li><a href="#tables">Tables</a></li>
 </ul>
 </nav>
@@ -74,18 +75,31 @@
 <h2 id="database-changes">Database changes</h2>
 <p>All tables live in the <code>marcom_cadence</code> schema. Schema changes are SQL files in <code>supabase/migrations/</code>, named <code>&lt;timestamp&gt;_&lt;description&gt;.sql</code>, the naming the Supabase CLI uses.</p>
 <p>The <strong>Supabase GitHub integration</strong> applies them: the project is connected to the <code>MARCOM-MarekB/marcom-cadence</code> repository with working directory <code>.</code> (the folder that contains <code>supabase/</code>) and production branch <code>main</code>. It runs on the Free plan; preview branches per pull request would need the Pro plan and are not used. On every push to <code>main</code>, Supabase runs the migration files it has not run yet, in name order, and records them in <code>supabase_migrations.schema_migrations</code>. This is the equivalent of <code>dotnet ef database update</code> in a deployment pipeline. Applied migrations and integration runs are visible in the dashboard.</p>
-<p>An applied file is never edited; a later change is a new file with a later timestamp.</p>
+<p>An applied file is never edited; a later change is a new file with a later timestamp. Applied migrations are listed in the dashboard under <strong>Database</strong>, <strong>Migrations</strong>.</p>
 <div class="table-wrap"><table>
 <thead><tr><th>Migration</th><th>Contents</th></tr></thead>
 <tbody>
-<tr><td><code>20261108000000_create_measurements.sql</code></td><td><code>marcom_cadence</code> schema with usage for <code>authenticated</code>; <code>measurements</code> table with one row per date and time, one column per body measurement, unique per user, date and time, and an owner-only policy</td></tr>
+<tr><td><code>20261108000000_create_measurements.sql</code></td><td><code>marcom_cadence</code> schema with usage for <code>authenticated</code>, and a first <code>measurements</code> table with one column per value</td></tr>
+<tr><td><code>20261109000000_json_content_tables.sql</code></td><td>Replaces <code>measurements</code> with the content shape, and creates <code>exercises</code> and <code>workouts</code></td></tr>
 </tbody>
 </table></div>
+<h2 id="table-shape">Table shape</h2>
+<p>Every table has <code>id</code>, <code>user_id</code>, explicit columns only for what is filtered, sorted or kept unique, and the rest of the record in a <code>content</code> column of type <code>jsonb</code>. It is the same shape as the JSON tables in marcom-infrastructure, with the same rule for which fields get a column:</p>
+<ul>
+<li><strong>Growing list</strong> (measurements, workouts): filter and sort fields are explicit columns from the start.</li>
+<li><strong>Dictionary the user fills by hand</strong> (exercises): everything is in <code>content</code>; the app reads the whole table and sorts in the browser.</li>
+</ul>
+<p>A whole record is one row, so the app saves it with a single write, which succeeds or fails as a whole. The app has no backend that could wrap several writes in a transaction.</p>
+<p>Code that reads <code>content</code> ignores unknown fields and gives missing fields a default, so rows written with an older shape still read after the shape changes.</p>
+<p>There are no foreign keys into <code>content</code>. An exercise used in a workout is therefore archived instead of deleted, and a removed progression stays in the exercise content as archived.</p>
 <h2 id="tables">Tables</h2>
+<p>All tables have <code>user_id</code> set to the signed-in user, an owner-only policy, and access only for <code>authenticated</code>.</p>
 <div class="table-wrap"><table>
-<thead><tr><th>Table</th><th>Purpose</th></tr></thead>
+<thead><tr><th>Table</th><th>Columns besides <code>id</code> and <code>user_id</code></th><th><code>content</code></th></tr></thead>
 <tbody>
-<tr><td><code>marcom_cadence.measurements</code></td><td>Body measurements. <code>user_id</code> is set to the signed-in user, and the policy rejects any other value.</td></tr>
+<tr><td><code>marcom_cadence.measurements</code></td><td><code>measured_on</code>, <code>measured_at</code> (unique per user, date and time)</td><td>Values by measurement key, such as <code>{&quot;weight&quot;: 78, &quot;waist&quot;: 100}</code></td></tr>
+<tr><td><code>marcom_cadence.exercises</code></td><td>-</td><td><code>name</code>, <code>metric</code> (<code>reps</code>, <code>weight</code>, <code>bodyweight</code> or <code>hold</code>), <code>perSide</code>, <code>notes</code>, <code>archived</code>, <code>progressions</code> as <code>[{id, name, archived}]</code></td></tr>
+<tr><td><code>marcom_cadence.workouts</code></td><td><code>started_at</code>, indexed with <code>user_id</code> for the newest-first list</td><td><code>durationMin</code>, <code>notes</code>, <code>items</code> as <code>[{exerciseId, notes, sets}]</code>; a GIN index on <code>content</code> finds workouts that use an exercise</td></tr>
 </tbody>
 </table></div>
 

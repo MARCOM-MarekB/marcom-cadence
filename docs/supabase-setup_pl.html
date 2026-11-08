@@ -116,6 +116,7 @@
 <p>Opublikowana strona <code>https://marcom-marekb.github.io/marcom-cadence/</code> korzysta z tego samego projektu i tych samych danych.</p>
 <h2 id="later-database-changes">Kolejne zmiany w bazie</h2>
 <p>Nowy plik w <code>supabase/migrations/</code> wypchnięty do <code>main</code> integracja uruchamia sama. Kroków 1 do 7 się nie powtarza. Nowy schemat wymaga ponownie kroku 7.</p>
+<p>Zastosowane migracje są w sekcji <strong>Database</strong>, <strong>Migrations</strong>. Ta sama lista jest w tabeli <code>supabase_migrations.schema_migrations</code>, do odczytania w <strong>SQL Editor</strong> zapytaniem <code>select version, name from supabase_migrations.schema_migrations order by version;</code>. Każdy push dostaje też na GitHubie sprawdzenie od Supabase przy commicie, z logiem przebiegu.</p>
 <h2 id="when-something-fails">Gdy coś nie działa</h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Objaw</th><th>Przyczyna</th><th>Rozwiązanie</th></tr></thead>

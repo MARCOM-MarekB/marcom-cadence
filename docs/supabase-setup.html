@@ -116,6 +116,7 @@
 <p>The published site at <code>https://marcom-marekb.github.io/marcom-cadence/</code> uses the same project and data.</p>
 <h2 id="later-database-changes">Later database changes</h2>
 <p>A new file in <code>supabase/migrations/</code> pushed to <code>main</code> is run by the integration automatically. Steps 1 to 7 are not repeated. A new schema needs step 7 again.</p>
+<p>Applied migrations are listed under <strong>Database</strong>, <strong>Migrations</strong>. The same list is in the table <code>supabase_migrations.schema_migrations</code>, readable in <strong>SQL Editor</strong> with <code>select version, name from supabase_migrations.schema_migrations order by version;</code>. Each push also gets a Supabase check on the commit in GitHub, with the log of the run.</p>
 <h2 id="when-something-fails">When something fails</h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr></thead>

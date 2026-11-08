@@ -89,6 +89,8 @@ The published site at `https://marcom-marekb.github.io/marcom-cadence/` uses the
 
 A new file in `supabase/migrations/` pushed to `main` is run by the integration automatically. Steps 1 to 7 are not repeated. A new schema needs step 7 again.
 
+Applied migrations are listed under **Database**, **Migrations**. The same list is in the table `supabase_migrations.schema_migrations`, readable in **SQL Editor** with `select version, name from supabase_migrations.schema_migrations order by version;`. Each push also gets a Supabase check on the commit in GitHub, with the log of the run.
+
 ## When something fails
 
 | Symptom | Cause | Fix |

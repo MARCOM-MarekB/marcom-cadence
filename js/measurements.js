@@ -1,11 +1,11 @@
-import { supabase } from "./supabase.js";
+import { currentUserId, supabase } from "./supabase.js";
 
 const TABLE = "measurements";
 
 /** Browser storage key used before measurements moved to Supabase. */
 const LEGACY_STORAGE_KEY = "cadence.measurements";
 
-/** Tracked body measurements. Each key resolves to `measure.<key>` in the language files and is a column of the table. */
+/** Tracked body measurements. Each key resolves to `measure.<key>` in the language files and is a key of the row content. */
 export const MEASURES = [
   { key: "weight", unit: "kg" },
   { key: "neck", unit: "cm" },
@@ -18,18 +18,27 @@ export const MEASURES = [
 ];
 
 /**
+ * Picks the known measurements from row content. Unknown keys are ignored, so older or newer content shapes still read.
+ * @param {Record<string, *> | null} content The row content.
+ * @returns {Record<string, number>} Values by measurement key.
+ */
+function readValues(content) {
+  const values = {};
+  for (const { key } of MEASURES) {
+    if (typeof content?.[key] === "number") {
+      values[key] = content[key];
+    }
+  }
+  return values;
+}
+
+/**
  * Converts a table row into an entry.
- * @param {Record<string, *>} row The row.
+ * @param {{id: string, measured_on: string, measured_at: string | null, content: Record<string, *>}} row The row.
  * @returns {{id: string, date: string, time?: string, values: Record<string, number>}} The entry.
  */
 function toEntry(row) {
-  const values = {};
-  for (const { key } of MEASURES) {
-    if (row[key] !== null) {
-      values[key] = Number(row[key]);
-    }
-  }
-  return { id: row.id, date: row.measured_on, time: row.measured_at?.slice(0, 5), values };
+  return { id: row.id, date: row.measured_on, time: row.measured_at?.slice(0, 5), values: readValues(row.content) };
 }
 
 /**
@@ -39,7 +48,7 @@ function toEntry(row) {
 export async function fetchEntries() {
   const { data, error } = await supabase
     .from(TABLE)
-    .select(["id", "measured_on", "measured_at", ...MEASURES.map((measure) => measure.key)].join(","))
+    .select("id, measured_on, measured_at, content")
     .order("measured_on")
     .order("measured_at", { nullsFirst: true });
   if (error) {
@@ -55,11 +64,22 @@ export async function fetchEntries() {
  * @param {Record<string, number>} values Values to save.
  */
 export async function saveValues(date, time, values) {
-  const { data } = await supabase.auth.getSession();
+  const moment = supabase.from(TABLE).select("content").eq("measured_on", date);
+  const { data: existing, error: readError } = await (time ? moment.eq("measured_at", time) : moment.is("measured_at", null))
+    .maybeSingle();
+  if (readError) {
+    throw readError;
+  }
+
   const { error } = await supabase
     .from(TABLE)
     .upsert(
-      { user_id: data.session.user.id, measured_on: date, measured_at: time || null, ...values },
+      {
+        user_id: await currentUserId(),
+        measured_on: date,
+        measured_at: time || null,
+        content: { ...readValues(existing?.content), ...values },
+      },
       { onConflict: "user_id,measured_on,measured_at" },
     );
   if (error) {

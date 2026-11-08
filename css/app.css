@@ -487,6 +487,9 @@ h2 {
   font-weight: 600;
 }
 
+.measure-field select,
+.measure-field textarea,
+.progression-row input,
 .measure-field input {
   width: 100%;
   min-width: 0;
@@ -496,6 +499,81 @@ h2 {
   background: var(--bg);
   color: var(--fg);
   font: inherit;
+}
+
+.measure-field textarea {
+  resize: vertical;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tabs .control[aria-pressed="true"] {
+  border-color: var(--fast);
+  background: var(--fast);
+  color: var(--on-fast);
+}
+
+.tab-panel {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+.exercise-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+
+.exercise-catalog {
+  display: grid;
+  gap: 10px;
+}
+
+.form-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.check-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progression-list {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+}
+
+.progression-list:empty {
+  display: none;
+}
+
+.progression-row {
+  display: flex;
+  gap: 6px;
+}
+
+.progression-remove {
+  flex: none;
+  width: 38px;
+  padding: 0;
+}
+
+.progression-add {
+  justify-self: start;
+}
+
+.measure-entry.is-archived {
+  opacity: 0.6;
 }
 
 .measure-actions {
@@ -1035,7 +1113,8 @@ h2 {
 }
 
 @media (max-width: 600px) {
-  .timers {
+  .timers,
+  .exercise-layout {
     grid-template-columns: minmax(0, 1fr);
   }
 

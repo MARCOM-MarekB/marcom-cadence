@@ -40,7 +40,12 @@
 <li><strong>Week:</strong> the week timeline and the list of fasting and eating periods. The current period is marked, and eating periods expand into an hour calendar of that period, one section per day.</li>
 <li><strong>Diet:</strong> a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe.</li>
 <li><strong>Shopping:</strong> a shopping list for the next 1 to 14 days, counted from now and summed from the planned meals. It can be shown by category or as a flat list, sorted by default order or alphabetically, and switched from sushi to its replacement ingredients. Items can be ticked one by one or all at once, ticked items can be hidden, and the visible list can be copied or printed on A4. Spices are not included. Ticks last until the page is reloaded.</li>
-<li><strong>Training:</strong> a set timer with exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser. There is no training log yet.</li>
+<li><strong>Training:</strong> two tabs, and the open tab is remembered in the browser.<ul>
+<li><strong>Set timer:</strong> exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser.</li>
+<li><strong>Exercises:</strong> the exercise catalog in Supabase. Each exercise has a name, how it is measured (repetitions, repetitions and weight, bodyweight with added weight or a band, or hold time), whether repetitions count per side, notes and progressions from easiest to hardest, such as tuck, advanced tuck and full back lever. A progression removed in the form stays stored as archived, so sets that used it keep its name. An exercise used in a workout cannot be deleted, only archived; archived exercises are hidden unless the list shows them.</li>
+<li>There is no workout log yet.</li>
+</ul>
+</li>
 <li><strong>Measurements:</strong> a cartoon figure with measuring points and latest values, a form for saving measurements with date and time, changes since the first entry, and history. Measurements are saved in Supabase. Saving the same date and time again merges the values. Entries left in browser storage by the earlier browser-only version are moved to the account on start and then removed from the browser.</li>
 </ul>
 <p>The week timeline is one bar for the whole week. Dashed lines mark each midnight, and a line labelled Now marks the current day and time.</p>
@@ -64,6 +69,9 @@
 <tr><td><code>js/auth-view.js</code></td><td>Login form shown before the app, and signing out</td></tr>
 <tr><td><code>js/measurements.js</code></td><td>Reading, saving and deleting measurements in Supabase, moving old browser entries, and calculations</td></tr>
 <tr><td><code>js/measurements-view.js</code></td><td>Rendering and the form of the Measurements view</td></tr>
+<tr><td><code>js/exercises.js</code></td><td>Reading, saving and deleting exercises in Supabase</td></tr>
+<tr><td><code>js/exercises-view.js</code></td><td>Exercise catalog list and form in the Training view</td></tr>
+<tr><td><code>js/training-tabs.js</code></td><td>Tabs of the Training view</td></tr>
 <tr><td><code>js/i18n.js</code></td><td>Language loading and translation lookup</td></tr>
 <tr><td><code>js/schedule.js</code></td><td>Weekly schedule and pure time calculations</td></tr>
 <tr><td><code>js/theme.js</code></td><td>Theme switching</td></tr>
@@ -84,7 +92,7 @@
 <li>The Supabase client library (<code>supabase-js</code>) is loaded as a module from the jsDelivr CDN with a pinned version, so there is still no build step or <code>node_modules</code>.</li>
 </ul>
 <h2 id="data-and-privacy">Data and privacy</h2>
-<p>The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in <a href="supabase.html">Supabase</a>. Browser storage holds the login session, the theme, language and hour display choice, and the set timer settings.</p>
+<p>The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements and the exercise catalog, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in <a href="supabase.html">Supabase</a>. Browser storage holds the login session, the theme, language and hour display choice, the set timer settings and the open Training tab.</p>
 <h2 id="debugging">Debugging</h2>
 <p><code>npm start</code> serves the source files as they are, so the browser runs exactly the code in the repository. Breakpoints can be set in the browser developer tools (F12, Sources), or in VS Code with a launch configuration of type <code>msedge</code> or <code>chrome</code> pointing at <code>http://localhost:3100</code> while <code>npm start</code> is running. A local run uses the same Supabase project and data as the published site.</p>
 <h2 id="running-and-deployment">Running and deployment</h2>

@@ -10,8 +10,10 @@ import {
 } from "./diet.js";
 import { ensureSignedIn, initSignOut } from "./auth-view.js";
 import { applyTranslations, initI18n, t, toggleLanguage } from "./i18n.js";
+import { initExercises, renderExercises } from "./exercises-view.js";
 import { initMeasurements, renderMeasurements } from "./measurements-view.js";
 import { initSetTimer, renderSetTimer } from "./set-timer-view.js";
+import { initTrainingTabs } from "./training-tabs.js";
 import {
   FASTS,
   HOURS_PER_WEEK,
@@ -815,6 +817,7 @@ function renderTranslated() {
   renderShoppingList();
   renderHoursToggles();
   renderMeasurements();
+  renderExercises();
   renderSetTimer();
   renderNow();
   renderThemeToggle();
@@ -866,6 +869,8 @@ await ensureSignedIn();
 initSignOut();
 initMeasurements();
 initSetTimer();
+initTrainingTabs();
+initExercises();
 renderTranslated();
 showCurrentView();
 

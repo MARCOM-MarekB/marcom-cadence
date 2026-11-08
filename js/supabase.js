@@ -14,3 +14,12 @@ const SCHEMA = "marcom_cadence";
 
 /** Client shared by the whole app. It keeps the login session in browser storage and refreshes it. */
 export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, { db: { schema: SCHEMA } });
+
+/**
+ * Returns the id of the signed-in user from the stored session, without a network call.
+ * @returns {Promise<string>} The user id.
+ */
+export async function currentUserId() {
+  const { data } = await supabase.auth.getSession();
+  return data.session.user.id;
+}

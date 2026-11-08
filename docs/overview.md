@@ -12,7 +12,10 @@ The app has a navigation menu with six views:
 - **Week:** the week timeline and the list of fasting and eating periods. The current period is marked, and eating periods expand into an hour calendar of that period, one section per day.
 - **Diet:** a day picker and the selected day as a calendar of hour rows, with meals, trainings, and fast starts and ends in their hours. Several empty hours in a row collapse into one short row, and a button shows all hours instead. The choice is remembered in the browser. Fasting and training hours are shaded, and the current hour is marked. Meals show estimated energy and macronutrients and an expandable recipe.
 - **Shopping:** a shopping list for the next 1 to 14 days, counted from now and summed from the planned meals. It can be shown by category or as a flat list, sorted by default order or alphabetically, and switched from sushi to its replacement ingredients. Items can be ticked one by one or all at once, ticked items can be hidden, and the visible list can be copied or printed on A4. Spices are not included. Ticks last until the page is reloaded.
-- **Training:** a set timer with exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser. There is no training log yet.
+- **Training:** two tabs, and the open tab is remembered in the browser.
+  - **Set timer:** exercise name, set time, rest and number of sets. Set time 0 means each set ends with a button. Phase changes play a sound and vibrate where supported, and the screen stays on while the timer runs. Settings are remembered in the browser.
+  - **Exercises:** the exercise catalog in Supabase. Each exercise has a name, how it is measured (repetitions, repetitions and weight, bodyweight with added weight or a band, or hold time), whether repetitions count per side, notes and progressions from easiest to hardest, such as tuck, advanced tuck and full back lever. A progression removed in the form stays stored as archived, so sets that used it keep its name. An exercise used in a workout cannot be deleted, only archived; archived exercises are hidden unless the list shows them.
+  - There is no workout log yet.
 - **Measurements:** a cartoon figure with measuring points and latest values, a form for saving measurements with date and time, changes since the first entry, and history. Measurements are saved in Supabase. Saving the same date and time again merges the values. Entries left in browser storage by the earlier browser-only version are moved to the account on start and then removed from the browser.
 
 The week timeline is one bar for the whole week. Dashed lines mark each midnight, and a line labelled Now marks the current day and time.
@@ -39,6 +42,9 @@ The weekly schedule and meal plan are fixed in code.
 | `js/auth-view.js` | Login form shown before the app, and signing out |
 | `js/measurements.js` | Reading, saving and deleting measurements in Supabase, moving old browser entries, and calculations |
 | `js/measurements-view.js` | Rendering and the form of the Measurements view |
+| `js/exercises.js` | Reading, saving and deleting exercises in Supabase |
+| `js/exercises-view.js` | Exercise catalog list and form in the Training view |
+| `js/training-tabs.js` | Tabs of the Training view |
 | `js/i18n.js` | Language loading and translation lookup |
 | `js/schedule.js` | Weekly schedule and pure time calculations |
 | `js/theme.js` | Theme switching |
@@ -59,7 +65,7 @@ The weekly schedule and meal plan are fixed in code.
 
 ## Data and privacy
 
-The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in [Supabase](supabase.md). Browser storage holds the login session, the theme, language and hour display choice, and the set timer settings.
+The repository and the site are public. Only code and generic content belong here. Personal data, currently the measurements and the exercise catalog, lives in Supabase behind login, with Row Level Security on every table; setup and rules are in [Supabase](supabase.md). Browser storage holds the login session, the theme, language and hour display choice, the set timer settings and the open Training tab.
 
 ## Debugging
 
