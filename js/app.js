@@ -731,7 +731,7 @@ function renderContent() {
 /**
  * Marks the current day and time on the timelines and in the meal plan.
  * @param {number} position Hours since Monday 00:00.
- * @param {number} nextMealPosition Week position of the next meal.
+ * @param {number | null} nextMealPosition Week position of the next meal, or null without meals.
  */
 function renderNowMarkers(position, nextMealPosition) {
   const dayIndex = Math.floor(position / 24);
@@ -772,12 +772,12 @@ function renderNowMarkers(position, nextMealPosition) {
  * Updates one countdown card.
  * @param {string} id Countdown name used in the element ids.
  * @param {string} labelKey Translation key of the label.
- * @param {number} hours Remaining time in hours.
+ * @param {number | null} hours Remaining time in hours, or null when nothing is planned.
  * @param {string} detail Text under the countdown.
  */
 function renderTimer(id, labelKey, hours, detail) {
   document.getElementById(`timer-${id}-label`).textContent = t(labelKey);
-  document.getElementById(`timer-${id}`).textContent = formatCountdown(hours);
+  document.getElementById(`timer-${id}`).textContent = hours === null ? "-" : formatCountdown(hours);
   document.getElementById(`timer-${id}-detail`).textContent = detail;
 }
 
@@ -788,29 +788,35 @@ function renderNow() {
   const training = getNextTraining(position);
   const nextMeal = getNextMeal(position);
 
+  const hasFasts = status.changeAt !== null;
+
   document.getElementById("status").classList.toggle("is-fasting", status.isFasting);
-  document.getElementById("status-state").textContent = t(status.isFasting ? "status.fasting" : "status.eating");
+  document.getElementById("status-state").textContent = t(
+    !hasFasts ? "status.noDiet" : status.isFasting ? "status.fasting" : "status.eating",
+  );
   document.getElementById("status-progress").style.width = `${status.progress * 100}%`;
 
   renderTimer(
     "fast",
     status.isFasting ? "timer.fastEnds" : "timer.nextFast",
     status.hoursToChange,
-    formatPosition(status.changeAt),
+    hasFasts ? formatPosition(status.changeAt) : t("timer.noFast"),
   );
   renderTimer(
     "meal",
     "timer.nextMeal",
-    hoursUntil(position, nextMeal.position),
-    `${formatPosition(nextMeal.position)}: ${localize(getMeal(nextMeal.mealId).name)}`,
+    nextMeal ? hoursUntil(position, nextMeal.position) : null,
+    nextMeal
+      ? `${formatPosition(nextMeal.position)}: ${localize(getMeal(nextMeal.mealId).name)}`
+      : t("timer.noMeal"),
   );
   renderTimer(
     "training",
     "timer.nextTraining",
-    training ? hoursUntil(position, training.start) : 0,
+    training ? hoursUntil(position, training.start) : null,
     training ? formatPosition(training.start) : t("timer.noTraining"),
   );
-  renderNowMarkers(position, nextMeal.position);
+  renderNowMarkers(position, nextMeal?.position ?? null);
 }
 
 /** Updates the theme button to offer the other theme. */
@@ -846,7 +852,12 @@ function renderTranslated() {
  */
 function openNextMeal(event) {
   event.preventDefault();
-  const { position } = getNextMeal(weekPosition(new Date()));
+  const nextMeal = getNextMeal(weekPosition(new Date()));
+  if (!nextMeal) {
+    location.hash = "diet";
+    return;
+  }
+  const { position } = nextMeal;
   selectedDietDay = Math.floor(position / 24);
   renderDietDay();
   location.hash = "diet";

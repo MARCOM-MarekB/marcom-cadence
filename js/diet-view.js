@@ -1,12 +1,12 @@
 import { DIET_FORMAT, DIET_VERSION, cleanDiet, setDiet, validateDiet } from "./diet.js";
-import { fetchBuiltInDiet, fetchCurrentDiet, saveDiet } from "./diets.js";
+import { fetchCurrentDiet, saveDiet } from "./diets.js";
 import { localize, t } from "./i18n.js";
 import { toIsoDate } from "./dates.js";
 
-/** The clean diet in use, kept for the export. */
-let current = null;
+/** The clean diet in use, kept for the export and the editor; empty until a diet is saved. */
+let current = cleanDiet({});
 
-/** Start date of the diet in use, or null for the built-in diet. */
+/** Start date of the diet in use, or null when no diet is in use. */
 let validFrom = null;
 
 /** Translation key of a problem met while reading the saved diet, shown next to the source. */
@@ -27,7 +27,7 @@ function setStatus(key, params) {
 /**
  * Makes a clean diet the one in use.
  * @param {ReturnType<typeof cleanDiet>} content The clean, valid diet.
- * @param {string | null} from Start date, or null for the built-in diet.
+ * @param {string | null} from Start date, or null for the empty diet.
  */
 function applyDiet(content, from) {
   current = content;
@@ -57,16 +57,19 @@ export async function saveAndApplyDiet(content) {
 
 /** Renders which diet is in use. */
 export function renderDietSource() {
-  const name = current ? localize(current.name) : "";
   const source = validFrom
-    ? t("dietData.saved", { name, date: new Date(`${validFrom}T00:00`).toLocaleDateString(document.documentElement.lang) })
-    : t("dietData.builtIn", { name });
+    ? t("dietData.saved", {
+      name: localize(current.name),
+      date: new Date(`${validFrom}T00:00`).toLocaleDateString(document.documentElement.lang),
+    })
+    : t("dietData.none");
   document.getElementById("diet-source").textContent = [source, loadProblem ? t(loadProblem) : ""]
     .filter((part) => part !== "").join(" ");
+  document.getElementById("diet-export").hidden = !validFrom;
 }
 
 /**
- * Loads the diet in use: the one saved in the database, or the built-in one when none is saved,
+ * Loads the diet in use: the one saved in the database. The diet stays empty when none is saved,
  * when it cannot be read, or when it is not usable. Called once before the first render.
  */
 export async function loadDiet() {
@@ -83,7 +86,7 @@ export async function loadDiet() {
   } catch {
     loadProblem = "dietData.loadFailed";
   }
-  applyDiet(cleanDiet(await fetchBuiltInDiet()), null);
+  applyDiet(cleanDiet({}), null);
 }
 
 /** Downloads the diet in use as a JSON file in the import format. */

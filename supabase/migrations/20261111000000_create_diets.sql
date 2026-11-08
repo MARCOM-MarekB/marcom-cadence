@@ -1,6 +1,6 @@
 -- Diet versions. The version in use is the one with the latest valid_from that is not in the future;
 -- saving again on the same day replaces that day's version.
--- content: the whole diet, the same shape as data/diet.json without format and version:
+-- content: the whole diet, the same shape as a diet export file without format and version:
 -- name, treat, ingredients, meals with recipes, fasts and days with planned meals.
 create table marcom_cadence.diets (
   id         uuid primary key default gen_random_uuid(),

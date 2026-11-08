@@ -4,18 +4,6 @@ import { toIsoDate } from "./dates.js";
 const TABLE = "diets";
 
 /**
- * Reads the built-in diet that ships with the app, used until a diet is saved in the database.
- * @returns {Promise<Record<string, *>>} The diet file content.
- */
-export async function fetchBuiltInDiet() {
-  const response = await fetch(new URL("../data/diet.json", import.meta.url));
-  if (!response.ok) {
-    throw new Error(`Built-in diet: HTTP ${response.status}`);
-  }
-  return response.json();
-}
-
-/**
  * Reads the diet in use today: the one with the latest start date that is not in the future.
  * @returns {Promise<{validFrom: string, content: Record<string, *>} | null>} The diet, or null when none is saved.
  */

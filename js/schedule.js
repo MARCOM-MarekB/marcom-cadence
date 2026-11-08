@@ -66,10 +66,15 @@ export function weekPosition(date) {
 /**
  * Describes the fasting status at a position in the week.
  * @param {number} position Hours since Monday 00:00.
- * @returns {{isFasting: boolean, hoursToChange: number, changeAt: number, progress: number}}
- * The current state, the hours until it changes, the week position of the change and the share of the state already passed.
+ * @returns {{isFasting: boolean, hoursToChange: number | null, changeAt: number | null, progress: number}}
+ * The current state, the hours until it changes, the week position of the change and the share of the state already passed;
+ * without fasts the state never changes, so the change is null.
  */
 export function getStatus(position) {
+  if (FASTS.length === 0) {
+    return { isFasting: false, hoursToChange: null, changeAt: null, progress: 0 };
+  }
+
   const activeFast = FASTS.find(
     (fast) => hoursUntil(fast.start, position) < hoursUntil(fast.start, fast.end),
   );
